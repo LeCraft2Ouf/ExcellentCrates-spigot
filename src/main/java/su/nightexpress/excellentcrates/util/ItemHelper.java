@@ -2,6 +2,8 @@ package su.nightexpress.excellentcrates.util;
 
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import su.nightexpress.excellentcrates.hooks.NexoHook;
 import su.nightexpress.nightcore.bridge.item.AdaptedItem;
 import su.nightexpress.nightcore.bridge.item.ItemAdapter;
 import su.nightexpress.nightcore.config.FileConfig;
@@ -11,6 +13,7 @@ import su.nightexpress.nightcore.integration.item.data.ItemIdData;
 import su.nightexpress.nightcore.integration.item.impl.AdaptedCustomStack;
 import su.nightexpress.nightcore.integration.item.impl.AdaptedItemStack;
 import su.nightexpress.nightcore.integration.item.impl.AdaptedVanillaStack;
+import su.nightexpress.nightcore.util.ItemNbt;
 import su.nightexpress.nightcore.util.ItemTag;
 import su.nightexpress.nightcore.util.Version;
 
@@ -25,6 +28,16 @@ public class ItemHelper {
 
     @NotNull
     public static Optional<AdaptedItem> read(@NotNull FileConfig config, @NotNull String path) {
+        Optional<AdaptedItem> exactNbt = RawCompressedNbtAdaptedItem.tryRead(config, path);
+        if (exactNbt.isPresent()) {
+            return exactNbt;
+        }
+
+        Optional<AdaptedItem> nexoOnly = NexoIdOnlyAdaptedItem.tryRead(config, path);
+        if (nexoOnly.isPresent()) {
+            return nexoOnly;
+        }
+
         String oldType = config.getString(path + ".Type");
         if (oldType != null) {
             AdaptedItem adaptedItem = null;
@@ -73,6 +86,34 @@ public class ItemHelper {
         return Optional.ofNullable(AdaptedItemStack.read(config, path));
     }
 
+    /**
+     * Same as {@link #vanilla(ItemStack)} data-wise, but persists via {@link ItemNbt#compress(ItemStack)}
+     * so item NBT is not re-serialized through {@link ItemTag} / config (which normalizes component JSON).
+     */
+    @NotNull
+    public static AdaptedItem exactVanillaNbt(@NotNull ItemStack itemStack) {
+        ItemStack unit = itemStack.clone();
+        int giveAmount = Math.max(1, unit.getAmount());
+        unit.setAmount(1);
+
+        String compressed = ItemNbt.compress(unit);
+        if (compressed == null || compressed.isBlank()) {
+            return vanilla(itemStack);
+        }
+        String nexoId = NexoHook.resolveNexoRebuildId(itemStack).orElse(null);
+        return new RawCompressedNbtAdaptedItem(compressed, giveAmount, nexoId);
+    }
+
+    /**
+     * Nexo-only save: id + quantity, no YAML NBT blob. Returns null when the stack has no Nexo id.
+     */
+    @Nullable
+    public static NexoIdOnlyAdaptedItem nexoIdOnly(@NotNull ItemStack itemStack) {
+        return NexoHook.resolveNexoRebuildId(itemStack)
+            .map(id -> new NexoIdOnlyAdaptedItem(id, Math.max(1, itemStack.getAmount())))
+            .orElse(null);
+    }
+
     @NotNull
     public static ItemStack toItemStack(@NotNull AdaptedItem item) {
         return item.itemStack().orElse(CrateUtils.getQuestionStack());
@@ -97,6 +138,6 @@ public class ItemHelper {
 
     @NotNull
     public static AdaptedItem adapt(@NotNull ItemStack itemStack, boolean allowCustoms) {
-        return allowCustoms ? adapt(itemStack) : vanilla(itemStack);
+        return allowCustoms ? adapt(itemStack) : exactVanillaNbt(itemStack);
     }
 }

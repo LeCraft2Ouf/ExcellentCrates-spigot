@@ -30,16 +30,16 @@ public class RewardSortingDialog extends Dialog<Crate> {
 
     private static final EnumLocale<SortMode> SORT_MODE_LOCALE = LangEntry.builder("Dialog.Rewards.Sorting.Mode").enumeration(SortMode.class);
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Rewards.Sorting.Title").text(title("Rewards", "Sorting"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Rewards.Sorting.Title").text(title("Récompenses", "Tri"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Rewards.Sorting.Body").dialogElement(400,
-        "Please select a sorting mode."
+        "Choisissez un mode de tri."
     );
 
-    public static final TextLocale INPUT_REVERSED = LangEntry.builder("Dialog.Rewards.Sorting.Input.Reversed").text("Reversed");
+    public static final TextLocale INPUT_REVERSED = LangEntry.builder("Dialog.Rewards.Sorting.Input.Reversed").text("Inversé");
 
     private static final ButtonLocale BUTTON_MODE = LangEntry.builder("Dialog.Rewards.Sorting.Button.Mode")
-        .button(SOFT_YELLOW.wrap("→") + " Mode: " + SOFT_YELLOW.wrap("%s"));
+        .button(SOFT_YELLOW.wrap("→") + " Mode : " + SOFT_YELLOW.wrap("%s"));
 
     private static final String JSON_REVERSED = "reversed";
     private static final String JSON_MODE     = "mode";

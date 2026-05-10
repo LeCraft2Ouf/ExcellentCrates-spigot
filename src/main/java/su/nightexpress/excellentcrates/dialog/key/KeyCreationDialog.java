@@ -8,7 +8,7 @@ import su.nightexpress.nightcore.locale.entry.TextLocale;
 
 public class KeyCreationDialog extends GenericCreationDialog<KeyManager> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Key.Creation.Title").text(title("Key", "Creation"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Key.Creation.Title").text(title("Clé", "Création"));
 
     @Override
     protected @NotNull TextLocale title() {

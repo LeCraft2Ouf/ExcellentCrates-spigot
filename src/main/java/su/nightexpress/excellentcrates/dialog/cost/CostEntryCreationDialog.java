@@ -27,7 +27,7 @@ public class CostEntryCreationDialog extends Dialog<Cost> {
     private static final String ACTION_TYPE = "type";
     private static final String JSON_ID     = "id";
 
-    private static final TextLocale TITLE = TextLocale.builder("Dialog.CostEntry.Creation.Title").text(title("Cost Entry", "Creation"));
+    private static final TextLocale TITLE = TextLocale.builder("Dialog.CostEntry.Creation.Title").text(title("Entrée de coût", "Création"));
 
     private static final DialogElementLocale BODY = DialogElementLocale.builder("Dialog.CostEntry.Creation.Body").dialogElement(400,
         "Select a cost type."

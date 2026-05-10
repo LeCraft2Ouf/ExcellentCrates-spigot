@@ -22,16 +22,16 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardWeightDialog extends Dialog<Reward> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Weight.Title").text(title("Reward", "Weight & Rariry"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Weight.Title").text(title("Récompense", "Poids et rareté"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Reward.Weight.Body").dialogElement(400,
-        "Set the desired " + SOFT_YELLOW.wrap("rarity") + " and " + SOFT_YELLOW.wrap("weight") + " for the reward.",
+        "Définissez la " + SOFT_YELLOW.wrap("rareté") + " et le " + SOFT_YELLOW.wrap("poids") + " souhaités pour la récompense.",
         "",
-        "You can learn more about how rarity and weight work " + OPEN_URL.with(Placeholders.WIKI_WEIGHTS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("HERE")) + "."
+        "Plus d'infos sur poids et rareté : " + OPEN_URL.with(Placeholders.WIKI_WEIGHTS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("voir la doc")) + "."
     );
 
-    private static final TextLocale INTPUT_RARITY = LangEntry.builder("Dialog.Reward.Weight.Input.Rarity").text(SOFT_YELLOW.wrap("Rarity"));
-    private static final TextLocale INTPUT_WEIGHT = LangEntry.builder("Dialog.Reward.Weight.Input.Weight").text(SOFT_YELLOW.wrap("Weight"));
+    private static final TextLocale INTPUT_RARITY = LangEntry.builder("Dialog.Reward.Weight.Input.Rarity").text(SOFT_YELLOW.wrap("Rareté"));
+    private static final TextLocale INTPUT_WEIGHT = LangEntry.builder("Dialog.Reward.Weight.Input.Weight").text(SOFT_YELLOW.wrap("Poids"));
 
     private static final String JSON_WEIGHT = "weight";
     private static final String JSON_RARITY = "rarity";

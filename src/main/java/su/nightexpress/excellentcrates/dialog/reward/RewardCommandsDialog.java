@@ -25,19 +25,19 @@ public class RewardCommandsDialog extends Dialog<CommandReward> {
 
     private static final int COMMANDS_AMOUNT = 5;
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Commands.Title").text(title("Reward", "Commands"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Commands.Title").text(title("Récompense", "Commandes"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Reward.Commands.Body").dialogElement(400,
-        "Enter up to " + SOFT_YELLOW.wrap(COMMANDS_AMOUNT + " commands") + " that will be executed every time a player receives the reward. The commands will be executed in the same order as the fields listed below.",
+        "Saisissez jusqu'à " + SOFT_YELLOW.wrap(COMMANDS_AMOUNT + " commandes") + " exécutées à chaque fois qu'un joueur reçoit la récompense. L'ordre d'exécution suit les champs ci-dessous.",
         "",
-        SOFT_YELLOW.wrap("→") + " Use the " + SOFT_YELLOW.wrap(PLAYER_NAME) + " placeholder to insert the name of the player who received the reward.",
+        SOFT_YELLOW.wrap("→") + " Utilisez le placeholder " + SOFT_YELLOW.wrap(PLAYER_NAME) + " pour le nom du joueur qui reçoit la récompense.",
         "",
-        SOFT_YELLOW.wrap("→") + " You can use the internal " + SOFT_YELLOW.wrap("Crate") + " and " + SOFT_YELLOW.wrap("Reward") + " placeholders: click " + OPEN_URL.with(WIKI_PLACEHOLDERS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("HERE")) + " to view documentation.",
+        SOFT_YELLOW.wrap("→") + " Placeholders internes " + SOFT_YELLOW.wrap("Caisse") + " et " + SOFT_YELLOW.wrap("Récompense") + " : voir " + OPEN_URL.with(WIKI_PLACEHOLDERS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("la doc")) + ".",
         "",
-        SOFT_YELLOW.wrap("→") + " You can use any placeholders from the " + SOFT_YELLOW.wrap(Plugins.PLACEHOLDER_API) + " plugin."
+        SOFT_YELLOW.wrap("→") + " Placeholders " + SOFT_YELLOW.wrap(Plugins.PLACEHOLDER_API) + " pris en charge si le plugin est installé."
     );
 
-    private static final TextLocale INPUT_COMMAND = LangEntry.builder("Dialog.Reward.Commands.Input.Command").text("Command " + SOFT_YELLOW.wrap("#%s"));
+    private static final TextLocale INPUT_COMMAND = LangEntry.builder("Dialog.Reward.Commands.Input.Command").text("Commande " + SOFT_YELLOW.wrap("#%s"));
 
     private static final Function<Integer, String> JSON_COMMAND = index -> "command_" + index;
 

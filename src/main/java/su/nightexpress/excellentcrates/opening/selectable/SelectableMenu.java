@@ -50,7 +50,7 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
     private NightSound confirmSound;
 
     public SelectableMenu(@NotNull CratesPlugin plugin) {
-        super(plugin, MenuType.GENERIC_9X6, BLACK.wrap("Select " + GENERIC_AMOUNT + " reward(s)!"));
+        super(plugin, MenuType.GENERIC_9X6, BLACK.wrap("Sélectionnez " + GENERIC_AMOUNT + " récompense(s) !"));
     }
 
     @Override
@@ -163,7 +163,7 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
         this.rewardLore = ConfigValue.create("Reward.Lore", Lists.newList(
             REWARD_DESCRIPTION,
             EMPTY_IF_ABOVE,
-            YELLOW.wrap("→ " + UNDERLINED.wrap("Click to select"))
+            YELLOW.wrap("→ " + UNDERLINED.wrap("Cliquer pour sélectionner"))
         )).read(config);
 
         this.rewardEntry = ConfigValue.create("Reward.EntryName",
@@ -172,11 +172,11 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
 
         this.selectedIcon = ConfigValue.create("Selection.Icon",
             NightItem.fromType(Material.LIME_STAINED_GLASS_PANE)
-                .setDisplayName(GREEN.wrap(BOLD.wrap("Selected: ")) + WHITE.wrap(REWARD_NAME))
+                .setDisplayName(GREEN.wrap(BOLD.wrap("Sélectionné : ")) + WHITE.wrap(REWARD_NAME))
                 .setLore(Lists.newList(
-                    GRAY.wrap("You'll get this reward."),
+                    GRAY.wrap("Vous obtiendrez cette récompense."),
                     "",
-                    GREEN.wrap("→ " + UNDERLINED.wrap("Click to unselect"))
+                    GREEN.wrap("→ " + UNDERLINED.wrap("Cliquer pour désélectionner"))
                 ))
                 .hideAllComponents()
         ).read(config);
@@ -196,12 +196,12 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
         loader.addDefaultItem(MenuItem.buildPreviousPage(this, 45).setPriority(10));
 
         loader.addDefaultItem(NightItem.fromType(Material.LIME_DYE)
-            .setDisplayName(GREEN.wrap(BOLD.wrap("Confirm")))
+            .setDisplayName(GREEN.wrap(BOLD.wrap("Valider")))
             .setLore(Lists.newList(
-                GRAY.wrap("You'll get the following rewards:"),
+                GRAY.wrap("Vous obtiendrez les récompenses suivantes :"),
                 GENERIC_REWARDS,
                 EMPTY_IF_ABOVE,
-                GREEN.wrap("→ " + UNDERLINED.wrap("Click to confirm"))
+                GREEN.wrap("→ " + UNDERLINED.wrap("Cliquer pour valider"))
             ))
             .hideAllComponents()
             .toMenuItem()
@@ -215,11 +215,11 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
         );
 
         loader.addDefaultItem(NightItem.fromType(Material.GRAY_DYE)
-            .setDisplayName(WHITE.wrap(BOLD.wrap("Confirm")) + " " + GRAY.wrap("(Not Enough)"))
+            .setDisplayName(WHITE.wrap(BOLD.wrap("Valider")) + " " + GRAY.wrap("(insuffisant)"))
             .setLore(Lists.newList(
-                GRAY.wrap("You selected " + WHITE.wrap(GENERIC_CURRENT) + "/" + WHITE.wrap(GENERIC_AMOUNT) + " rewards."),
+                GRAY.wrap("Récompenses sélectionnées : " + WHITE.wrap(GENERIC_CURRENT) + "/" + WHITE.wrap(GENERIC_AMOUNT) + "."),
                 "",
-                WHITE.wrap("→ " + UNDERLINED.wrap("Click to exit"))
+                WHITE.wrap("→ " + UNDERLINED.wrap("Cliquer pour quitter"))
             ))
             .hideAllComponents()
             .toMenuItem()

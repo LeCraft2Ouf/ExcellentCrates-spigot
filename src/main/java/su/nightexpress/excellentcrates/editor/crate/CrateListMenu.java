@@ -32,16 +32,16 @@ public class CrateListMenu extends LinkedMenu<CratesPlugin, CrateManager> implem
 
     private static final IconLocale LOCALE_CRATE = LangEntry.iconBuilder("Editor.Button.Crates.Crate")
         .rawName(CRATE_NAME)
-        .appendCurrent("Status", GENERIC_INSPECTION)
+        .appendCurrent("Statut", GENERIC_INSPECTION)
         .appendCurrent("ID", CRATE_ID).br()
-        .appendClick("Click to open")
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
     private static final IconLocale LOCALE_CREATION = LangEntry.iconBuilder("Editor.Button.Crates.Create")
         .accentColor(GREEN)
-        .name("New Crate")
-        .appendInfo("Use this button to create", "brand new crates!").br()
-        .appendClick("Click to create")
+        .name("Nouvelle caisse")
+        .appendInfo("Utilisez ce bouton pour créer", "une toute nouvelle caisse.").br()
+        .appendClick("Cliquer pour créer")
         .build();
 
     private final DialogRegistry dialogs;

@@ -39,126 +39,126 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CrateOptionsMenu extends LinkedMenu<CratesPlugin, Crate> implements LangContainer {
 
-    private static final IconLocale LOCALE_DELETE = LangEntry.iconBuilder("Editor.Button.Crate.Delete").accentColor(RED).name("Delete Crate")
-        .appendInfo("Permanently deletes the crate.").br()
-        .appendClick("Press [" + TagWrappers.KEY.apply("key.drop") + "] to delete")
+    private static final IconLocale LOCALE_DELETE = LangEntry.iconBuilder("Editor.Button.Crate.Delete").accentColor(RED).name("Supprimer la caisse")
+        .appendInfo("Supprime définitivement la caisse.").br()
+        .appendClick("Maintenez [" + TagWrappers.KEY.apply("key.drop") + "] pour supprimer")
         .build();
 
-    private static final IconLocale LOCALE_NAME = LangEntry.iconBuilder("Editor.Button.Crate.DisplayName").name("Name")
-        .appendCurrent("Current", CRATE_NAME).br()
-        .appendInfo("Sets crate display name.").br()
-        .appendClick("Click to change")
+    private static final IconLocale LOCALE_NAME = LangEntry.iconBuilder("Editor.Button.Crate.DisplayName").name("Nom affiché")
+        .appendCurrent("Actuel", CRATE_NAME).br()
+        .appendInfo("Définit le nom affiché de la caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private static final IconLocale LOCALE_DESCRIPTION = LangEntry.iconBuilder("Editor.Button.Crate.Description").name("Description")
         .rawLore(CRATE_DESCRIPTION, EMPTY_IF_ABOVE)
-        .appendInfo("Sets crate description.").br()
-        .appendClick("Click to edit")
+        .appendInfo("Définit la description de la caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_ITEM = LangEntry.iconBuilder("Editor.Button.Crate.Item").name("Crate Item")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Stackable", GENERIC_STATE).br()
-        .appendInfo("Drop an item on " + SOFT_YELLOW.wrap("this") + " button", "to replace the crate's item.").br()
-        .appendClick("Click to toggle stacking")
+    private static final IconLocale LOCALE_ITEM = LangEntry.iconBuilder("Editor.Button.Crate.Item").name("Item de caisse")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Empilable", GENERIC_STATE).br()
+        .appendInfo("Déposez un item sur " + SOFT_YELLOW.wrap("ce") + " bouton pour", "remplacer l'item de la caisse.").br()
+        .appendClick("Cliquer pour basculer l'empilage")
         .build();
 
-    private static final IconLocale LOCALE_PREVIEW_SET = LangEntry.iconBuilder("Editor.Button.Crate.Preview.Set").name("Preview GUI")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Preview ID", GENERIC_VALUE).br()
-        .appendInfo("Sets preview GUI for the crate.").br()
-        .appendClick("Click to change")
+    private static final IconLocale LOCALE_PREVIEW_SET = LangEntry.iconBuilder("Editor.Button.Crate.Preview.Set").name("GUI d'aperçu")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("ID d'aperçu", GENERIC_VALUE).br()
+        .appendInfo("Définit l'interface d'aperçu de la caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_PREVIEW_UNSET = LangEntry.iconBuilder("Editor.Button.Crate.Preview.Unset").name("Preview GUI")
-        .appendCurrent("Status", RED.wrap("Disabled")).br()
-        .appendInfo("Sets preview GUI for this crate.").br()
-        .appendClick("Click to change")
+    private static final IconLocale LOCALE_PREVIEW_UNSET = LangEntry.iconBuilder("Editor.Button.Crate.Preview.Unset").name("GUI d'aperçu")
+        .appendCurrent("Statut", RED.wrap("Désactivé")).br()
+        .appendInfo("Définit l'interface d'aperçu pour cette caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_OPENING_SET = LangEntry.iconBuilder("Editor.Button.Crate.Opening.Set").name("Opening Animation")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Preview ID", GENERIC_VALUE).br()
-        .appendInfo("Sets opening animation for the crate.").br()
-        .appendClick("Click to change")
+    private static final IconLocale LOCALE_OPENING_SET = LangEntry.iconBuilder("Editor.Button.Crate.Opening.Set").name("Animation d'ouverture")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Configuration", GENERIC_VALUE).br()
+        .appendInfo("Définit l'animation d'ouverture de la caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_OPENING_UNSET = LangEntry.iconBuilder("Editor.Button.Crate.Opening.Unset").name("Opening Animation")
-        .appendCurrent("Status", RED.wrap("Disabled")).br()
-        .appendInfo("Sets opening animation for the crate.").br()
-        .appendClick("Click to change")
+    private static final IconLocale LOCALE_OPENING_UNSET = LangEntry.iconBuilder("Editor.Button.Crate.Opening.Unset").name("Animation d'ouverture")
+        .appendCurrent("Statut", RED.wrap("Désactivé")).br()
+        .appendInfo("Définit l'animation d'ouverture pour cette caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private static final IconLocale LOCALE_LINKED_BLOCKS = LangEntry.iconBuilder("Editor.Button.Crate.LinkedBlocks")
-        .name("Linked Block")
-        .rawLore(DARK_GRAY.wrap("Press " + GOLD.wrap("[" + TagWrappers.KEY.apply("key.drop") + "]") + " to unlink.")).br()
-        .appendCurrent("Linked", GENERIC_STATE).br()
-        .appendInfo("Link the crate to a block by", "using the link tool.").br()
-        .appendInfo("Interacting with the linked block", "will preview and open the crate.").br()
-        .appendClick("Click to get link tool")
+        .name("Bloc lié")
+        .rawLore(DARK_GRAY.wrap("Touche " + GOLD.wrap("[" + TagWrappers.KEY.apply("key.drop") + "]") + " pour dissocier.")).br()
+        .appendCurrent("Lié", GENERIC_STATE).br()
+        .appendInfo("Liez la caisse à un bloc avec", "l'outil de liaison.").br()
+        .appendInfo("Interagir avec le bloc lié permet", "de prévisualiser et d'ouvrir la caisse.").br()
+        .appendClick("Cliquer pour obtenir l'outil de liaison")
         .build();
 
     private static final IconLocale LOCALE_BLOCK_PUSHBACK = LangEntry.iconBuilder("Editor.Button.Crate.BlockPushback")
-        .name("Block Pushback")
-        .appendCurrent("Status", GENERIC_STATE).br()
-        .appendInfo("Pushes players back from the crate", "if they don't met the requirements.").br()
-        .appendClick("Click to toggle")
+        .name("Refoulement du bloc")
+        .appendCurrent("Statut", GENERIC_STATE).br()
+        .appendInfo("Éloigne le joueur du bloc de caisse", "s'il ne remplit pas les conditions.").br()
+        .appendClick("Cliquer pour basculer")
         .build();
 
-    private static final IconLocale LOCALE_COST_OPTIONS = LangEntry.iconBuilder("Editor.Button.Crate.CostOptions").name("Cost Options")
-        .appendInfo("Here you can set the " + SOFT_YELLOW.wrap("'cost'"), "required to open the crate - ", "it can be " + SOFT_YELLOW.wrap("keys") + ", " + SOFT_YELLOW.wrap("currency") + ", or both.").br()
-        .appendInfo("You can add multiple cost options,", "allowing players to choose how", "they want to open the crate.").br()
-        .appendClick("Click to open")
+    private static final IconLocale LOCALE_COST_OPTIONS = LangEntry.iconBuilder("Editor.Button.Crate.CostOptions").name("Options de coût")
+        .appendInfo("Définissez le " + SOFT_YELLOW.wrap("« coût »") + " pour ouvrir la caisse.", "Ce peut être des " + SOFT_YELLOW.wrap("clés") + ", de la " + SOFT_YELLOW.wrap("monnaie") + ", ou les deux.").br()
+        .appendInfo("Ajoutez plusieurs options de coût", "pour laisser les joueurs choisir", "comment ils ouvrent la caisse.").br()
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
-    private static final IconLocale LOCALE_PERMISSION_REQUIREMENT = LangEntry.iconBuilder("Editor.Button.Crate.Permission").name("Permission Requirement")
-        .appendCurrent("Status", GENERIC_STATE)
+    private static final IconLocale LOCALE_PERMISSION_REQUIREMENT = LangEntry.iconBuilder("Editor.Button.Crate.Permission").name("Permission requise")
+        .appendCurrent("Statut", GENERIC_STATE)
         .appendCurrent("Permission", GENERIC_VALUE).br()
-        .appendInfo("Controls whether permission is", "required to open the crate.").br()
-        .appendClick("Click to toggle")
+        .appendInfo("Définit si une permission est requise", "pour ouvrir la caisse.").br()
+        .appendClick("Cliquer pour basculer")
         .build();
 
-    private static final IconLocale LOCALE_OPEN_LIMITS = LangEntry.iconBuilder("Editor.Button.Crate.OpeningCooldown").name("Open Limits")
-        .appendCurrent("Status", GENERIC_STATE)
-        .appendCurrent("Cooldown", GENERIC_VALUE)
-        .appendCurrent("Limit Amount", GENERIC_AMOUNT).br()
-        .appendInfo("Limits amount of crates", "can be opened per player", "for a time frame.").br()
-        .appendClick("Click to edit")
+    private static final IconLocale LOCALE_OPEN_LIMITS = LangEntry.iconBuilder("Editor.Button.Crate.OpeningCooldown").name("Limites d'ouverture")
+        .appendCurrent("Statut", GENERIC_STATE)
+        .appendCurrent("Temps de recharge", GENERIC_VALUE)
+        .appendCurrent("Nombre max.", GENERIC_AMOUNT).br()
+        .appendInfo("Nombre d'ouvertures par joueur", "sur une période donnée.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_EFFECT = LangEntry.iconBuilder("Editor.Button.Crate.Effect").name("Crate Effect")
-        .appendCurrent("Model", GENERIC_TYPE)
-        .appendCurrent("Particle", GENERIC_VALUE).br()
-        .appendInfo("Sets effect for the crate block(s).").br()
-        .appendClick("Click to edit")
+    private static final IconLocale LOCALE_EFFECT = LangEntry.iconBuilder("Editor.Button.Crate.Effect").name("Effets de bloc")
+        .appendCurrent("Modèle", GENERIC_TYPE)
+        .appendCurrent("Particule", GENERIC_VALUE).br()
+        .appendInfo("Effet de particules autour du bloc de caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    public static final IconLocale LOCALE_HOLOGRAM = LangEntry.iconBuilder("Editor.Button.Crate.Hologram").name("Crate Hologram")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("State", GENERIC_STATE)
-        .appendCurrent("Template", GENERIC_VALUE).br()
-        .appendInfo("Auto-manageable hologram above", "the linked crate block.").br()
-        .appendClick("Click to edit")
+    public static final IconLocale LOCALE_HOLOGRAM = LangEntry.iconBuilder("Editor.Button.Crate.Hologram").name("Hologramme de caisse")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("État", GENERIC_STATE)
+        .appendCurrent("Modèle", GENERIC_VALUE).br()
+        .appendInfo("Hologramme automatique au-dessus du", "bloc de caisse lié.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_REWARDS = LangEntry.iconBuilder("Editor.Button.Crate.Rewards").name("Rewards")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Rewards", GENERIC_AMOUNT).br()
-        .appendInfo("Add and manage crate's rewards!").br()
-        .appendClick("Click to open")
+    private static final IconLocale LOCALE_REWARDS = LangEntry.iconBuilder("Editor.Button.Crate.Rewards").name("Récompenses")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Récompenses", GENERIC_AMOUNT).br()
+        .appendInfo("Ajoutez et gérez les récompenses.").br()
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
-    private static final IconLocale LOCALE_MILESTONES = LangEntry.iconBuilder("Editor.Button.Crate.Milestones").name("Milestones")
-        .appendCurrent("Milestones", GENERIC_AMOUNT).br()
-        .appendInfo("Create custom milestones with", "rewards for the crate!").br()
-        .appendClick("Click to open")
+    private static final IconLocale LOCALE_MILESTONES = LangEntry.iconBuilder("Editor.Button.Crate.Milestones").name("Paliers")
+        .appendCurrent("Paliers", GENERIC_AMOUNT).br()
+        .appendInfo("Paliers personnalisés avec", "récompenses pour cette caisse.").br()
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
-    private static final IconLocale LOCALE_POST_OPEN_COMMANDS = LangEntry.iconBuilder("Editor.Button.Crate.Post-Open-Commands").name("Post-Open Commands")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Commands", GENERIC_AMOUNT).br()
-        .appendInfo("Runs listed commands", "when the crate is opened.").br()
-        .appendClick("Click to edit")
+    private static final IconLocale LOCALE_POST_OPEN_COMMANDS = LangEntry.iconBuilder("Editor.Button.Crate.Post-Open-Commands").name("Commandes post-ouverture")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Commandes", GENERIC_AMOUNT).br()
+        .appendInfo("Exécute les commandes listées", "à chaque ouverture de caisse.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private final DialogRegistry dialogs;

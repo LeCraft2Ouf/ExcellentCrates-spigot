@@ -39,78 +39,78 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardOptionsMenu extends LinkedMenu<CratesPlugin, Reward> implements LangContainer {
 
-    private static final IconLocale LOCALE_ITEMS = LangEntry.iconBuilder("Editor.Button.Reward.Items").name("Items to Give")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Items", GENERIC_AMOUNT).br()
-        .appendInfo("Gives listed items when won.").br()
-        .appendClick("Click to open")
+    private static final IconLocale LOCALE_ITEMS = LangEntry.iconBuilder("Editor.Button.Reward.Items").name("Objets à donner")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Objets", GENERIC_AMOUNT).br()
+        .appendInfo("Donne les objets listés lorsqu'elle est remportée.").br()
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
-    private static final IconLocale LOCALE_COMMANDS = LangEntry.iconBuilder("Editor.Button.Reward.Commands").name("Commands to Run")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Commands", GENERIC_AMOUNT).br()
-        .appendInfo("Runs listed commands when won.").br()
-        .appendClick("Click to edit")
+    private static final IconLocale LOCALE_COMMANDS = LangEntry.iconBuilder("Editor.Button.Reward.Commands").name("Commandes à exécuter")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Commandes", GENERIC_AMOUNT).br()
+        .appendInfo("Exécute les commandes listées lorsqu'elle est remportée.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private static final IconLocale LOCALE_PREVIEW_NORMAL = LangEntry.iconBuilder("Editor.Button.Reward.PreviewNormal")
-        .name("Preview Item")
-        .appendCurrent("Status", GENERIC_INSPECTION).br()
-        .appendInfo("Drop an item on " + SOFT_YELLOW.wrap("this") + " button", "to replace the reward preview.")
+        .name("Aperçu")
+        .appendCurrent("Statut", GENERIC_INSPECTION).br()
+        .appendInfo("Posez un objet sur " + SOFT_YELLOW.wrap("ce") + " bouton", "pour remplacer l'aperçu de la récompense.")
         .build();
 
     private static final IconLocale LOCALE_PREVIEW_CUSTOM = LangEntry.iconBuilder("Editor.Button.Reward.PreviewCustom")
-        .name("Preview Item")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Use Custom", GENERIC_STATE).br()
-        .appendInfo("Drop an item on " + SOFT_YELLOW.wrap("this") + " button", "to replace the reward preview.").br()
-        .appendClick("Click to toggle custom usage")
+        .name("Aperçu")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Personnalisé", GENERIC_STATE).br()
+        .appendInfo("Posez un objet sur " + SOFT_YELLOW.wrap("ce") + " bouton", "pour remplacer l'aperçu de la récompense.").br()
+        .appendClick("Cliquer pour basculer l'aperçu personnalisé")
         .build();
 
     public static final IconLocale LOCALE_RARIRY_WEIGHT = LangEntry.iconBuilder("Editor.Button.Reward.RarityWeight")
-        .name("Rarity & Weight")
-        .appendCurrent("Rarity", REWARD_RARITY_NAME + " → " + SOFT_GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
-        .appendCurrent("Weight", REWARD_WEIGHT + " → " + SOFT_GREEN.wrap(REWARD_ROLL_CHANCE + "%")).br()
-        .appendClick("Click to change")
+        .name("Rareté et poids")
+        .appendCurrent("Rareté", REWARD_RARITY_NAME + " → " + SOFT_GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
+        .appendCurrent("Poids", REWARD_WEIGHT + " → " + SOFT_GREEN.wrap(REWARD_ROLL_CHANCE + "%")).br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     public static final IconLocale LOCALE_NAME = LangEntry.iconBuilder("Editor.Button.Reward.Name")
-        .name("Display Name")
-        .appendCurrent("Current", REWARD_NAME).br()
-        .appendClick("Click to change")
+        .name("Nom affiché")
+        .appendCurrent("Actuel", REWARD_NAME).br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     public static final IconLocale LOCALE_DESCRIPTION = LangEntry.iconBuilder("Editor.Button.Reward.Description")
         .name("Description")
         .rawLore(REWARD_DESCRIPTION, EMPTY_IF_ABOVE)
-        .appendClick("Click to change")
+        .appendClick("Cliquer pour modifier")
         .build();
 
     public static final IconLocale LOCALE_BROADCAST = LangEntry.iconBuilder("Editor.Button.Reward.Broadcast")
-        .name("Win Broadcast")
-        .appendCurrent("State", GENERIC_STATE).br()
-        .appendInfo("Restricts player access to the reward", "based on their permissions.").br()
-        .appendClick("Click to toggle")
+        .name("Annonce du gain")
+        .appendCurrent("État", GENERIC_STATE).br()
+        .appendInfo("Diffuse un message lorsque cette récompense", "est remportée.").br()
+        .appendClick("Cliquer pour basculer")
         .build();
 
     public static final IconLocale LOCALE_PERMISSIONS = LangEntry.iconBuilder("Editor.Button.Reward.Permissions")
         .name("Permissions")
-        .appendCurrent("Total Permissions", GENERIC_AMOUNT).br()
-        .appendInfo("Restrict reward access based on", "player's permissions.").br()
-        .appendClick("Click to edit")
+        .appendCurrent("Permissions au total", GENERIC_AMOUNT).br()
+        .appendInfo("Restreint l'accès à la récompense selon", "les permissions du joueur.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     public static final IconLocale LOCALE_LIMITS = LangEntry.iconBuilder("Editor.Button.Reward.Limits")
-        .name("Limits")
-        .appendCurrent("State", GENERIC_STATE).br()
-        .appendInfo("Controls how often and how many", "times this reward can be won.").br()
-        .appendClick("Click to edit")
+        .name("Limites")
+        .appendCurrent("État", GENERIC_STATE).br()
+        .appendInfo("Contrôle à quelle fréquence et combien", "de fois cette récompense peut être gagnée.").br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     public static final IconLocale LOCALE_DELETE = LangEntry.iconBuilder("Editor.Button.Reward.Delete").accentColor(SOFT_RED)
-        .name("Delete Reward")
-        .appendInfo("Permanently deletes the reward.").br()
-        .appendClick("Press " + TagWrappers.KEY.apply("key.drop") + " to delete")
+        .name("Supprimer la récompense")
+        .appendInfo("Supprime définitivement la récompense.").br()
+        .appendClick("Maintenir " + TagWrappers.KEY.apply("key.drop") + " pour supprimer")
         .build();
 
     private final DialogRegistry dialogs;

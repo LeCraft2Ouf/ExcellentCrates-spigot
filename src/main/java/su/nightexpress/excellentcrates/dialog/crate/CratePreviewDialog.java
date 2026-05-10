@@ -22,17 +22,17 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CratePreviewDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Preview.Title").text(title("Crate", "Preview Template"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Preview.Title").text(title("Caisse", "Modèle d'aperçu"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.Preview.Body").dialogElement(400,
-        "Select a preview GUI template for the crate.",
-        "You can create and edit previews in the " + SOFT_YELLOW.wrap(Config.DIR_PREVIEWS) + " directory.",
+        "Choisissez un modèle GUI d'aperçu pour cette caisse.",
+        "Les fichiers sont dans le dossier " + SOFT_YELLOW.wrap(Config.DIR_PREVIEWS) + ".",
         "",
-        SOFT_YELLOW.wrap("→ ") + "To disable crate preview, uncheck the " + SOFT_YELLOW.wrap("Enabled") + " box."
+        SOFT_YELLOW.wrap("→ ") + "Décochez " + SOFT_YELLOW.wrap("Activé") + " pour désactiver l’aperçu."
     );
 
-    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Preview.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_PREVIEW = LangEntry.builder("Dialog.Crate.Preview.Input.Preview").text(SOFT_YELLOW.wrap("Preview"));
+    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Preview.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_PREVIEW = LangEntry.builder("Dialog.Crate.Preview.Input.Preview").text(SOFT_YELLOW.wrap("Aperçu"));
 
     private static final String JSON_ENABLED = "enabled";
     private static final String JSON_ID      = "id";

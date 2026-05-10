@@ -38,29 +38,29 @@ public class KeyOptionsMenu extends LinkedMenu<CratesPlugin, CrateKey> implement
 
     private static final IconLocale LOCALE_DELETE = LangEntry.iconBuilder("Editor.Button.Key.Delete")
         .accentColor(RED)
-        .name("Delete Key")
-        .appendInfo("Permanently deletes the key.").br()
-        .appendClick("Press [" + TagWrappers.KEY.apply("key.drop") + "] to delete")
+        .name("Supprimer la clé")
+        .appendInfo("Supprime définitivement la clé.").br()
+        .appendClick("Maintenir [" + TagWrappers.KEY.apply("key.drop") + "] pour supprimer")
         .build();
 
     private static final IconLocale LOCALE_NAME = LangEntry.iconBuilder("Editor.Button.Key.Name")
-        .name("Display Name")
-        .appendCurrent("Current", KEY_NAME).br()
-        .appendClick("Click to change")
+        .name("Nom affiché")
+        .appendCurrent("Actuel", KEY_NAME).br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
-    private static final IconLocale LOCALE_ITEM = LangEntry.iconBuilder("Editor.Button.Key.Item").name("Key Item")
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Stackable", GENERIC_STATE).br()
-        .appendInfo("Drop an item on " + SOFT_YELLOW.wrap("this") + " button", "to replace the key's item.").br()
-        .appendClick("Click to toggle stacking")
+    private static final IconLocale LOCALE_ITEM = LangEntry.iconBuilder("Editor.Button.Key.Item").name("Objet de la clé")
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Empilable", GENERIC_STATE).br()
+        .appendInfo("Posez un objet sur " + SOFT_YELLOW.wrap("ce") + " bouton", "pour remplacer l'objet de la clé.").br()
+        .appendClick("Cliquer pour basculer l'empilement")
         .build();
 
     private static final IconLocale LOCALE_VIRTUAL = LangEntry.iconBuilder("Editor.Button.Key.Virtual")
-        .name("Virtual")
-        .appendCurrent("State", GENERIC_STATE).br()
-        .appendInfo("Controls whether the key is virtual.").br()
-        .appendClick("Click to toggle")
+        .name("Virtuelle")
+        .appendCurrent("État", GENERIC_STATE).br()
+        .appendInfo("Indique si la clé est virtuelle.").br()
+        .appendClick("Cliquer pour basculer")
         .build();
 
     private final DialogRegistry dialogs;

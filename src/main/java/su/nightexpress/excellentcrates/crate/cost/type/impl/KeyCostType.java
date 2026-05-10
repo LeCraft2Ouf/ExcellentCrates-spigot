@@ -20,16 +20,16 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class KeyCostType extends AbstractCostType implements LangContainer {
 
-    private static final TextLocale LOCALE_NAME = LangEntry.builder("Costs.Key.Name").text(YELLOW.wrap("[\uD83D\uDD11]") + " " + WHITE.wrap("Key"));
+    private static final TextLocale LOCALE_NAME = LangEntry.builder("Costs.Key.Name").text(YELLOW.wrap("[\uD83D\uDD11]") + " " + WHITE.wrap("Clé"));
 
     public static final TextLocale LOCALE_FORMAT = LangEntry.builder("Costs.Key.Format").text(GRAY.wrap("x" + GENERIC_AMOUNT + " " + GENERIC_NAME));
 
     public static final IconLocale LOCALE_EDIT_BUTTON = LangEntry.iconBuilder("Costs.Key.EditButton")
-        .rawName(YELLOW.and(BOLD).wrap("Key Cost") + GRAY.wrap(" - ") + WHITE.wrap(GENERIC_NAME))
-        .rawLore(ITALIC.and(DARK_GRAY).wrap("Press " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " key to delete.")).br()
-        .appendCurrent("Key ID", GENERIC_ID)
-        .appendCurrent("Amount", GENERIC_AMOUNT).br()
-        .appendClick("Click to edit", YELLOW)
+        .rawName(YELLOW.and(BOLD).wrap("Coût en clés") + GRAY.wrap(" - ") + WHITE.wrap(GENERIC_NAME))
+        .rawLore(ITALIC.and(DARK_GRAY).wrap("Appuyez sur " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " pour supprimer.")).br()
+        .appendCurrent("ID de clé", GENERIC_ID)
+        .appendCurrent("Quantité", GENERIC_AMOUNT).br()
+        .appendClick("Cliquer pour modifier", YELLOW)
         .build();
 
     private final KeyManager keyManager;

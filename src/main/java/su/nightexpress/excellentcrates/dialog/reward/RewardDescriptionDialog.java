@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RewardDescriptionDialog extends GenericDescriptionDialog<CommandReward> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Description.Title").text(title("Reward", "Description"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Description.Title").text(title("Récompense", "Description"));
 
     @Override
     @NotNull

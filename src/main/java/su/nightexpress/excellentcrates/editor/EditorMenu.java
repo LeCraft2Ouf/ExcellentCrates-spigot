@@ -22,15 +22,15 @@ public class EditorMenu extends NormalMenu<CratesPlugin> implements LangContaine
 
     private static final IconLocale CRATES_LOCALE = LangEntry.iconBuilder("Editor.Button.Main.Crates")
         .accentColor(GREEN)
-        .name("Crates")
-        .appendInfo("There are " + GREEN.wrap(GENERIC_AMOUNT) + " crates created.").br()
-        .appendClick("Click to open").build();
+        .name("Caisses")
+        .appendInfo("Il y a " + GREEN.wrap(GENERIC_AMOUNT) + " caisse(s).").br()
+        .appendClick("Cliquer pour ouvrir").build();
 
     private static final IconLocale KEYS_LOCALE = LangEntry.iconBuilder("Editor.Button.Main.Keys")
         .accentColor(GOLD)
-        .name("Keys")
-        .appendInfo("There are " + GOLD.wrap(GENERIC_AMOUNT) + " keys created.").br()
-        .appendClick("Click to open").build();
+        .name("Clés")
+        .appendInfo("Il y a " + GOLD.wrap(GENERIC_AMOUNT) + " clé(s).").br()
+        .appendClick("Cliquer pour ouvrir").build();
 
     public EditorMenu(@NotNull CratesPlugin plugin) {
         super(plugin, MenuType.GENERIC_9X3, Lang.EDITOR_TITLE_MAIN.text());

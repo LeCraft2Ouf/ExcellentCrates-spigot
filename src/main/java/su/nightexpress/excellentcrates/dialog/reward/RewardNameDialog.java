@@ -9,7 +9,7 @@ import su.nightexpress.nightcore.locale.entry.TextLocale;
 
 public class RewardNameDialog extends GenericNameDialog<CommandReward> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Name.Title").text(title("Reward", "Name"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Name.Title").text(title("Récompense", "Nom"));
 
     @Override
     @NotNull

@@ -8,4 +8,5 @@ softdepend:
   - PlaceholderAPI
   - ProtocolLib
   - packetevents
+  - Nexo
 api-version: 1.21

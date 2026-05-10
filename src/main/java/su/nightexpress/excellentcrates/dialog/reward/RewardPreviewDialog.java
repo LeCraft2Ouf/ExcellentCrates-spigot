@@ -27,23 +27,23 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardPreviewDialog extends Dialog<RewardPreviewDialog.Data> {
 
-    private static final TextLocale TITLE          = LangEntry.builder("Dialog.Reward.Preview.Title").text(title("Reward", "Preview"));
-    private static final TextLocale INPUT_NBT      = LangEntry.builder("Dialog.Reward.Preview.Input.NBT").text(SOFT_RED.wrap("Save as NBT"));
-    private static final TextLocale INPUT_REP_NAME = LangEntry.builder("Dialog.Reward.Preview.Input.ReplaceName").text("Replace Reward Name");
-    private static final TextLocale INPUT_REP_DESC = LangEntry.builder("Dialog.Reward.Preview.Input.ReplaceDesc").text("Replace Reward Description");
+    private static final TextLocale TITLE          = LangEntry.builder("Dialog.Reward.Preview.Title").text(title("Récompense", "Aperçu"));
+    private static final TextLocale INPUT_NBT      = LangEntry.builder("Dialog.Reward.Preview.Input.NBT").text(SOFT_RED.wrap("Sauver en NBT"));
+    private static final TextLocale INPUT_REP_NAME = LangEntry.builder("Dialog.Reward.Preview.Input.ReplaceName").text("Remplacer le nom de la récompense");
+    private static final TextLocale INPUT_REP_DESC = LangEntry.builder("Dialog.Reward.Preview.Input.ReplaceDesc").text("Remplacer la description de la récompense");
 
     private static final DialogElementLocale BODY_NORMAL = LangEntry.builder("Dialog.Reward.Preview.Body.Normal").dialogElement(400,
-        "Please confirm reward preview replacement.",
-        GRAY.wrap("Check the additional fields if needed.")
+        "Confirmez le remplacement de l'aperçu.",
+        GRAY.wrap("Cochez les options supplémentaires si besoin.")
     );
 
     private static final DialogElementLocale BODY_CUSTOM = LangEntry.builder("Dialog.Reward.Preview.Body.Custom").dialogElement(400,
-        "Please confirm reward preview replacement.",
-        GRAY.wrap("Check the additional fields if needed."),
+        "Confirmez le remplacement de l'aperçu.",
+        GRAY.wrap("Cochez les options supplémentaires si besoin."),
         "",
-        SOFT_RED.and(BOLD).wrap("IMPORTANT NOTE:"),
-        "If the item above doesn't match the one you used, enable the " + SOFT_RED.wrap("Save as NBT") + " option.",
-        GRAY.wrap("This ensures the exact item data is saved correctly.")
+        SOFT_RED.and(BOLD).wrap("NOTE IMPORTANTE :"),
+        "Si l'objet ci-dessus ne correspond pas au vôtre, activez " + SOFT_RED.wrap("Sauver en NBT") + ".",
+        GRAY.wrap("Les données exactes seront alors enregistrées correctement.")
     );
 
     private static final String JSON_USE_NBT             = "use_nbt";

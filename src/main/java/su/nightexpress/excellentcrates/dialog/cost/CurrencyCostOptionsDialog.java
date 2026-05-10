@@ -21,7 +21,7 @@ public class CurrencyCostOptionsDialog extends Dialog<EcoCostEntry> {
     private static final String INPUT_ID     = "id";
     private static final String INPUT_AMOUNT = "amount";
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostEntry.Currency.Title").text(title("Cost Entry", "Currency Options"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostEntry.Currency.Title").text(title("Entrée de coût", "Options monnaie"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.CostEntry.Currency.Body").dialogElement(400,
         "Specify which currency and how much of it are required to open the crate.",

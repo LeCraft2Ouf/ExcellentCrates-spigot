@@ -21,14 +21,14 @@ public class RewardPermissionsDialog extends Dialog<Reward> {
     private static final String NEGATIVE = "-";
     private static final String POSITIVE = "+";
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Permissions.Title").text(title("Reward", "Permissions"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Permissions.Title").text(title("Récompense", "Permissions"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Reward.Permissions.Body").dialogElement(400,
-        "Specify the permissions a player must have or must not have to access this reward.",
+        "Indiquez les permissions qu'un joueur doit avoir ou ne pas avoir pour cette récompense.",
         "",
-        "Use the " + GREEN.and(BOLD).wrap(POSITIVE) + " prefix to list permissions the player " + GREEN.wrap("must have") + ", and the " + RED.and(BOLD).wrap(NEGATIVE) + " prefix for permissions the player " + RED.wrap("must not have") + ".",
+        "Préfixe " + GREEN.and(BOLD).wrap(POSITIVE) + " : permissions que le joueur doit " + GREEN.wrap("avoir") + ". Préfixe " + RED.and(BOLD).wrap(NEGATIVE) + " : permissions qu'il ne doit " + RED.wrap("pas avoir") + ".",
         "",
-        "Player must have any of the " + GREEN.wrap("'positive'") + " permissions and none of the " + RED.wrap("'negative'") + " ones."
+        "Le joueur doit avoir au moins une permission " + GREEN.wrap("« positive »") + " et aucune permission " + RED.wrap("« négative »") + "."
     );
 
     private static final TextLocale INPUT_PERMISSIONS = LangEntry.builder("Dialog.Reward.Permissions.Input.Permissions").text("Permissions");

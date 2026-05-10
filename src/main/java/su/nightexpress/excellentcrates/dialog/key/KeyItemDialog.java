@@ -11,7 +11,7 @@ import java.util.List;
 
 public class KeyItemDialog extends GenericItemDialog<CrateKey> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Key.Item.Title").text(title("Key", "Item"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Key.Item.Title").text(title("Clé", "Objet"));
 
     @Override
     @NotNull

@@ -25,7 +25,7 @@ public class CratePostOpenCommandsDialog extends Dialog<Crate> {
 
     private static final int COMMANDS_AMOUNT = 5;
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Post-Open-Commands.Title").text(title("Crate", "Post-Open Commands"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Post-Open-Commands.Title").text(title("Caisse", "Commandes après ouverture"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.Post-Open-Commands.Body").dialogElement(400,
         "Enter up to " + SOFT_YELLOW.wrap(COMMANDS_AMOUNT + " commands") + " that will be executed every time a player opens a crate. The commands will be executed in the same order as the fields listed below.",

@@ -40,14 +40,14 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.SOFT
 public class RewardContentMenu extends LinkedMenu<CratesPlugin, ItemReward> implements LangContainer {
 
     private static final IconLocale LOCALE_PLACEHOLDERS = LangEntry.iconBuilder("Editor.Button.Reward.ItemPlaceholders")
-        .name("Item Placeholders")
-        .appendCurrent("State", GENERIC_STATE).br()
-        .appendInfo("Allows to replace item placeholders:")
-        .appendInfo(SOFT_YELLOW.wrap("→") + " Crate placeholders " + DARK_GRAY.wrap("(see docs)"))
-        .appendInfo(SOFT_YELLOW.wrap("→") + " Reward placeholders " + DARK_GRAY.wrap("(see docs)"))
-        .appendInfo(SOFT_YELLOW.wrap("→") + " " + Placeholders.PLAYER_NAME + " placeholder.")
+        .name("Placeholders d'objet")
+        .appendCurrent("État", GENERIC_STATE).br()
+        .appendInfo("Autorise le remplacement des placeholders :")
+        .appendInfo(SOFT_YELLOW.wrap("→") + " Placeholders caisse " + DARK_GRAY.wrap("(voir doc)"))
+        .appendInfo(SOFT_YELLOW.wrap("→") + " Placeholders récompense " + DARK_GRAY.wrap("(voir doc)"))
+        .appendInfo(SOFT_YELLOW.wrap("→") + " Placeholder " + Placeholders.PLAYER_NAME + ".")
         .br()
-        .appendClick("Click to toggle")
+        .appendClick("Cliquer pour basculer")
         .build();
 
     private final DialogRegistry dialogs;

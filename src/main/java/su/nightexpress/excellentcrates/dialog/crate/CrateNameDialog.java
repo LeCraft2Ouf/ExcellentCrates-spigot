@@ -9,7 +9,7 @@ import su.nightexpress.nightcore.locale.entry.TextLocale;
 
 public class CrateNameDialog extends GenericNameDialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Name.Title").text(title("Crate", "Name"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Name.Title").text(title("Caisse", "Nom"));
 
     @Override
     @NotNull

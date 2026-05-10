@@ -37,8 +37,8 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CrateParticleDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE_MAIN = LangEntry.builder("Dialog.Crate.Particle.Title").text(title("Crate", "Particle Type"));
-    private static final TextLocale TITLE_DATA = LangEntry.builder("Dialog.Crate.ParticleData.Title").text(title("Crate", "Particle Data"));
+    private static final TextLocale TITLE_MAIN = LangEntry.builder("Dialog.Crate.Particle.Title").text(title("Caisse", "Type de particules"));
+    private static final TextLocale TITLE_DATA = LangEntry.builder("Dialog.Crate.ParticleData.Title").text(title("Caisse", "Données des particules"));
 
     private static final DialogElementLocale BODY_MAIN = LangEntry.builder("Dialog.Crate.Particle.Body").dialogElement(400,
         "Select the desired " + SOFT_YELLOW.wrap("particle type") + ".",

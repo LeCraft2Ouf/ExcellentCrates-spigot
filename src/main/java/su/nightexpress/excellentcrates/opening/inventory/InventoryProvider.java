@@ -30,7 +30,7 @@ import java.util.Set;
 public class InventoryProvider extends AbstractProvider {
 
     private MenuType invType  = MenuType.GENERIC_9X3;
-    private String   invTitle = "Crate opening...";
+    private String   invTitle = "Ouverture de caisse…";
 
     private int[] winSlots             = {-1};
     private long  maxTicksForSkip      = 40;
@@ -55,15 +55,15 @@ public class InventoryProvider extends AbstractProvider {
 
         this.maxTicksForSkip = ConfigValue.create("Settings.Max_Ticks_To_Skip",
             this.maxTicksForSkip,
-            "Sets max. amount of the opening ticks while players can skip the opening animation.",
-            "Set to -1 to disable (no skip)."
+            "Nombre maximal de ticks d’ouverture pendant lesquels le joueur peut passer l’animation.",
+            "Mettez -1 pour désactiver (pas de skip)."
         ).read(config);
 
         this.completionPauseTicks = ConfigValue.create("Settings.Completion_Pause_Ticks",
             this.completionPauseTicks,
-            "Sets how soon (in ticks) animation GUI will be closed when completed.",
-            "[1 second = 20 ticks]",
-            "[Default is 20 ticks]"
+            "Délai en ticks avant fermeture du GUI une fois l’animation terminée.",
+            "[1 seconde = 20 ticks]",
+            "[Par défaut : 20 ticks]"
         ).read(config);
 
         if (config.getSection("Content.Default").isEmpty()) {

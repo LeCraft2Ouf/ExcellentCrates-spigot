@@ -21,7 +21,7 @@ public class KeyCostOptionsDialog extends Dialog<KeyCostEntry> {
     private static final String INPUT_ID     = "id";
     private static final String INPUT_AMOUNT = "amount";
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostEntry.Key.Title").text(title("Cost Entry", "Key Options"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostEntry.Key.Title").text(title("Entrée de coût", "Options clé"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.CostEntry.Key.Body").dialogElement(400,
         "Specify which key and how many of it are required to open the crate.",

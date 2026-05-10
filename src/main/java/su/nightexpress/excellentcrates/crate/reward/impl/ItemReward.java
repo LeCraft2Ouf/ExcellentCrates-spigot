@@ -11,6 +11,8 @@ import su.nightexpress.excellentcrates.crate.impl.Rarity;
 import su.nightexpress.excellentcrates.crate.reward.AbstractReward;
 import su.nightexpress.excellentcrates.util.CrateUtils;
 import su.nightexpress.excellentcrates.util.ItemHelper;
+import su.nightexpress.excellentcrates.util.NexoIdOnlyAdaptedItem;
+import su.nightexpress.excellentcrates.util.RawCompressedNbtAdaptedItem;
 import su.nightexpress.nightcore.bridge.item.AdaptedItem;
 import su.nightexpress.nightcore.config.ConfigValue;
 import su.nightexpress.nightcore.config.FileConfig;
@@ -43,7 +45,7 @@ public class ItemReward extends AbstractReward {
                 ItemStack itemStack = ItemNbt.decompress(encoded);
                 if (itemStack == null) return;
 
-                AdaptedItem provider = ItemHelper.vanilla(itemStack);
+                AdaptedItem provider = ItemHelper.exactVanillaNbt(itemStack);
                 config.set(path + ".ItemsData." + count++, provider);
             }
             config.remove(path + ".Items");
@@ -115,7 +117,10 @@ public class ItemReward extends AbstractReward {
             ItemStack itemStack = provider.getItemStack();
             if (itemStack == null) return;
 
-            if (this.allowItemPlaceholders) {
+            // Raw NBT rewards must match definitional items (e.g. Nexo base item) for stacking — never rewrite lore/name.
+            if (this.allowItemPlaceholders
+                && !(provider instanceof RawCompressedNbtAdaptedItem)
+                && !(provider instanceof NexoIdOnlyAdaptedItem)) {
                 ItemUtil.editMeta(itemStack, meta -> {
                     if (meta.hasItemName()) {
                         meta.setItemName(replacer.apply(String.valueOf(ItemUtil.getItemNameSerialized(meta))));

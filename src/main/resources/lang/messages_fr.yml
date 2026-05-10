@@ -31,7 +31,7 @@ Command:
       Usage: <player | *> <keyId> <amount>
       Desc: Définir le nombre de clés de caisse pour un joueur.
       Done: Le nombre de clés &e%key_name% &7défini sur &e%amount%x &7pour &e%player_name%&7.
-      Notify: Your &e%key_name%&7 amount has been changed to &ex%amount%&7!
+      Notify: Votre nombre de &e%key_name% &7est passé à &ex%amount%&7 !
     Show:
       Desc: 'Afficher le nombre de vos clés ou celui d''un autre joueur.'
       Usage: '[player]'
@@ -41,6 +41,10 @@ Command:
           - '&6&m              &6&l[ &a%player_name% &e&lClé de caisse &6&l]&6&m              &6'
           - '&7'
           - '&6▸ &e%key_name%: &6%amount%'
+        Entry: '<soft_yellow>▪ <gray>%key_name%: </gray>x%amount%</soft_yellow>'
+    GiveAll:
+      Desc: Donner la clé à tous les joueurs en ligne.
+      Done: <gray>Don de <soft_yellow>x%amount%</soft_yellow> clé(s) <soft_yellow>%key_name%</soft_yellow> à <soft_yellow>tous les joueurs en ligne</soft_yellow>.</gray>
   Preview:
     Desc: 'Ouvre l''aperçu de la caisse.'
     Usage: <crateId> [player]
@@ -61,6 +65,24 @@ Command:
     Desc: Ouvrir le menu de la caisse.
     Done:
       Others: Le menu &6%menu_id%&7 a été ouvert pour &6%player_display_name%&7.
+  Argument:
+    Name:
+      Crate: crate
+      Key: key
+      X: x
+      Y: y
+      Z: z
+  Editor:
+    Desc: Ouvre l''interface graphique de l''éditeur.
+  DropKey:
+    Desc: Fait apparaître l''objet-clé dans le monde.
+    Done: <gray>Clé <soft_yellow>%key_name%</soft_yellow> posée à <soft_yellow>%location_x%, %location_y%, %location_z%</soft_yellow> dans <soft_yellow>%location_world%</soft_yellow>.</gray>
+  Open:
+    Desc: Ouvre une caisse.
+  OpenFor:
+    Desc: Ouvre une caisse pour un joueur.
+    Done: <gray>Ouverture de <soft_yellow>%crate_name%</soft_yellow> pour <soft_yellow>%player_name%</soft_yellow>.</gray>
+    Notify: <gray>Vous avez été forcé d''ouvrir <soft_yellow>%crate_name%</soft_yellow>.</gray>
 Crate:
   Error:
     Invalid: '&cCaisse invalide!'
@@ -76,15 +98,991 @@ Crate:
       Cost:
         Money: '&cVous n''avez pas assez d''argent pour ouvrir cette caisse!'
         Exp: '&cVous n''avez pas assez de niveaux d''expérience pour ouvrir cette caisse!'
+      Already:
+      - '[title_times="20:60:20",sound="minecraft:entity.villager.no;0.8;1.0",type="title"]'
+      - <red><b>Oups !</b></red>
+      - <gray>Vous êtes déjà en train d''ouvrir une caisse !</gray>
     Reward:
       Info: Vous avez obtenu la récompense &6%reward_name% &7dans la caisse &6%crate_name%&7!
-      Broadcast: '&7Je joueur &a%player_display_name% &7vient de recevoir la récompense &6%reward_name% &7dans la caisse &6%crate_name%&7!'
+      Broadcast: '&7Le joueur &a%player_display_name% &7vient de recevoir la récompense &6%reward_name% &7dans la caisse &6%crate_name%&7!'
+    TooExpensive:
+    - '[prefix="false"]'
+    - ' '
+    - <red><b>CAISSE NON OUVERTE :</b></red>
+    - '<red>» </red><gray>Caisse : </gray><white>%crate_name%</white>'
+    - '<red>» </red><gray>Coût d''ouverture insuffisant : %costs%</gray>'
+    - ' '
+    Milestone:
+      Completed: '[prefix="false",sound="minecraft:entity.player.levelup;0.8;1.0"]<gray>Vous avez atteint le palier <green>%milestone_openings% ouvertures</green> et reçu <green>%reward_name%</green> en récompense !</gray>'
+  Rewards:
+  - '[prefix="false"]'
+  - ' '
+  - <yellow><b>CAISSE OUVERTE :</b></yellow>
+  - '<yellow>» </yellow><gray>Caisse : </gray><white>%crate_name%</white>'
+  - '<yellow>» </yellow><gray>Récompenses : </gray><white>%rewards%</white>'
+  - ' '
+  Opened:
+    Result:
+      Reward: '%reward_name%'
+  Preview:
+    Error:
+      Cooldown: <gray>Vous pourrez à nouveau prévisualiser cette caisse dans <soft_red>%time%</soft_red></gray>
   Key:
     Error:
       Invalid: '&cClé non valide!'
+Inspections:
+  Generic:
+    Overview:
+      onTrue: Aucun problème détecté.
+      onFalse: Des problèmes ont été détectés !
+    Item:
+      onTrue: Item valide.
+      onFalse: Item invalide !
+    Commands:
+      onTrue: Toutes les commandes sont valides.
+      onFalse: Commandes invalides détectées !
+  Crate:
+    Preview:
+      onTrue: Aperçu valide.
+      onFalse: Aperçu invalide !
+    Opening:
+      onTrue: Animation d'ouverture valide.
+      onFalse: Animation d'ouverture invalide !
+    Hologram:
+      onTrue: Modèle d'hologramme valide.
+      onFalse: Modèle d'hologramme invalide !
+  Reward:
+    Preview:
+      onTrue: Item d'aperçu valide.
+      onFalse: Item d'aperçu invalide !
+    Items:
+      onTrue: Tous les items sont valides.
+      onFalse: Items invalides détectés !
+    NoItems: Aucun item ajouté.
+    NoCommands: Aucune commande définie.
 Menu:
   Invalid: '&cLe menu n''existe pas!'
+Error:
+  Command:
+    Argument:
+      InvalidCrate: <gray><soft_red>%value%</soft_red> n''est pas une caisse valide !</gray>
+      InvalidKey: <gray><soft_red>%value%</soft_red> n''est pas une clé valide !</gray>
+  DataIsLoading: <soft_red>Les données sont encore en cours de chargement... Réessayez plus tard.</soft_red>
+Other:
+  Cooldown:
+    Ready: <green>Prêt à ouvrir !</green>
+  LastOpener:
+    Empty: '-'
+  LastReward:
+    Empty: '-'
+  NextMilestone:
+    Empty: '-'
+  Midnight: Minuit
+  Free: Gratuit
+EffectModel:
+  None: Aucun
+  Helix: Hélice
+  Spiral: Spirale
+  Sphere: Sphère
+  Heart: Cœur
+  Pulsar: Pulsar
+  Beacon: Signal
+  Tornado: Tornade
+  Vortex: Vortex
+  Simple: Simple
+UI:
+  Costs:
+    Option:
+      Available:
+        Name: <white>%cost_name%</white>
+        Lore:
+        - '%costs%'
+        - '%empty-if-above%'
+        - '<yellow><b>OUVERTURES DISPONIBLES : </b></yellow><white><u>%available%</u></white>'
+        - ''
+        - <green>→ <u>Cliquer pour choisir</u></green>
+      Unavailable:
+        Name: <white>%cost_name%</white>
+        Lore:
+        - '%costs%'
+        - '%empty-if-above%'
+        - <red><b>VOUS NE POUVEZ PAS PAYER CE COÛT</b></red>
+    Entry0:
+      Available: <white>%entry%</white> <gray>(<green>✔</green>)</gray>
+      Unavailable: <white>%entry%</white> <gray>(<red>✘</red>)</gray>
+  OpenAmount:
+    Single:
+      Name: <yellow><b>Une ouverture</b></yellow>
+      Lore:
+      - <gray>Ouvre une seule caisse.</gray>
+      - ''
+      - <yellow>→ <u>Cliquer pour choisir</u></yellow>
+    All:
+      Name: <yellow><b>Tout ouvrir</b></yellow>
+      Lore:
+      - <gray>Ouvre jusqu''à <white>%max%</white> caisse(s).</gray>
+      - ''
+      - <yellow>→ <u>Cliquer pour choisir</u></yellow>
+Costs:
+  Currency:
+    Name: <green>[$]</green> <white>Monnaie</white>
+    EditButton:
+      Name: <yellow><b>Coût monétaire</b></yellow><gray> — </gray><white>%name%</white>
+      Lore:
+      - <i><dark_gray>Touche <soft_red><key:key.drop></soft_red> pour supprimer.</dark_gray></i>
+      - ' '
+      - '<gray><dark_gray>» </dark_gray>ID de devise : <white>%id%</white></gray>'
+      - '<gray><dark_gray>» </dark_gray>Montant : <white>%amount%</white></gray>'
+      - ' '
+      - <soft_yellow>→ <u>Cliquer pour modifier</u></soft_yellow>
+  Key:
+    Name: <yellow>[🔑]</yellow> <white>Clé</white>
+    Format: <gray>x%amount% %name%</gray>
+    EditButton:
+      Name: <yellow><b>Coût en clés</b></yellow><gray> — </gray><white>%name%</white>
+      Lore:
+      - <i><dark_gray>Touche <soft_red><key:key.drop></soft_red> pour supprimer.</dark_gray></i>
+      - ' '
+      - '<gray><dark_gray>» </dark_gray>ID de clé : <white>%id%</white></gray>'
+      - '<gray><dark_gray>» </dark_gray>Quantité : <white>%amount%</white></gray>'
+      - ' '
+      - <yellow>→ <u>Cliquer pour modifier</u></yellow>
+
+# Dialogues (menus 1.21) : sans ces clés, NightCore utilise les défauts anglais du code Java.
+Dialog:
+  Generic:
+    Creation:
+      Body:
+        Width: 400
+        Contents:
+          - 'Entrez un <soft_yellow>identifiant unique</soft_yellow> (ID) pour le nouvel objet.'
+          - ''
+          - '<soft_orange>⚠</soft_orange> Cet ID sert dans les <soft_orange>commandes</soft_orange> et les <soft_orange>fichiers de config</soft_orange> : choisissez quelque chose de <soft_orange>clair</soft_orange> et <soft_orange>facile à retenir</soft_orange>.'
+          - ''
+          - '<soft_red>→</soft_red> Seuls les <soft_red>lettres</soft_red>, <soft_red>chiffres</soft_red> et le <soft_red>tiret bas</soft_red> (_) sont autorisés.'
+    Name:
+      Body:
+        Width: 400
+        Contents:
+          - 'Entrez le <soft_yellow>nom d''affichage</soft_yellow>.'
+      Input:
+        Name: 'Nom'
+        ReplaceName: 'Remplacer le nom de l''item'
+    Description:
+      Body:
+        Width: 400
+        Contents:
+          - 'Entrez la <soft_yellow>description</soft_yellow>.'
+      Input:
+        Description: 'Description'
+        ReplaceItemLore: 'Remplacer le lore de l''item'
+    Item:
+      Body:
+        Normal:
+          Width: 400
+          Contents:
+            - 'Confirmer le remplacement de l''item.'
+            - '<gray>Cochez les options supplémentaires si besoin.</gray>'
+        Custom:
+          Width: 400
+          Contents:
+            - 'Confirmer le remplacement de l''item.'
+            - '<gray>Cochez les options supplémentaires si besoin.</gray>'
+            - ''
+            - '<soft_red><bold>NOTE IMPORTANTE :</bold></soft_red>'
+            - 'Si l''item ci-dessus ne correspond pas à celui que vous avez utilisé, activez <soft_red>Sauver en NBT</soft_red>.'
+            - '<gray>Cela garantit que les données exactes sont enregistrées.</gray>'
+      Input:
+        NBT: '<soft_red>Sauver en NBT</soft_red>'
+        ReplaceName: 'Reprendre le nom de l''item'
+        ReplaceDesc: 'Reprendre le lore de l''item'
+  Reward:
+    Item:
+      Title: '&e&lRÉCOMPENSE &8» &fItem'
+      Body:
+        Width: 400
+        Contents:
+          - 'Choisissez comment enregistrer l''item.'
+          - ''
+          - 'Pour les items Nexo (<soft_aqua>nexo:id</soft_aqua>), préférez <soft_green>Sauver en ID Nexo</soft_green> : la récompense est reconstruite par Nexo et se stack comme un item Nexo.'
+          - ''
+          - '<soft_red><bold>NOTE IMPORTANTE :</bold></soft_red>'
+          - 'Si l''item ci-dessus ne correspond pas, utilisez <soft_red>Sauver en NBT</soft_red>.'
+          - '<gray>Cela garantit que les données exactes sont enregistrées.</gray>'
+      Button:
+        NBT:
+          Label: '&aSauver en &a&lNBT'
+          Tooltip: 'Sérialisation binaire fidèle + option Nexo si détectée.'
+          Width: 160
+        Reference:
+          Label: '&aSauver en &a&lRéférence'
+          Tooltip: 'Provider custom (ex. Nexo) si disponible.'
+          Width: 160
+        Nexo:
+          Label: '&aSauver en &a&lID Nexo'
+          Tooltip: 'Stocke seulement l''id Nexo ; idéal pour le stacking.'
+          Width: 160
+      Error:
+        NoNexoId: '&7Cette pile n''a pas d''&cid Nexo&7. Utilisez &eSauver en NBT &7ou &eRéférence &7.'
+    Weight:
+      Title: '&e&lRÉCOMPENSE &8» &fPoids et rareté'
+      Body:
+        Width: 400
+        Contents:
+          - 'Définissez la <soft_yellow>rareté</soft_yellow> et le <soft_yellow>poids</soft_yellow> de la récompense.'
+          - ''
+          - 'En savoir plus : lien wiki (poids / rareté) dans la doc du plugin.'
+      Input:
+        Rarity: '<soft_yellow>Rareté</soft_yellow>'
+        Weight: '<soft_yellow>Poids</soft_yellow>'
+    Preview:
+      Title: '&e&lRÉCOMPENSE &8» &fAperçu'
+      Input:
+        NBT: '<soft_red>Sauver en NBT</soft_red>'
+        ReplaceName: 'Remplacer le nom de la récompense'
+        ReplaceDesc: 'Remplacer la description de la récompense'
+      Body:
+        Normal:
+          Width: 400
+          Contents:
+            - 'Confirmer le remplacement de l''aperçu.'
+            - '<gray>Cochez les champs si besoin.</gray>'
+        Custom:
+          Width: 400
+          Contents:
+            - 'Confirmer le remplacement de l''aperçu.'
+            - '<gray>Cochez les champs si besoin.</gray>'
+            - ''
+            - '<soft_red><bold>NOTE IMPORTANTE :</bold></soft_red>'
+            - 'Si l''item ne correspond pas, activez <soft_red>Sauver en NBT</soft_red>.'
+            - '<gray>Cela garantit les données exactes.</gray>'
+    Permissions:
+      Title: '&e&lRÉCOMPENSE &8» &fPermissions'
+      Body:
+        Width: 400
+        Contents:
+          - 'Indiquez les permissions requises ou interdites pour cette récompense.'
+          - ''
+          - 'Préfixe <bold><green>+</green></bold> : le joueur doit <green>avoir</green> la permission.'
+          - 'Préfixe <bold><red>-</red></bold> : le joueur ne doit <red>pas avoir</red> la permission.'
+          - ''
+          - 'Il faut au moins une permission « positive » et aucune « negative ».'
+      Input:
+        Permissions: 'Permissions'
+    Limits:
+      Title: '&e&lRÉCOMPENSE &8» &fLimites'
+      Body:
+        Width: 400
+        Contents:
+          - 'Définissez combien de fois et à quelle fréquence cette récompense peut être gagnée.'
+          - ''
+          - '<soft_orange>Globales</soft_orange> : tout le monde partage le même compteur.'
+          - '<soft_blue>Individuelles</soft_blue> : chaque joueur a son compteur.'
+          - ''
+          - 'Mode <soft_yellow>Quotidien</soft_yellow> : reset à minuit après X jours.'
+          - 'Mode <soft_yellow>Personnalisé</soft_yellow> : cooldown exact en secondes.'
+          - ''
+          - '<soft_red>Désactiver le cooldown</soft_red> : mettez 0.'
+          - '<soft_red>Illimité</soft_red> : mettez -1 pour le nombre de tirages.'
+      Input:
+        Enabled: 'Activé'
+        CooldownMode: '<soft_yellow>Mode cooldown</soft_yellow>'
+        GlobalAmount: '<soft_orange>(Globale)</soft_orange> Max. tirages'
+        GlobalCooldown: '<soft_orange>(Globale)</soft_orange> Cooldown'
+        PlayerAmount: '<soft_blue>(Individuelle)</soft_blue> Max. tirages'
+        PlayerCooldown: '<soft_blue>(Individuelle)</soft_blue> Cooldown'
+    Commands:
+      Title: '&e&lRÉCOMPENSE &8» &fCommandes'
+      Body:
+        Width: 400
+        Contents:
+          - 'Entrez jusqu''à <soft_yellow>5 commandes</soft_yellow> exécutées quand la récompense est gagnée, dans l''ordre.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> Placeholder joueur et placeholders internes Crate/Reward (voir wiki).'
+          - '<soft_yellow>→</soft_yellow> PlaceholderAPI pris en charge si installé.'
+      Input:
+        Command: 'Commande <soft_yellow>#%s</soft_yellow>'
+    Name:
+      Title: '&e&lRÉCOMPENSE &8» &fNom'
+    Description:
+      Title: '&e&lRÉCOMPENSE &8» &fDescription'
+  Rewards:
+    Creation:
+      Title: '&e&lRÉCOMPENSE &8» &fCréation'
+      Input:
+        Method: 'Sauver l''item en NBT'
+      Body:
+        Normal:
+          Width: 400
+          Contents:
+            - 'Choisissez le type de récompense à créer.'
+            - '<gray>Survol des boutons pour la description.</gray>'
+        Custom:
+          Width: 400
+          Contents:
+            - 'Choisissez le type de récompense à créer.'
+            - '<gray>Survol des boutons pour la description.</gray>'
+            - ''
+            - '<soft_red><bold>NOTE IMPORTANTE :</bold></soft_red>'
+            - 'Si l''item ne correspond pas, cochez <soft_red>Sauver l''item en NBT</soft_red>.'
+      Button:
+        ItemType:
+          Label: '<soft_blue>Récompense item</soft_blue>'
+          Tooltip: '<soft_blue>Item</soft_blue> : donne des items au joueur. Par défaut : %1$s.'
+          Width: 200
+        CommandType:
+          Label: '<soft_orange>Récompense commande</soft_orange>'
+          Tooltip: '<soft_orange>Commande</soft_orange> : exécute des commandes. Aperçu par défaut : %1$s.'
+          Width: 200
+    Sorting:
+      Title: '&e&lRÉCOMPENSES &8» &fTri'
+      Body:
+        Width: 400
+        Contents:
+          - 'Choisissez le mode de tri.'
+      Input:
+        Reversed: 'Inversé'
+      Button:
+        Mode:
+          Label: '<soft_yellow>→</soft_yellow> Mode : <soft_yellow>%s</soft_yellow>'
+          Tooltip: ''
+          Width: 200
+      Mode:
+        WEIGHT: 'Poids'
+        RARITY: 'Rareté'
+        CHANCE: 'Chance'
+        NAME: 'Nom'
+        ITEM: 'Item matériel'
+  Key:
+    Creation:
+      Title: '&e&lCLÉ &8» &fCréation'
+    Name:
+      Title: '&e&lCLÉ &8» &fNom'
+    Item:
+      Title: '&e&lCLÉ &8» &fItem'
+  Crate:
+    Name:
+      Title: '&e&lCAISSE &8» &fNom'
+    Description:
+      Title: '&e&lCAISSE &8» &fDescription'
+    Opening:
+      Title: '&e&lCAISSE &8» &fAnimation'
+      Body:
+        Width: 400
+        Contents:
+          - 'Choisissez l''animation d''ouverture.'
+          - 'Répertoire des animations : dossier openings du plugin.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> Décochez <soft_yellow>Activé</soft_yellow> pour désactiver l''animation.'
+      Input:
+        Enabled: 'Activé'
+        Opening: '<soft_yellow>Ouverture</soft_yellow>'
+    Preview:
+      Title: '&e&lCAISSE &8» &fModèle d''aperçu'
+      Body:
+        Width: 400
+        Contents:
+          - 'Modèle GUI d''aperçu pour cette caisse.'
+          - 'Fichiers dans le dossier previews.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> Décochez <soft_yellow>Activé</soft_yellow> pour désactiver l''aperçu.'
+      Input:
+        Enabled: 'Activé'
+        Preview: '<soft_yellow>Aperçu</soft_yellow>'
+    Post-Open-Commands:
+      Title: '&e&lCAISSE &8» &fCommandes post-ouverture'
+      Body:
+        Width: 400
+        Contents:
+          - 'Jusqu''à <soft_yellow>5 commandes</soft_yellow> après chaque ouverture.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> %player_name% et placeholders Crate (wiki).'
+          - '<soft_yellow>→</soft_yellow> PlaceholderAPI si présent.'
+      Input:
+        Command: 'Commande <soft_yellow>#%s</soft_yellow>'
+    OpeningCooldown:
+      Title: '&e&lCAISSE &8» &fLimites d''ouverture'
+      Body:
+        Width: 400
+        Contents:
+          - 'Limites d''ouverture par joueur.'
+          - ''
+          - '<soft_yellow>Cooldown</soft_yellow> : fenêtre en secondes pour un nombre d''ouvertures (montant).'
+          - ''
+          - 'Une fois terminé, le compteur se réinitialise.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> Caisse à usage unique : cooldown <soft_yellow>-1</soft_yellow>.'
+          - '<soft_yellow>→</soft_yellow> Désactiver : décochez <soft_yellow>Activé</soft_yellow>.'
+      Input:
+        Cooldown: 'Cooldown <gray>(secondes)</gray>'
+        Amount: 'Nombre <gray>(min. 1)</gray>'
+    Particle:
+      Title: '&e&lCAISSE &8» &fType de particule'
+      Body:
+        Width: 400
+        Contents:
+          - 'Choisissez le type de particule.'
+          - ''
+          - 'Une <soft_red>étoile (*)</soft_red> signale des données supplémentaires obligatoires.'
+    ParticleData:
+      Title: '&e&lCAISSE &8» &fDonnées particule'
+      Body:
+        Color:
+          Width: 400
+          Contents:
+            - 'Couleur RVB obligatoire pour ce type.'
+        Item:
+          Width: 400
+          Contents:
+            - 'Nom d''item obligatoire pour ce type.'
+        Block:
+          Width: 400
+          Contents:
+            - 'Nom de bloc obligatoire pour ce type.'
+        Generic:
+          Width: 400
+          Contents:
+            - 'Options additionnelles obligatoires pour ce type.'
+      Input:
+        Red: '<soft_red>Rouge</soft_red>'
+        Green: '<soft_green>Vert</soft_green>'
+        Blue: '<soft_blue>Bleu</soft_blue>'
+        Alpha: Alpha
+        Size: Taille
+        Power: Puissance
+        Delay: Délai
+        BlockName: Nom du bloc
+        ItemName: 'Nom de l''item'
+    Effect:
+      Title: '&e&lCAISSE &8» &fEffet de bloc'
+      Body:
+        Width: 400
+        Contents:
+          - 'Modèle d''effet et type de particule autour du bloc lié.'
+      Input:
+        Enabled: 'Activé'
+        Model: '<soft_yellow>Modèle d''effet</soft_yellow>'
+      Button:
+        Particle:
+          Label: '<soft_yellow>Particule :</soft_yellow> %s'
+          Tooltip: ''
+          Width: 200
+    Hologram:
+      Title: '&e&lCAISSE &8» &fHologramme'
+      Body:
+        Width: 400
+        Contents:
+          - 'Template d''hologramme et <soft_yellow>décalage Y</soft_yellow>.'
+          - 'Configurable dans config.yml.'
+          - ''
+          - '<soft_yellow>→</soft_yellow> Décochez <soft_yellow>Activé</soft_yellow> pour désactiver.'
+      Input:
+        Enabled: 'Activé'
+        Template: '<soft_yellow>Modèle</soft_yellow>'
+        YOffset: '<soft_yellow>Décalage Y</soft_yellow>'
+
+Enums:
+  RewardType:
+    ITEM: Item
+    COMMAND: Commande
+  CooldownMode:
+    DAILY: Quotidien
+    CUSTOM: Personnalisé
+
 Editor:
+  Title:
+    Main: '<black>Éditeur ExcellentCrates</black>'
+    Crates: '<black>Éditeur des caisses</black>'
+    Crate:
+      Settings: '<black>Paramètres de la caisse</black>'
+      CostOptions: '<black>Options de coût</black>'
+      CostOption: '<black>Paramètres d''une option de coût</black>'
+      Milestones: '<black>Paliers de la caisse</black>'
+    Reward:
+      List: '<black>Récompenses de la caisse</black>'
+      Content: '<black>Objets de récompense</black>'
+      Settings: '<black>Paramètres de récompense</black>'
+    Keys: '<black>Éditeur des clés</black>'
+    Key:
+      Settings: '<black>Paramètres de la clé</black>'
+  Enter:
+    Amount: '<gray>Saisissez <green>[Montant]</green></gray>'
+  Button:
+    Main:
+      Crates:
+        Name: '<green><b>Caisses</b></green>'
+        Lore:
+          - '<gray>Il y a <green>%amount%</green> caisse(s).</gray>'
+          - ' '
+          - '<green>→ <u>Clic pour ouvrir</u></green>'
+      Keys:
+        Name: '<gold><b>Clés</b></gold>'
+        Lore:
+          - '<gray>Il y a <gold>%amount%</gold> clé(s).</gray>'
+          - ' '
+          - '<gold>→ <u>Clic pour ouvrir</u></gold>'
+    Crates:
+      Crate:
+        Name: '%crate_name%'
+        Lore:
+          - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+          - '<gray><dark_gray>» </dark_gray>ID : <white>%crate_id%</white></gray>'
+          - ' '
+          - '<soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>'
+      Create:
+        Name: '<green><b>Nouvelle caisse</b></green>'
+        Lore:
+          - '<gray>Utilisez ce bouton pour créer une</gray>'
+          - '<gray>toute nouvelle caisse.</gray>'
+          - ' '
+          - '<green>→ <u>Clic pour créer</u></green>'
+    Crate:
+      Delete:
+        Name: <red><b>Supprimer la caisse</b></red>
+        Lore:
+        - <gray>Supprime définitivement la caisse.</gray>
+        - ' '
+        - <red>→ <u>Maintenez [<key:key.drop>] pour supprimer</u></red>
+      DisplayName:
+        Name: <soft_yellow><b>Nom</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Actuel : <white>%crate_name%</white></gray>'
+        - ' '
+        - <gray>Définit le nom affiché de la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Description:
+        Name: <soft_yellow><b>Description</b></soft_yellow>
+        Lore:
+        - '%crate_description%'
+        - '%empty-if-above%'
+        - <gray>Définit la description de la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Item:
+        Name: <soft_yellow><b>Item de caisse</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Empilable : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Déposez un item sur <soft_yellow>ce</soft_yellow> bouton</gray>
+        - <gray>pour remplacer l''item de la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver l''empilage</u></soft_yellow>
+      Preview:
+        Set:
+          Name: <soft_yellow><b>GUI d'aperçu</b></soft_yellow>
+          Lore:
+          - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+          - '<gray><dark_gray>» </dark_gray>ID d'aperçu : <white>%value%</white></gray>'
+          - ' '
+          - <gray>Définit l'interface d'aperçu de la caisse.</gray>
+          - ' '
+          - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+        Unset:
+          Name: <soft_yellow><b>GUI d'aperçu</b></soft_yellow>
+          Lore:
+          - '<gray><dark_gray>» </dark_gray>Statut : <white><red>Désactivé</red></white></gray>'
+          - ' '
+          - <gray>Définit l'interface d'aperçu pour cette caisse.</gray>
+          - ' '
+          - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Opening:
+        Set:
+          Name: <soft_yellow><b>Animation d'ouverture</b></soft_yellow>
+          Lore:
+          - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+          - '<gray><dark_gray>» </dark_gray>Configuration : <white>%value%</white></gray>'
+          - ' '
+          - <gray>Définit l'animation d'ouverture de la caisse.</gray>
+          - ' '
+          - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+        Unset:
+          Name: <soft_yellow><b>Animation d'ouverture</b></soft_yellow>
+          Lore:
+          - '<gray><dark_gray>» </dark_gray>Statut : <white><red>Désactivé</red></white></gray>'
+          - ' '
+          - <gray>Définit l'animation d'ouverture de la caisse.</gray>
+          - ' '
+          - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      LinkedBlocks:
+        Name: <soft_yellow><b>Bloc lié</b></soft_yellow>
+        Lore:
+        - <dark_gray>Maintenez <gold>[<key:key.drop>]</gold> pour dissocier.</dark_gray>
+        - ' '
+        - '<gray><dark_gray>» </dark_gray>Lié : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Associe la caisse à un bloc avec</gray>
+        - <gray>l'outil de liaison.</gray>
+        - ' '
+        - <gray>Interagir avec le bloc ouvre ou</gray>
+        - <gray>prévisualise la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour obtenir l'outil</u></soft_yellow>
+      BlockPushback:
+        Name: <soft_yellow><b>Repoussement</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Repousse le joueur du bloc si les</gray>
+        - <gray>conditions d'ouverture ne sont pas remplies.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+      CostOptions:
+        Name: <soft_yellow><b>Options de coût</b></soft_yellow>
+        Lore:
+        - <gray>Définissez le <soft_yellow>coût</soft_yellow> pour ouvrir</gray>
+        - <gray>la caisse : <soft_yellow>clés</soft_yellow>, <soft_yellow>devise</soft_yellow>, ou les deux.</gray>
+        - ' '
+        - <gray>Vous pouvez ajouter plusieurs options,</gray>
+        - <gray>les joueurs choisissent comment payer.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>
+      Permission:
+        Name: <soft_yellow><b>Permission requise</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Permission : <white>%value%</white></gray>'
+        - ' '
+        - <gray>Exige ou non une permission pour</gray>
+        - <gray>ouvrir la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+      OpeningCooldown:
+        Name: <soft_yellow><b>Limites d'ouverture</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Cooldown : <white>%value%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Nombre max : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Limite combien de fois la caisse peut être</gray>
+        - <gray>ouverte par joueur dans une fenêtre de temps.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Effect:
+        Name: <soft_yellow><b>Effet de caisse</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Modèle : <white>%type%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Particule : <white>%value%</white></gray>'
+        - ' '
+        - <gray>Effet autour du ou des blocs de caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Hologram:
+        Name: <soft_yellow><b>Hologramme</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Modèle : <white>%value%</white></gray>'
+        - ' '
+        - <gray>Hologramme automatique au-dessus</gray>
+        - <gray>du bloc lié à la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Rewards:
+        Name: <soft_yellow><b>Récompenses</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Récompenses : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Ajouter et gérer les récompenses.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>
+      Milestones:
+        Name: <soft_yellow><b>Paliers</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Paliers : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Paliers personnalisés avec récompenses.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>
+      Post-Open-Commands:
+        Name: <soft_yellow><b>Commandes post-ouverture</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Commandes : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Exécute les commandes listées à</gray>
+        - <gray>chaque ouverture de la caisse.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+    Milestone:
+      Create:
+        Name: <soft_yellow><b>Nouveau palier</b></soft_yellow>
+        Lore: []
+      Object:
+        Name: '<soft_yellow><b>Palier : %milestone_openings%</b></soft_yellow>'
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Ouvertures : <white>%milestone_openings%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>ID récompense : <white>%milestone_reward_id%</white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic gauche : ouvertures</u></soft_yellow>
+        - <soft_yellow>→ <u>Clic droit : récompense</u></soft_yellow>
+        - <soft_yellow>→ <u>Shift + clic droit : supprimer <soft_red>(sans retour)</soft_red></u></soft_yellow>
+    Rewards:
+      Reward:
+        Name: '%reward_name%'
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>ID : <white>%reward_id%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Poids : <white>%reward_weight% → <green>%reward_roll_chance%%</green></white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Rareté : <white>%reward_rarity_name% → <green>%reward_rarity_roll_chance%%</green></white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Creation:
+        Name: <green><b>Créer une récompense</b></green>
+        Lore:
+        - <gray>Déposez un item sur <green>ce</green> bouton</gray>
+        - <gray>pour créer une récompense.</gray>
+      Sorting:
+        Name: <soft_yellow><b>Trier les récompenses</b></soft_yellow>
+        Lore:
+        - <gray>Trie automatiquement les récompenses.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>
+      MassMode:
+        Name: <soft_yellow><b>Mode création en masse</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Type : <white>%type%</white></gray>'
+        - ' '
+        - <gray>Ajoute rapidement plusieurs récompenses</gray>
+        - <gray>en cliquant des items dans votre inventaire.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic : activer/désactiver le mode</u></soft_yellow>
+        - <soft_yellow>→ <u>Clic : changer le type</u></soft_yellow>
+      ArrangeMode:
+        Name: <soft_yellow><b>Mode disposition</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Déplace les récompenses à gauche ou à droite.</gray>
+        - ' '
+        - <gray><soft_yellow>Clic gauche</soft_yellow> : vers la gauche,</gray>
+        - <gray><soft_yellow>Clic droit</soft_yellow> : vers la droite.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+    Reward:
+      Items:
+        Name: <soft_yellow><b>Items donnés</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Items : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Donne les items listés quand la récompense est gagnée.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour ouvrir</u></soft_yellow>
+      Commands:
+        Name: <soft_yellow><b>Commandes</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Commandes : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Exécute les commandes quand la récompense est gagnée.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      PreviewNormal:
+        Name: <soft_yellow><b>Item d'aperçu</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - ' '
+        - <gray>Déposez un item sur <soft_yellow>ce</soft_yellow> bouton pour</gray>
+        - <gray>remplacer l'aperçu de la récompense.</gray>
+      PreviewCustom:
+        Name: <soft_yellow><b>Item d'aperçu</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Personnalisé : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Déposez un item sur <soft_yellow>ce</soft_yellow> bouton pour</gray>
+        - <gray>remplacer l'aperçu.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic : mode personnalisé</u></soft_yellow>
+      RarityWeight:
+        Name: <soft_yellow><b>Rareté et poids</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Rareté : <white>%reward_rarity_name% → <soft_green>%reward_rarity_roll_chance%%</soft_green></white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Poids : <white>%reward_weight% → <soft_green>%reward_roll_chance%%</soft_green></white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Name:
+        Name: <soft_yellow><b>Nom affiché</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Actuel : <white>%reward_name%</white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Description:
+        Name: <soft_yellow><b>Description</b></soft_yellow>
+        Lore:
+        - '%reward_description%'
+        - '%empty-if-above%'
+        - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Broadcast:
+        Name: <soft_yellow><b>Annonce de gain</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Diffuse un message à tous lorsqu'un</gray>
+        - <gray>joueur gagne cette récompense.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+      Permissions:
+        Name: <soft_yellow><b>Permissions</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Permissions : <white>%amount%</white></gray>'
+        - ' '
+        - <gray>Contrôle qui peut ou non obtenir</gray>
+        - <gray>cette récompense.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Limits:
+        Name: <soft_yellow><b>Limites</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Fréquence et nombre de fois où cette</gray>
+        - <gray>récompense peut être obtenue.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+      Delete:
+        Name: <soft_red><b>Supprimer la récompense</b></soft_red>
+        Lore:
+        - <gray>Supprime définitivement la récompense.</gray>
+        - ' '
+        - <soft_red>→ <u>Maintenez <key:key.drop> pour supprimer</u></soft_red>
+      ItemPlaceholders:
+        Name: <soft_yellow><b>Placeholders sur l'item</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Remplace des placeholders dans l'item :</gray>
+        - <gray><soft_yellow>→</soft_yellow> placeholders de caisse <dark_gray>(doc)</dark_gray></gray>
+        - <gray><soft_yellow>→</soft_yellow> placeholders de récompense <dark_gray>(doc)</dark_gray></gray>
+        - <gray><soft_yellow>→</soft_yellow> %player_name%</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+    Keys:
+      Create:
+        Name: <green><b>Nouvelle clé</b></green>
+        Lore:
+        - <gray>Utilisez ce bouton pour créer</gray>
+        - <gray>une nouvelle clé.</gray>
+        - ' '
+        - <green>→ <u>Clic pour créer</u></green>
+      Key:
+        Name: '%key_name%'
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>ID : <white>%key_id%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Virtuelle : <white>%state%</white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic pour éditer</u></soft_yellow>
+    Key:
+      Delete:
+        Name: <red><b>Supprimer la clé</b></red>
+        Lore:
+        - <gray>Supprime définitivement la clé.</gray>
+        - ' '
+        - <red>→ <u>Maintenez [<key:key.drop>] pour supprimer</u></red>
+      Name:
+        Name: <soft_yellow><b>Nom affiché</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Actuel : <white>%key_name%</white></gray>'
+        - ' '
+        - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+      Item:
+        Name: <soft_yellow><b>Item de clé</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Empilable : <white>%state%</white></gray>'
+        - ' '
+        - <gray>Déposez un item sur <soft_yellow>ce</soft_yellow> bouton pour</gray>
+        - <gray>remplacer l''item de la clé.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic : empilage</u></soft_yellow>
+      Virtual:
+        Name: <soft_yellow><b>Virtuelle</b></soft_yellow>
+        Lore:
+        - '<gray><dark_gray>» </dark_gray>État : <white>%state%</white></gray>'
+        - ' '
+        - <gray>La clé est stockée sans item physique.</gray>
+        - ' '
+        - <soft_yellow>→ <u>Clic pour activer/désactiver</u></soft_yellow>
+  Costs:
+    Data:
+      Vacant:
+        Name: <soft_aqua><b>Emplacement vide</b></soft_aqua>
+        Lore:
+        - <gray>Ajoute une option de coût pour la caisse.</gray>
+        - ' '
+        - <soft_aqua>→ <u>Clic pour créer</u></soft_aqua>
+      Filled:
+        Name: '<yellow><b>Option : </b></yellow><white>%cost_name%</white> <gray>(ID : <white>%cost_id%</white>)</gray>'
+        Lore:
+        - <i><dark_gray>Touche <soft_red><key:key.drop></soft_red> pour supprimer.</dark_gray></i>
+        - ' '
+        - '%costs%'
+        - ' '
+        - <yellow>→ <u>Clic pour éditer</u></yellow>
+      Empty:
+        Name: '<red><b>Option : </b></red><white>%cost_name%</white> <gray>(ID : <white>%cost_id%</white>)</gray>'
+        Lore:
+        - <i><dark_gray>Touche <soft_red><key:key.drop></soft_red> pour supprimer.</dark_gray></i>
+        - ' '
+        - <soft_red>Aucun coût défini !</soft_red>
+        - ' '
+        - <red>→ <u>Clic pour éditer</u></red>
+    Toggle:
+      Enabled:
+        Name: <green><b>Activé</b></green>
+        Lore:
+        - <green>→ <u>Clic pour basculer</u></green>
+      Disabled:
+        Name: <white><b>Désactivé</b></white>
+        Lore:
+        - <white>→ <u>Clic pour basculer</u></white>
+      Nothing:
+        Name: <gray>< Aucune donnée ></gray>
+        Lore: []
+    Status:
+      Good:
+        Name: '<green><b>Statut : </b></green><white>OK</white>'
+        Lore:
+        - <gray>Toutes les entrées sont valides.</gray>
+      Warn:
+        Name: '<yellow><b>Statut : </b></yellow><white>Attention</white>'
+        Lore:
+        - <gray>Certaines entrées sont invalides.</gray>
+      Bad:
+        Name: '<red><b>Statut : </b></red><white>Invalide</white>'
+        Lore:
+        - <gray>Aucune entrée valide.</gray>
+      Nothing:
+        Name: '<gray><b>Statut : </b></gray><white>< Aucune donnée ></white>'
+        Lore: []
+  CostOptions:
+    Name:
+      Name: <soft_yellow><b>Nom</b></soft_yellow>
+      Lore:
+      - '<gray><dark_gray>» </dark_gray>Actuel : <white>%cost_name%</white></gray>'
+      - ' '
+      - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
+    Icon:
+      Name: <soft_yellow><b>Icône</b></soft_yellow>
+      Lore:
+      - '<gray><dark_gray>» </dark_gray>Items personnalisés : <white>%state%</white></gray>'
+      - ' '
+      - <gray>Glissez un item ici pour</gray>
+      - <gray>remplacer l'icône.</gray>
+      - ' '
+      - <soft_yellow>→ <u>Clic droit : basculer</u></soft_yellow>
+    VacantEntry:
+      Name: <green><b>Emplacement vide</b></green>
+      Lore:
+      - <gray>Slot libre pour une entrée de coût.</gray>
+      - ' '
+      - <green>→ <u>Clic pour créer</u></green>
   Crate:
     Enter:
       Id: '&7Entrez un identifiant de caisse &aunique&7...'
@@ -99,7 +1097,7 @@ Editor:
           Text: '&7Saisir la ligne de &atexte&7...'
           Offset: '&7Entrez la valeur de &adécalage&7...'
       Cooldown: '&7Entrez le &atemps de recharge &7en secondes...'
-      Citizens: '&Entrez un ID de &aCitizens NPC&7...'
+      Citizens: '&7Entrez un ID de &aPNJ Citizens&7...'
       AnimationConfig: '&7Entrez le nom de la &aconfiguration d''animation&7...'
       PreviewConfig: '&7Entrez le nom de la &aconfiguration d''aperçu&7...'
       OpenCost:
@@ -122,7 +1120,7 @@ Editor:
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aBasculer'
   Reward:
     Enter:
-      Id: '&7Entrez un &aidentifiant aunique &7de récompense...'
+      Id: '&7Entrez un &aidentifiant unique &7de récompense...'
       DisplayName: '&7Entrez le &anom d''affichage &7de la récompense...'
       Chance: '&7Entrez la &achance &7de gagner...'
       Command: '&7Entrez une &acommande&7...'
@@ -178,7 +1176,7 @@ Editor:
         - '#bbff6a&lActions:'
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aModifier'
     CRATE_CHANGE_PERMISSION:
-      Name: '#ffed6a&lPermission Requirement'
+      Name: '#ffed6a&lPermission requise'
       Lore:
         - '#ffed6a&lActuellement:'
         - '#ffed6a▪ #bdc8c9Requis: #ffed6a%crate_permission_required%'
@@ -204,7 +1202,7 @@ Editor:
         - '#bbff6a&lActions:'
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aModifier'
         - '#bbff6a▪ #bdc8c9Clic-Droit: #bbff6aDésactiver'
-        - '#bbff6a▪ #bdc8c9[Q/Jeter] Key: #bbff6aUsage unique'
+        - '#bbff6a▪ #bdc8c9[Q / jeter] : #bbff6aUsage unique'
     CRATE_CHANGE_CONFIG:
       Name: '#ffed6a&lAperçu et animation'
       Lore:
@@ -260,7 +1258,7 @@ Editor:
       Lore:
         - '#ffed6a&lActuellement:'
         - '#ffed6a▪ #bdc8c9Argent: #ffed6a%crate_opening_cost_money%'
-        - '#ffed6a▪ #bdc8c9Exp Levels: #ffed6a%crate_opening_cost_exp%'
+        - '#ffed6a▪ #bdc8c9Niveaux d''expérience : #ffed6a%crate_opening_cost_exp%'
         - ''
         - '#bdc8c9Définit combien d''argent/d''expérience'
         - '#bdc8c9le joueur doit payer pour'
@@ -269,7 +1267,7 @@ Editor:
         - '#bbff6a&lActions:'
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aModifier l''argent'
         - '#bbff6a▪ #bdc8c9Clic-Droit: #bbff6aModifier l''Exp'
-        - '#bbff6a▪ #bdc8c9[Q/Jeter] Key: #bbff6aDésactiver TOUS'
+        - '#bbff6a▪ #bdc8c9[Q / jeter] : #bbff6aTout désactiver'
     CRATE_CHANGE_ITEM:
       Name: '#ffed6a&lItem de caisse'
       Lore:
@@ -297,7 +1295,7 @@ Editor:
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aAttacher un bloc'
         - '#bbff6a▪ #bdc8c9Clic-Droit: #bbff6aEffacer la liste'
     CRATE_CHANGE_BLOCK_HOLOGRAM:
-      Name: '#ffed6a&lBlock Hologram'
+      Name: '#ffed6a&lHologramme du bloc'
       Lore:
         - '#ffed6a&lActuellement:'
         - '#ffed6a▪ #bdc8c9Activé: #ffed6a%crate_block_hologram_enabled%'
@@ -328,7 +1326,7 @@ Editor:
         - '#bbff6a&lActions:'
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aChanger de particule'
         - '#bbff6a▪ #bdc8c9Clic-Droit: #bbff6aChanger de data'
-        - '#bbff6a▪ #bdc8c9[Q/Jeter] Key: #bbff6aBasculer le modèle'
+        - '#bbff6a▪ #bdc8c9[Q / jeter] : #bbff6aBasculer le modèle'
     CRATE_CHANGE_REWARDS:
       Name: '#ffed6a&lRécompenses de caisse'
       Lore:
@@ -345,7 +1343,7 @@ Editor:
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aModifier'
         - '#bbff6a▪ #bdc8c9Shift-Gauche: #bbff6aFaire Avancer'
         - '#bbff6a▪ #bdc8c9Shift-Droit: #bbff6aFaire Reculer'
-        - '#bbff6a▪ #bdc8c9[Q/Jeter] Key: #bbff6aSupprimer #ff6a6a(Ne peut pas être annulé)'
+        - '#bbff6a▪ #bdc8c9[Q / jeter] : #bbff6aSupprimer #ff6a6a(Irréversible)'
     REWARD_CREATE:
       Name: '#ffed6a&lCréer une récompense'
       Lore:
@@ -433,7 +1431,7 @@ Editor:
         - '#bbff6a&lActions:'
         - '#bbff6a▪ #bdc8c9Clic-Gauche: #bbff6aOuvrir'
     REWARD_CHANGE_BROADCAST:
-      Name: '#ffed6a&lBroadcast du gagnant'
+      Name: '#ffed6a&lAnnonce de gain'
       Lore:
         - '#ffed6a&lActuellement:'
         - '#ffed6a▪ #bdc8c9Activé: #ffed6a%reward_broadcast%'

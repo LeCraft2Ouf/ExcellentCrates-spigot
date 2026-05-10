@@ -33,18 +33,18 @@ public class KeyListMenu extends LinkedMenu<CratesPlugin, KeyManager> implements
 
     private static final IconLocale LOCALE_CREATION = LangEntry.iconBuilder("Editor.Button.Keys.Create")
         .accentColor(GREEN)
-        .name("New Key")
-        .appendInfo("Use this button to create", "brand new keys!").br()
-        .appendClick("Click to create")
+        .name("Nouvelle clé")
+        .appendInfo("Utilisez ce bouton pour créer", "une nouvelle clé.").br()
+        .appendClick("Cliquer pour créer")
         .build();
 
     private static final IconLocale LOCALE_KEY = LangEntry.iconBuilder("Editor.Button.Keys.Key")
         .rawName(KEY_NAME)
-        .appendCurrent("Status", GENERIC_INSPECTION)
+        .appendCurrent("Statut", GENERIC_INSPECTION)
         .appendCurrent("ID", KEY_ID)
-        .appendCurrent("Virtual", GENERIC_STATE)
+        .appendCurrent("Virtuelle", GENERIC_STATE)
         .br()
-        .appendClick("Click to edit")
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private final DialogRegistry dialogs;

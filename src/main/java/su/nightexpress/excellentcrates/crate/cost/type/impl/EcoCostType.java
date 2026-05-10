@@ -22,14 +22,14 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class EcoCostType extends AbstractCostType implements LangContainer {
 
-    public static final TextLocale LOCALE_NAME = LangEntry.builder("Costs.Currency.Name").text(GREEN.wrap("[$]") + " " + WHITE.wrap("Currency"));
+    public static final TextLocale LOCALE_NAME = LangEntry.builder("Costs.Currency.Name").text(GREEN.wrap("[$]") + " " + WHITE.wrap("Monnaie"));
 
     public static final IconLocale LOCALE_EDIT_BUTTON = LangEntry.iconBuilder("Costs.Currency.EditButton")
-        .rawName(YELLOW.and(BOLD).wrap("Currency Cost") + GRAY.wrap(" - ") + WHITE.wrap(GENERIC_NAME))
-        .rawLore(ITALIC.and(DARK_GRAY).wrap("Press " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " key to delete.")).br()
-        .appendCurrent("Currency ID", GENERIC_ID)
-        .appendCurrent("Amount", GENERIC_AMOUNT).br()
-        .appendClick("Click to edit")
+        .rawName(YELLOW.and(BOLD).wrap("Coût monétaire") + GRAY.wrap(" - ") + WHITE.wrap(GENERIC_NAME))
+        .rawLore(ITALIC.and(DARK_GRAY).wrap("Appuyez sur " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " pour supprimer.")).br()
+        .appendCurrent("ID monnaie", GENERIC_ID)
+        .appendCurrent("Montant", GENERIC_AMOUNT).br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private final DialogRegistry dialogs;

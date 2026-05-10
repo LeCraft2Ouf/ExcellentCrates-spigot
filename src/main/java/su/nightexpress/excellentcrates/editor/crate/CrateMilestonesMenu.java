@@ -32,18 +32,18 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.SOFT
 public class CrateMilestonesMenu extends LinkedMenu<CratesPlugin, Crate> implements Filled<Milestone>, LangContainer {
 
     private static final IconLocale MILESTONE_CREATE = LangEntry.iconBuilder("Editor.Button.Milestone.Create")
-        .name("New Milestone")
+        .name("Nouveau palier")
         .build();
 
     private static final IconLocale MILESTONE_OBJECT = LangEntry.iconBuilder("Editor.Button.Milestone.Object")
-        .name("Milestone: " + MILESTONE_OPENINGS)
-        .appendCurrent("Status", GENERIC_INSPECTION)
-        .appendCurrent("Openings", MILESTONE_OPENINGS)
-        .appendCurrent("Reward Id", MILESTONE_REWARD_ID)
+        .name("Palier : " + MILESTONE_OPENINGS)
+        .appendCurrent("Statut", GENERIC_INSPECTION)
+        .appendCurrent("Ouvertures", MILESTONE_OPENINGS)
+        .appendCurrent("ID récompense", MILESTONE_REWARD_ID)
         .br()
-        .appendClick("Left-Click to change openings")
-        .appendClick("Right-Click tochange reward")
-        .appendClick("Shift-Right delete " + SOFT_RED.wrap("(no undo)"))
+        .appendClick("Clic gauche : modifier les ouvertures")
+        .appendClick("Clic droit : changer la récompense")
+        .appendClick("Maj + clic droit : supprimer " + SOFT_RED.wrap("(sans annulation)"))
         .build();
 
     public CrateMilestonesMenu(@NotNull CratesPlugin plugin) {

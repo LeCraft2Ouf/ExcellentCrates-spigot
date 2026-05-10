@@ -15,25 +15,25 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CrateOpeningLimitsDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.OpeningCooldown.Title").text(title("Crate", "Opening Limits"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.OpeningCooldown.Title").text(title("Caisse", "Limites d'ouverture"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.OpeningCooldown.Body").dialogElement(400,
-        "Here you can set the crate opening limits per player.",
+        "Limite d'ouvertures de la caisse par joueur.",
         "",
-        SOFT_YELLOW.wrap("Cooldown") + " sets the time period (in seconds) during which a player can open the crate the number of times specified in " + SOFT_YELLOW.wrap("Amount") + ".",
+        "Le " + SOFT_YELLOW.wrap("cooldown") + " est la fenêtre en secondes pendant laquelle le joueur peut ouvrir la caisse jusqu'au nombre indiqué dans " + SOFT_YELLOW.wrap("Quantité") + ".",
         "",
-        "When this time period expires, the player's crate opening counter is reset, making the crate available again.",
+        "À expiration, le compteur est réinitialisé et la caisse redevient disponible selon les mêmes règles.",
         "",
-        "The cooldown timer is activated with the first crate opened after the counter is reset.",
+        "Le décompte commence à la première ouverture après la réinitialisation.",
         "",
-        SOFT_YELLOW.wrap("→") + " To make the crate one-timed (never reset), set " + SOFT_YELLOW.wrap("Cooldown") + " to " + SOFT_YELLOW.wrap("-1") + ".",
+        SOFT_YELLOW.wrap("→") + " Pour une ouverture unique définitive, mettez le " + SOFT_YELLOW.wrap("cooldown") + " à " + SOFT_YELLOW.wrap("-1") + ".",
         "",
-        SOFT_YELLOW.wrap("→") + " To disable this feature, uncheck the " + SOFT_YELLOW.wrap("Enabled") + " box."
+        SOFT_YELLOW.wrap("→") + " Décochez " + SOFT_YELLOW.wrap("Activé") + " pour désactiver cette limite."
     );
 
-    private static final TextLocale INPUT_ENABLED  = LangEntry.builder("Dialog.Crate.Preview.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_COOLDOWN = LangEntry.builder("Dialog.Crate.OpeningCooldown.Input.Cooldown").text("Cooldown " + GRAY.wrap("(in seconds)"));
-    private static final TextLocale INPUT_AMOUNT   = LangEntry.builder("Dialog.Crate.OpeningCooldown.Input.Amount").text("Amount " + GRAY.wrap("(min. 1)"));
+    private static final TextLocale INPUT_ENABLED  = LangEntry.builder("Dialog.Crate.Preview.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_COOLDOWN = LangEntry.builder("Dialog.Crate.OpeningCooldown.Input.Cooldown").text("Cooldown " + GRAY.wrap("(secondes)"));
+    private static final TextLocale INPUT_AMOUNT   = LangEntry.builder("Dialog.Crate.OpeningCooldown.Input.Amount").text("Quantité " + GRAY.wrap("(min. 1)"));
 
     private static final String JSON_ENABLED  = "enabled";
     private static final String JSON_COOLDOWN = "cooldown";

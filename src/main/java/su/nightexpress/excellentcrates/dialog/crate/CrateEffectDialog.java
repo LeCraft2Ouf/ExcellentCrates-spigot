@@ -25,17 +25,17 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.SOFT
 
 public class CrateEffectDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Effect.Title").text(title("Crate", "Block Effect"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Effect.Title").text(title("Caisse", "Effet de bloc"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.Effect.Body").dialogElement(400,
-        "Here you can choose the " + SOFT_YELLOW.wrap("effect model") + " and " + SOFT_YELLOW.wrap("particle type") + " for the crate.",
-        "These effects are shown around the blocks linked to the crate."
+        "Choisissez le " + SOFT_YELLOW.wrap("modèle d'effet") + " et le " + SOFT_YELLOW.wrap("type de particules") + " pour la caisse.",
+        "Les effets s'affichent autour des blocs liés."
     );
 
-    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Effect.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_MODEL = LangEntry.builder("Dialog.Crate.Effect.Input.Model").text(SOFT_YELLOW.wrap("Effect Model"));
+    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Effect.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_MODEL = LangEntry.builder("Dialog.Crate.Effect.Input.Model").text(SOFT_YELLOW.wrap("Modèle d’effet"));
 
-    private static final ButtonLocale BUTTON_PARTICLE = LangEntry.builder("Dialog.Crate.Effect.Button.Particle").button(SOFT_YELLOW.wrap("Particle: ") + "%s");
+    private static final ButtonLocale BUTTON_PARTICLE = LangEntry.builder("Dialog.Crate.Effect.Button.Particle").button(SOFT_YELLOW.wrap("Particules : ") + "%s");
 
     private static final String ACTION_PARTICLE = "particle";
     private static final String JSON_ENABLED = "enabled";

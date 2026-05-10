@@ -45,44 +45,44 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
 
     private static final IconLocale LOCALE_REWARD = LangEntry.iconBuilder("Editor.Button.Rewards.Reward")
         .rawName(REWARD_NAME)
-        .appendCurrent("Status", GENERIC_INSPECTION)
+        .appendCurrent("Statut", GENERIC_INSPECTION)
         .appendCurrent("ID", REWARD_ID)
-        .appendCurrent("Weight", REWARD_WEIGHT + " → " + GREEN.wrap(REWARD_ROLL_CHANCE + "%"))
-        .appendCurrent("Rarity", REWARD_RARITY_NAME + " → " + GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
+        .appendCurrent("Poids", REWARD_WEIGHT + " → " + GREEN.wrap(REWARD_ROLL_CHANCE + "%"))
+        .appendCurrent("Rareté", REWARD_RARITY_NAME + " → " + GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
         .br()
-        .appendClick("Click to edit")
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private static final IconLocale LOCALE_CREATION = LangEntry.iconBuilder("Editor.Button.Rewards.Creation")
         .accentColor(GREEN)
-        .name("Reward Creation")
-        .appendInfo("Drop item on " + GREEN.wrap("this") + " button", "to create a new reward of it.")
+        .name("Création de récompense")
+        .appendInfo("Posez un objet sur " + GREEN.wrap("ce") + " bouton", "pour créer une récompense à partir de lui.")
         .build();
 
     private static final IconLocale LOCALE_SORTING = LangEntry.iconBuilder("Editor.Button.Rewards.Sorting")
-        .name("Sort Rewards")
-        .appendInfo("Automatically sorts rewards in", "certain order.").br()
-        .appendClick("Click to open")
+        .name("Trier les récompenses")
+        .appendInfo("Trie automatiquement les récompenses", "dans un ordre donné.").br()
+        .appendClick("Cliquer pour ouvrir")
         .build();
 
     private static final IconLocale LOCALE_MASS_MODE = LangEntry.iconBuilder("Editor.Button.Rewards.MassMode")
-        .name("Mass Creation Mode")
-        .appendCurrent("Status", GENERIC_STATE)
-        .appendCurrent("Reward Type", GENERIC_TYPE).br()
-        .appendInfo("Allows you to quickly add", "multiple rewards to the crate", "by clicking on items in", "your inventory.").br()
-        .appendClick("Click to toggle mode")
-        .appendClick("Click to toggle type")
+        .name("Mode création en masse")
+        .appendCurrent("Statut", GENERIC_STATE)
+        .appendCurrent("Type de récompense", GENERIC_TYPE).br()
+        .appendInfo("Permet d'ajouter rapidement", "plusieurs récompenses à la caisse", "en cliquant sur des objets", "dans votre inventaire.").br()
+        .appendClick("Clic gauche : activer/désactiver le mode")
+        .appendClick("Clic droit : changer le type")
         .build();
 
     private static final IconLocale LOCALE_ARRANGE_MODE = LangEntry.iconBuilder("Editor.Button.Rewards.ArrangeMode")
-        .name("Arrange Mode")
-        .appendCurrent("Status", GENERIC_STATE).br()
-        .appendInfo("Allows you to arrange rewards by", "shifting them left or right.")
+        .name("Mode réorganisation")
+        .appendCurrent("Statut", GENERIC_STATE).br()
+        .appendInfo("Permet de déplacer les récompenses", "vers la gauche ou la droite.")
         .br()
-        .appendInfo("Use the " + SOFT_YELLOW.wrap("Left-Click") + " to shift left,")
-        .appendInfo("and the " + SOFT_YELLOW.wrap("Right-Click") + " to shift right.")
+        .appendInfo("Utilisez le " + SOFT_YELLOW.wrap("clic gauche") + " pour décaler à gauche,")
+        .appendInfo("et le " + SOFT_YELLOW.wrap("clic droit") + " pour décaler à droite.")
         .br()
-        .appendClick("Click to toggle")
+        .appendClick("Cliquer pour basculer")
         .build();
 
     public record Data(@NotNull Crate crate, @NotNull RewardType massModeType, boolean massMode, boolean arrangeMode) {}

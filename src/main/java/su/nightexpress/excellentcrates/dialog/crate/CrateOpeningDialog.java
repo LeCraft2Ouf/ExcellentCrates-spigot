@@ -21,17 +21,17 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CrateOpeningDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Opening.Title").text(title("Crate", "Opening Animation"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Opening.Title").text(title("Caisse", "Animation d'ouverture"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.Opening.Body").dialogElement(400,
-        "Select an opening animation for the crate.",
-        "You can create and edit animations in the " + SOFT_YELLOW.wrap(Config.DIR_OPENINGS) + " directory.",
+        "Choisissez une animation d'ouverture pour cette caisse.",
+        "Les animations se créent et s'éditent dans le dossier " + SOFT_YELLOW.wrap(Config.DIR_OPENINGS) + ".",
         "",
-        SOFT_YELLOW.wrap("→ ") + "To disable crate opening animation, uncheck the " + SOFT_YELLOW.wrap("Enabled") + " box."
+        SOFT_YELLOW.wrap("→ ") + "Décochez " + SOFT_YELLOW.wrap("Activé") + " pour désactiver l’animation."
     );
 
-    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Opening.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_OPENING = LangEntry.builder("Dialog.Crate.Opening.Input.Opening").text(SOFT_YELLOW.wrap("Opening"));
+    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Opening.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_OPENING = LangEntry.builder("Dialog.Crate.Opening.Input.Opening").text(SOFT_YELLOW.wrap("Ouverture"));
 
     private static final String JSON_ENABLED = "enabled";
     private static final String JSON_ID      = "id";

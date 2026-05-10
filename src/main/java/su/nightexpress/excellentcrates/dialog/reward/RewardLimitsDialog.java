@@ -23,26 +23,26 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardLimitsDialog extends Dialog<Reward> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Limits.Title").text(title("Reward", "Limits"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Limits.Title").text(title("Récompense", "Limites"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Reward.Limits.Body").dialogElement(400,
-        "Here you can set how often and how many times this reward can be won.",
+        "Définissez à quelle fréquence et combien de fois cette récompense peut être remportée.",
         "",
-        SOFT_ORANGE.wrap("Global") + " settings apply to all players at once, while the " + SOFT_BLUE.wrap("Individual") + " ones apply individually.",
+        "Les valeurs " + SOFT_ORANGE.wrap("globales") + " s'appliquent à tous les joueurs ; les valeurs " + SOFT_BLUE.wrap("individuelles") + ", à chaque joueur.",
         "",
-        SPRITE_NO_ATLAS.apply("item/clock_00") + " Use " + SOFT_YELLOW.wrap("Daily") + " cooldown mode to reset the cooldown at " + SOFT_YELLOW.wrap("midnight") + " after the specified number of days.",
-        SPRITE_NO_ATLAS.apply("item/clock_00") + " Use " + SOFT_YELLOW.wrap("Custom") + " cooldown mode to set an exact cooldown time in " + SOFT_YELLOW.wrap("seconds") + ".",
+        SPRITE_NO_ATLAS.apply("item/clock_00") + " Mode " + SOFT_YELLOW.wrap("quotidien") + " : le cooldown est réinitialisé à " + SOFT_YELLOW.wrap("minuit") + " après le nombre de jours indiqué.",
+        SPRITE_NO_ATLAS.apply("item/clock_00") + " Mode " + SOFT_YELLOW.wrap("personnalisé") + " : définissez un cooldown précis en " + SOFT_YELLOW.wrap("secondes") + ".",
         "",
-        SPRITE_NO_ATLAS.apply("item/barrier") + " To disable cooldown, set it's value to " + SOFT_RED.wrap("0") + ".",
-        SPRITE_NO_ATLAS.apply("item/barrier") + " To remove the rolls limit, set it's value to " + SOFT_RED.wrap("-1") + "."
+        SPRITE_NO_ATLAS.apply("item/barrier") + " Pour désactiver le cooldown, mettez " + SOFT_RED.wrap("0") + ".",
+        SPRITE_NO_ATLAS.apply("item/barrier") + " Pour retirer la limite de tirages, mettez " + SOFT_RED.wrap("-1") + "."
     );
 
-    private static final TextLocale INPUT_ENABLED         = LangEntry.builder("Dialog.Reward.Limits.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_COOLDOWN_MODE   = LangEntry.builder("Dialog.Reward.Limits.Input.CooldownMode").text(SOFT_YELLOW.wrap("Cooldown Mode"));
-    private static final TextLocale INPUT_GLOBAL_AMOUNT   = LangEntry.builder("Dialog.Reward.Limits.Input.GlobalAmount").text(SOFT_ORANGE.wrap("(Global)") + " Max. Rolls");
+    private static final TextLocale INPUT_ENABLED         = LangEntry.builder("Dialog.Reward.Limits.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_COOLDOWN_MODE   = LangEntry.builder("Dialog.Reward.Limits.Input.CooldownMode").text(SOFT_YELLOW.wrap("Mode du cooldown"));
+    private static final TextLocale INPUT_GLOBAL_AMOUNT   = LangEntry.builder("Dialog.Reward.Limits.Input.GlobalAmount").text(SOFT_ORANGE.wrap("(Global)") + " Tirages max.");
     private static final TextLocale INPUT_GLOBAL_COOLDOWN = LangEntry.builder("Dialog.Reward.Limits.Input.GlobalCooldown").text(SOFT_ORANGE.wrap("(Global)") + " Cooldown");
-    private static final TextLocale INPUT_PLAYER_AMOUNT   = LangEntry.builder("Dialog.Reward.Limits.Input.PlayerAmount").text(SOFT_BLUE.wrap("(Individual)") + " Max. Rolls");
-    private static final TextLocale INPUT_PLAYER_COOLDOWN = LangEntry.builder("Dialog.Reward.Limits.Input.PlayerCooldown").text(SOFT_BLUE.wrap("(Individual)") + " Cooldown");
+    private static final TextLocale INPUT_PLAYER_AMOUNT   = LangEntry.builder("Dialog.Reward.Limits.Input.PlayerAmount").text(SOFT_BLUE.wrap("(Individuel)") + " Tirages max.");
+    private static final TextLocale INPUT_PLAYER_COOLDOWN = LangEntry.builder("Dialog.Reward.Limits.Input.PlayerCooldown").text(SOFT_BLUE.wrap("(Individuel)") + " Cooldown");
 
     private static final String JSON_ENABLED       = "enabled";
     private static final String JSON_COOLDOWN_MODE = "cooldown_mode";

@@ -8,7 +8,7 @@ import su.nightexpress.nightcore.locale.entry.TextLocale;
 
 public class CrateCreationDialog extends GenericCreationDialog<CrateManager> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crates.Creation.Title").text(title("Crates", "Creation"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crates.Creation.Title").text(title("Caisses", "Création"));
 
     @Override
     @NotNull

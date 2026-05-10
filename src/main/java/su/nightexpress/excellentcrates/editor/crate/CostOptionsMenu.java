@@ -38,23 +38,23 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.GREE
 public class CostOptionsMenu extends LinkedMenu<CratesPlugin, CostOptionsMenu.Data> implements LangContainer {
 
     private static final IconLocale LOCALE_OPTION_NAME = LangEntry.iconBuilder("Editor.CostOptions.Name")
-        .name("Name")
-        .appendCurrent("Current", COST_NAME).br()
-        .appendClick("Click to change")
+        .name("Nom")
+        .appendCurrent("Actuel", COST_NAME).br()
+        .appendClick("Cliquer pour modifier")
         .build();
 
     private static final IconLocale LOCALE_OPTION_ICON = LangEntry.iconBuilder("Editor.CostOptions.Icon")
-        .name("Icon")
-        .appendCurrent("Custom Items", GENERIC_STATE).br()
-        .appendInfo("Drag and drop an item here", "to replace the icon.").br()
-        .appendClick("Right-Click to toggle")
+        .name("Icône")
+        .appendCurrent("Détection d'items", GENERIC_STATE).br()
+        .appendInfo("Glissez-déposez un objet ici", "pour remplacer l'icône.").br()
+        .appendClick("Clic droit : basculer")
         .build();
 
     private static final IconLocale LOCALE_ENTRY_VACANT = LangEntry.iconBuilder("Editor.CostOptions.VacantEntry")
         .accentColor(GREEN)
-        .name("Vacant Slot")
-        .appendInfo("A vacant slot for cost entry.").br()
-        .appendClick("Click to create")
+        .name("Emplacement libre")
+        .appendInfo("Emplacement libre pour une entrée de coût.").br()
+        .appendClick("Cliquer pour créer")
         .build();
 
     private static final int[] ENTRY_SLOTS = {29,30,31,32,33};

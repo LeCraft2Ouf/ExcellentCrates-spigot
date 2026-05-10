@@ -32,33 +32,33 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardCreationDialog extends Dialog<RewardCreationDialog.Data> {
 
-    private static final TextLocale TITLE        = LangEntry.builder("Dialog.Rewards.Creation.Title").text(title("Reward", "Creation"));
-    private static final TextLocale INPUT_METHOD = LangEntry.builder("Dialog.Rewards.Creation.Input.Method").text("Save Item as NBT");
+    private static final TextLocale TITLE        = LangEntry.builder("Dialog.Rewards.Creation.Title").text(title("Récompense", "Création"));
+    private static final TextLocale INPUT_METHOD = LangEntry.builder("Dialog.Rewards.Creation.Input.Method").text("Sauver l'objet en NBT");
 
     private static final ButtonLocale BUTTON_ITEM_TYPE = LangEntry.builder("Dialog.Rewards.Creation.Button.ItemType")
         .button(
-            SOFT_BLUE.wrap("Item Reward"),
-            "The " + SOFT_BLUE.wrap("Item") + " reward type gives the player one or more items when won." + BR + BR + "By default, " + SOFT_YELLOW.wrap("%1$s") + " will used as the item, but you can change it at any time."
+            SOFT_BLUE.wrap("Récompense item"),
+            "La récompense " + SOFT_BLUE.wrap("Item") + " donne un ou plusieurs objets au joueur." + BR + BR + "Par défaut, " + SOFT_YELLOW.wrap("%1$s") + " sert d'objet ; vous pouvez le modifier à tout moment."
         );
 
     private static final ButtonLocale BUTTON_COMMAND_TYPE = LangEntry.builder("Dialog.Rewards.Creation.Button.CommandType")
         .button(
-            SOFT_ORANGE.wrap("Command Reward"),
-            "The " + SOFT_ORANGE.wrap("Command") + " reward type runs one or more commands when won." + BR + BR + "By default, " + SOFT_YELLOW.wrap("%1$s") + " will used as the preview, but you can change it at any time."
+            SOFT_ORANGE.wrap("Récompense commande"),
+            "La récompense " + SOFT_ORANGE.wrap("Commande") + " exécute une ou plusieurs commandes." + BR + BR + "Par défaut, " + SOFT_YELLOW.wrap("%1$s") + " sert d'aperçu ; vous pouvez le modifier à tout moment."
         );
 
     private static final DialogElementLocale BODY_NORMAL = LangEntry.builder("Dialog.Rewards.Creation.Body.Normal").dialogElement(400,
-        "Please select a reward type to create.",
-        GRAY.wrap("Hover over a button to see a short description of each type.")
+        "Choisissez le type de récompense à créer.",
+        GRAY.wrap("Survolez un bouton pour voir la description.")
     );
 
     private static final DialogElementLocale BODY_CUSTOM = LangEntry.builder("Dialog.Rewards.Creation.Body.Custom").dialogElement(400,
-        "Please select a reward type to create.",
-        GRAY.wrap("Hover over a button to see a short description of each type."),
+        "Choisissez le type de récompense à créer.",
+        GRAY.wrap("Survolez un bouton pour voir la description."),
         "",
-        SOFT_RED.and(BOLD).wrap("IMPORTANT NOTE:"),
-        "If the item above doesn't match the one you used, enable the " + SOFT_RED.wrap("Save Item as NBT") + " option.",
-        GRAY.wrap("This ensures the exact item data is saved correctly.")
+        SOFT_RED.and(BOLD).wrap("NOTE IMPORTANTE :"),
+        "Si l'objet ci-dessus ne correspond pas au vôtre, activez " + SOFT_RED.wrap("Sauver l'objet en NBT") + ".",
+        GRAY.wrap("Les données exactes seront alors enregistrées correctement.")
     );
 
     private static final String JSON_USE_NBT = "use_nbt";

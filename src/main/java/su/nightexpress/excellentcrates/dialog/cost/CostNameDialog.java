@@ -17,11 +17,11 @@ public class CostNameDialog extends Dialog<Cost> {
 
     private static final String INPUT_NAME = "name";
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostOption.Name.Title").text(title("Cost Option", "Name"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostOption.Name.Title").text(title("Option de coût", "Nom"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.CostOption.Name.Body").dialogElement(400,
-        "Sets the " + SOFT_YELLOW.wrap("display name") + " for the selected cost option.",
-        "It's best to choose a collective name, such as " + SOFT_YELLOW.wrap("\"Keys\"") + " or " + SOFT_YELLOW.wrap("\"Coins\"") + "."
+        "Définit le " + SOFT_YELLOW.wrap("nom affiché") + " pour cette option de coût.",
+        "Choisissez par exemple un libellé global comme " + SOFT_YELLOW.wrap("« Clés »") + " ou " + SOFT_YELLOW.wrap("« Pièces »") + "."
     );
 
     @Override

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class CostCreationDialog extends GenericCreationDialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostOption.Creation.Title").text(title("Cost Option", "Creation"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.CostOption.Creation.Title").text(title("Option de coût", "Création"));
 
     @Override
     @NotNull

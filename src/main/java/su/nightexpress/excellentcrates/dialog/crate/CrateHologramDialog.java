@@ -20,19 +20,19 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class CrateHologramDialog extends Dialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Hologram.Title").text(title("Crate", "Hologram Settings"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Hologram.Title").text(title("Caisse", "Réglages hologramme"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Crate.Hologram.Body").dialogElement(400,
-        "Here you can select " + SOFT_YELLOW.wrap("hologram template") + " for the crate and adjust it's " + SOFT_YELLOW.wrap("Y offset") + " to match the block height.",
+        "Sélectionnez le " + SOFT_YELLOW.wrap("modèle d'hologramme") + " et ajustez le " + SOFT_YELLOW.wrap("décalage Y") + " pour aligner le bloc.",
         "",
-        "You can create and edit hologram templates in the " + SOFT_YELLOW.wrap("config.yml") + ".",
+        "Les modèles se configurent dans " + SOFT_YELLOW.wrap("config.yml") + ".",
         "",
-        SOFT_YELLOW.wrap("→ ") + "To disable crate hologram, uncheck the " + SOFT_YELLOW.wrap("Enabled") + " box."
+        SOFT_YELLOW.wrap("→ ") + "Décochez " + SOFT_YELLOW.wrap("Activé") + " pour désactiver l'hologramme."
     );
 
-    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Hologram.Input.Enabled").text("Enabled");
-    private static final TextLocale INPUT_TEMPLATE = LangEntry.builder("Dialog.Crate.Hologram.Input.Template").text(SOFT_YELLOW.wrap("Template"));
-    private static final TextLocale INPUT_OFFSET  = LangEntry.builder("Dialog.Crate.Hologram.Input.YOffset").text(SOFT_YELLOW.wrap("Y Offset"));
+    private static final TextLocale INPUT_ENABLED = LangEntry.builder("Dialog.Crate.Hologram.Input.Enabled").text("Activé");
+    private static final TextLocale INPUT_TEMPLATE = LangEntry.builder("Dialog.Crate.Hologram.Input.Template").text(SOFT_YELLOW.wrap("Modèle"));
+    private static final TextLocale INPUT_OFFSET  = LangEntry.builder("Dialog.Crate.Hologram.Input.YOffset").text(SOFT_YELLOW.wrap("Décalage Y"));
 
     private static final String JSON_ENABLED = "enabled";
     private static final String JSON_TEMPLATE = "template";

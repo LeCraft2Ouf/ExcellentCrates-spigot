@@ -37,45 +37,45 @@ public class CostsListMenu extends LinkedMenu<CratesPlugin, Crate> implements La
 
     private static final IconLocale LOCALE_DATA_VACANT = LangEntry.iconBuilder("Editor.Costs.Data.Vacant")
         .accentColor(SOFT_AQUA)
-        .name("Vacant Slot")
-        .appendInfo("Add an cost option for your crate!").br()
-        .appendClick("Click to create")
+        .name("Emplacement vide")
+        .appendInfo("Ajoutez une option de coût pour la caisse.").br()
+        .appendClick("Cliquer pour créer")
         .build();
 
     private static final IconLocale LOCALE_DATA_FILLED = LangEntry.iconBuilder("Editor.Costs.Data.Filled")
-        .rawName(YELLOW.and(BOLD).wrap("Cost Option: ") + WHITE.wrap(COST_NAME) + " " + GRAY.wrap("(ID: " + WHITE.wrap(COST_ID) + ")"))
-        .rawLore(ITALIC.and(DARK_GRAY).wrap("Press " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " key to delete.")).br()
+        .rawName(YELLOW.and(BOLD).wrap("Option : ") + WHITE.wrap(COST_NAME) + " " + GRAY.wrap("(ID : " + WHITE.wrap(COST_ID) + ")"))
+        .rawLore(ITALIC.and(DARK_GRAY).wrap("Touche " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " pour supprimer.")).br()
         .rawLore(GENERIC_COSTS).br()
-        .appendClick("Click to edit", YELLOW)
+        .appendClick("Cliquer pour modifier", YELLOW)
         .build();
 
     private static final IconLocale LOCALE_DATA_EMPTY = LangEntry.iconBuilder("Editor.Costs.Data.Empty")
-        .rawName(RED.and(BOLD).wrap("Cost Option: ") + WHITE.wrap(COST_NAME) + " " + GRAY.wrap("(ID: " + WHITE.wrap(COST_ID) + ")"))
-        .rawLore(ITALIC.and(DARK_GRAY).wrap("Press " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " key to delete.")).br()
-        .rawLore(SOFT_RED.wrap("No costs defined!")).br()
-        .appendClick("Click to edit", RED)
+        .rawName(RED.and(BOLD).wrap("Option : ") + WHITE.wrap(COST_NAME) + " " + GRAY.wrap("(ID : " + WHITE.wrap(COST_ID) + ")"))
+        .rawLore(ITALIC.and(DARK_GRAY).wrap("Touche " + SOFT_RED.wrap(TagWrappers.KEY.apply("key.drop")) + " pour supprimer.")).br()
+        .rawLore(SOFT_RED.wrap("Aucun coût défini !")).br()
+        .appendClick("Cliquer pour modifier", RED)
         .build();
 
     private static final IconLocale LOCALE_TOGGLE_ENABLED = LangEntry.iconBuilder("Editor.Costs.Toggle.Enabled")
-        .accentColor(GREEN).name("Enabled").appendClick("Click to toggle").build();
+        .accentColor(GREEN).name("Activé").appendClick("Cliquer pour basculer").build();
 
     private static final IconLocale LOCALE_TOGGLE_DISABLED = LangEntry.iconBuilder("Editor.Costs.Toggle.Disabled")
-        .accentColor(WHITE).name("Disabled").appendClick("Click to toggle").build();
+        .accentColor(WHITE).name("Désactivé").appendClick("Cliquer pour basculer").build();
 
     private static final IconLocale LOCALE_TOGGLE_NOTHING = LangEntry.iconBuilder("Editor.Costs.Toggle.Nothing")
-        .rawName(GRAY.wrap("< No Data >")).build();
+        .rawName(GRAY.wrap("< Aucune donnée >")).build();
 
     private static final IconLocale LOCALE_STATUS_GOOD = LangEntry.iconBuilder("Editor.Costs.Status.Good")
-        .rawName(GREEN.and(BOLD).wrap("Status: ") + WHITE.wrap("Good")).appendInfo("All entries are valid!").build();
+        .rawName(GREEN.and(BOLD).wrap("Statut : ") + WHITE.wrap("OK")).appendInfo("Toutes les entrées sont valides.").build();
 
     private static final IconLocale LOCALE_STATUS_WARN = LangEntry.iconBuilder("Editor.Costs.Status.Warn")
-        .rawName(YELLOW.and(BOLD).wrap("Status: ") + WHITE.wrap("Warning")).appendInfo("Some entries are invalid!").build();
+        .rawName(YELLOW.and(BOLD).wrap("Statut : ") + WHITE.wrap("Attention")).appendInfo("Certaines entrées sont invalides.").build();
 
     private static final IconLocale LOCALE_STATUS_BAD = LangEntry.iconBuilder("Editor.Costs.Status.Bad")
-        .rawName(RED.and(BOLD).wrap("Status: ") + WHITE.wrap("Invalid")).appendInfo("No valid entries!").build();
+        .rawName(RED.and(BOLD).wrap("Statut : ") + WHITE.wrap("Invalide")).appendInfo("Aucune entrée valide.").build();
 
     private static final IconLocale LOCALE_STATUS_NOTHING = LangEntry.iconBuilder("Editor.Costs.Status.Nothing")
-        .rawName(GRAY.and(BOLD).wrap("Status: ") + WHITE.wrap("< No Data>")).build();
+        .rawName(GRAY.and(BOLD).wrap("Statut : ") + WHITE.wrap("< Aucune donnée >")).build();
 
     private final DialogRegistry dialogs;
 

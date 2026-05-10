@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CrateDescriptionDialog extends GenericDescriptionDialog<Crate> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Description.Title").text(title("Crate", "Description"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Crate.Description.Title").text(title("Caisse", "Description"));
 
     @Override
     @NotNull
