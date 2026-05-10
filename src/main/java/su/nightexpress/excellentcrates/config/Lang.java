@@ -331,6 +331,12 @@ public class Lang implements LangContainer {
     public static final MessageLocale DIALOG_REWARD_ITEM_NO_NEXO_ID = LangEntry.builder("Dialog.Reward.Item.Error.NoNexoId").chatMessage(
         GRAY.wrap("Cette pile n'a pas d'") + SOFT_RED.wrap("identifiant Nexo") + GRAY.wrap(". Utilisez ") + SOFT_YELLOW.wrap("Sauver en NBT") + GRAY.wrap(" ou ") + SOFT_YELLOW.wrap("Sauver en référence") + GRAY.wrap("."));
 
+    /** When no other rewards share this rarity tier, weight cannot tweak the percentage shown. */
+    public static final MessageLocale DIALOG_REWARD_WEIGHT_SINGLE_CATEGORY = LangEntry.builder("Dialog.Reward.Weight.Notice.SingleCategory").chatMessage(
+        GRAY.wrap("Vous êtes seul dans cette ") + SOFT_YELLOW.wrap("catégorie") + GRAY.wrap(" : la chance affichée vaut alors la ")
+            + SOFT_YELLOW.wrap("part de tirage de la catégorie") + GRAY.wrap(" ; changer le champ ne peut pas créer plusieurs pourcentages. ")
+            + GRAY.wrap("Ajoutez d'autres récompenses avec la même catégorie pour partager la chance."));
+
 
     public static final EnumLocale<RewardType>   REWARD_TYPE   = LangEntry.builder("Enums.RewardType").enumeration(RewardType.class);
     public static final EnumLocale<CooldownMode> COOLDOWN_MODE = LangEntry.builder("Enums.CooldownMode").enumeration(CooldownMode.class);

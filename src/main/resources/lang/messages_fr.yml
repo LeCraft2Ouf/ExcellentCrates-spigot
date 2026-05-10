@@ -325,18 +325,20 @@ Dialog:
       Error:
         NoNexoId: '&7Cette pile n''a pas d''&cid Nexo&7. Utilisez &eSauver en NBT &7ou &eRéférence &7.'
     Weight:
-      Title: '&e&lRÉCOMPENSE &8» &fPoids du tirage'
+      Title: '&e&lRÉCOMPENSE &8» &fChance du tirage'
       Body:
         Width: 400
         Contents:
-          - 'Définissez surtout le <soft_yellow>poids</soft_yellow> : c’est lui qui fixe la <soft_yellow>chance</soft_yellow> affichée dans les menus.'
+          - 'Indiquez la <soft_yellow>chance</soft_yellow> (en % comme dans les aperçus). Le <soft_yellow>poids</soft_yellow> fichier est recalculé.'
           - ''
           - 'Le champ <soft_yellow>catégorie</soft_yellow> sert encore à certaines animations de caisse ; une seule catégorie partout suffit pour s’en passer.'
           - ''
           - 'Documentation : lien wiki dans la doc du plugin.'
       Input:
         Rarity: '<soft_yellow>Catégorie (animations)</soft_yellow>'
-        Weight: '<soft_yellow>Poids</soft_yellow>'
+        Chance: '<soft_yellow>Chance (%)</soft_yellow>'
+      Notice:
+        SingleCategory: '<gray>Vous êtes seul dans cette <soft_yellow>catégorie</soft_yellow> : la chance affichée suit la part de tirage ; ajoutez d’autres récompenses avec la même catégorie pour ajuster vos pourcentages.</gray>'
     Preview:
       Title: '&e&lRÉCOMPENSE &8» &fAperçu'
       Input:
@@ -904,10 +906,10 @@ Editor:
         - ' '
         - <soft_yellow>→ <u>Clic : mode personnalisé</u></soft_yellow>
       RarityWeight:
-        Name: <soft_yellow><b>Poids du tirage</b></soft_yellow>
+        Name: <soft_yellow><b>Chance du tirage</b></soft_yellow>
         Lore:
         - '<gray><dark_gray>» </dark_gray>Chance : <soft_green>%reward_roll_chance%%</soft_green></gray>'
-        - '<gray><dark_gray>» </dark_gray>Poids : <white>%reward_weight%</white></gray>'
+        - '<gray><dark_gray>» </dark_gray>Poids (fichier) : <white>%reward_weight%</white></gray>'
         - ' '
         - <soft_yellow>→ <u>Clic pour modifier</u></soft_yellow>
       Name:
