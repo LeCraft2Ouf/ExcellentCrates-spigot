@@ -20,8 +20,17 @@ import su.nightexpress.nightcore.util.problem.ProblemReporter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class CommandReward extends AbstractReward {
+
+    /**
+     * Ancien format : espace avant {@code </yellow>} (ex. quantité {@code (x1)}). Avec {@code %reward_give_amount%}
+     * ce suffixe ferait un double espace avant {@code (N)}.
+     * On ne touche pas à {@code ✦ </yellow>} (étoile + espace avant la balise de fin).
+     */
+    private static final Pattern LEGACY_SPACE_BEFORE_CLOSE_YELLOW =
+        Pattern.compile("([^\u2726]) </yellow>");
 
     private String       name;
     private List<String> description;
@@ -96,7 +105,7 @@ public class CommandReward extends AbstractReward {
     public ItemStack getPreviewItem() {
         ItemStack itemStack = ItemHelper.toItemStack(this.preview);
         ItemUtil.editMeta(itemStack, meta -> {
-            ItemUtil.setCustomName(meta, this.name);
+            ItemUtil.setCustomName(meta, this.getName());
             ItemUtil.setLore(meta, this.description);
         });
         return itemStack;
@@ -104,7 +113,7 @@ public class CommandReward extends AbstractReward {
 
     @NotNull
     public String getName() {
-        return this.name;
+        return LEGACY_SPACE_BEFORE_CLOSE_YELLOW.matcher(this.name).replaceAll("$1</yellow>");
     }
 
     public void setName(@NotNull String name) {
