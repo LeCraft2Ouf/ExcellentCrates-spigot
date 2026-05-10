@@ -9,6 +9,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.config.Lang;
 import su.nightexpress.excellentcrates.dialog.DialogRegistry;
@@ -70,9 +71,9 @@ public class KeyOptionsMenu extends LinkedMenu<CratesPlugin, CrateKey> implement
         this.dialogs = dialogs;
         this.plugin.injectLang(this);
 
-        this.addItem(MenuItem.buildReturn(this, 40, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(40, (viewer, event) -> {
             this.runNextTick(() -> plugin.getEditorManager().openKeyList(viewer.getPlayer()));
-        }));
+        }).build());
 
         this.addItem(MenuItem.background(Material.BLACK_STAINED_GLASS_PANE, IntStream.range(36, 45).toArray()));
     }

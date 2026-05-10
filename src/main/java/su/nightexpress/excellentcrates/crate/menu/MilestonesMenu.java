@@ -6,6 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.config.Config;
@@ -189,10 +190,10 @@ public class MilestonesMenu extends LinkedMenu<CratesPlugin, CrateSource> implem
             new NightItem(Material.WHITE_STAINED_GLASS_PANE)
         ).read(config);
 
-        loader.addDefaultItem(MenuItem.buildReturn(this, 22, (viewer, event) -> {
+        loader.addDefaultItem(EditorReturnButton.menuItem(22, (viewer, event) -> {
             CrateSource source = this.getLink(viewer.getPlayer());
             this.runNextTick(() -> plugin.getCrateManager().previewCrate(viewer.getPlayer(), source));
-        }).setPriority(MenuItem.HIGH_PRIORITY));
+        }).setPriority(MenuItem.HIGH_PRIORITY).build());
 
         loader.addDefaultItem(MenuItem.buildNextPage(this, 17).setPriority(MenuItem.HIGH_PRIORITY));
         loader.addDefaultItem(MenuItem.buildPreviousPage(this, 9).setPriority(MenuItem.HIGH_PRIORITY));

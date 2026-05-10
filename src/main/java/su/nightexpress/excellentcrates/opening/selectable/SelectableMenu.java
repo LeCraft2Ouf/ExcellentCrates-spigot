@@ -157,7 +157,7 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
         ).read(config);
 
         this.rewardName = ConfigValue.create("Reward.Name",
-            REWARD_NAME
+            REWARD_NAME + " " + GRAY.wrap("(") + WHITE.wrap(REWARD_GIVE_AMOUNT) + GRAY.wrap(")")
         ).read(config);
 
         this.rewardLore = ConfigValue.create("Reward.Lore", Lists.newList(
@@ -167,12 +167,12 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
         )).read(config);
 
         this.rewardEntry = ConfigValue.create("Reward.EntryName",
-            GRAY.wrap("- " + REWARD_NAME)
+            GRAY.wrap("- ") + REWARD_NAME + " " + GRAY.wrap("(") + WHITE.wrap(REWARD_GIVE_AMOUNT) + GRAY.wrap(")")
         ).read(config);
 
         this.selectedIcon = ConfigValue.create("Selection.Icon",
             NightItem.fromType(Material.LIME_STAINED_GLASS_PANE)
-                .setDisplayName(GREEN.wrap(BOLD.wrap("Sélectionné : ")) + WHITE.wrap(REWARD_NAME))
+                .setDisplayName(GREEN.wrap(BOLD.wrap("Sélectionné : ")) + REWARD_NAME + " " + GRAY.wrap("(") + WHITE.wrap(REWARD_GIVE_AMOUNT) + GRAY.wrap(")"))
                 .setLore(Lists.newList(
                     GRAY.wrap("Vous obtiendrez cette récompense."),
                     "",

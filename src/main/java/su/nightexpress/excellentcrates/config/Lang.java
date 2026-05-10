@@ -275,6 +275,10 @@ public class Lang implements LangContainer {
     public static final TextLocale EDITOR_TITLE_KEY_LIST         = LangEntry.builder("Editor.Title.Keys").text(BLACK.wrap("Éditeur des clés"));
     public static final TextLocale EDITOR_TITLE_KEY_SETTINGS     = LangEntry.builder("Editor.Title.Key.Settings").text(BLACK.wrap("Paramètres de la clé"));
 
+    public static final IconLocale EDITOR_BUTTON_RETURN = LangEntry.iconBuilder("Editor.Button.Return")
+        .name(SOFT_YELLOW.and(BOLD).wrap("Retour"))
+        .build();
+
     @Deprecated
     public static final TextLocale EDITOR_ENTER_AMOUNT            = LangEntry.builder("Editor.Enter.Amount").text(GRAY.wrap("Saisir " + GREEN.wrap("[Montant]")));
     @Deprecated

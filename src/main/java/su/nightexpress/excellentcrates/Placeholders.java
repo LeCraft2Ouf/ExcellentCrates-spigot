@@ -1,17 +1,22 @@
 package su.nightexpress.excellentcrates;
 
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.config.Lang;
+import su.nightexpress.excellentcrates.crate.reward.impl.ItemReward;
 import su.nightexpress.excellentcrates.crate.cost.Cost;
 import su.nightexpress.excellentcrates.crate.impl.Crate;
 import su.nightexpress.excellentcrates.crate.impl.Milestone;
 import su.nightexpress.excellentcrates.crate.impl.Rarity;
 import su.nightexpress.excellentcrates.key.CrateKey;
+import su.nightexpress.nightcore.bridge.item.AdaptedItem;
 import su.nightexpress.nightcore.bridge.wrap.NightProfile;
 import su.nightexpress.nightcore.util.NumberUtil;
 import su.nightexpress.nightcore.util.placeholder.PlaceholderList;
 import su.nightexpress.nightcore.util.profile.CachedProfile;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
@@ -64,6 +69,7 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
     public static final String REWARD_RARITY_NAME        = "%reward_rarity_name%";
     public static final String REWARD_RARITY_WEIGHT      = "%reward_rarity_weight%";
     public static final String REWARD_RARITY_ROLL_CHANCE = "%reward_rarity_roll_chance%";
+    public static final String REWARD_GIVE_AMOUNT        = "%reward_give_amount%";
 
     public static final String COST_ID   = "%cost_id%";
     public static final String COST_NAME = "%cost_name%";
@@ -86,7 +92,24 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
         .add(REWARD_RARITY_NAME, reward -> reward.getRarity().getName())
         .add(REWARD_RARITY_WEIGHT, reward -> NumberUtil.format(reward.getRarity().getWeight()))
         .add(REWARD_RARITY_ROLL_CHANCE, reward -> NumberUtil.format(reward.getRarity().getRollChance(reward.getCrate())))
+        .add(REWARD_GIVE_AMOUNT, Placeholders::formatRewardGiveAmount)
     );
+
+    @NotNull
+    public static String formatRewardGiveAmount(@NotNull Reward reward) {
+        if (reward instanceof ItemReward itemReward) {
+            int sum = itemReward.getItems().stream()
+                .map(AdaptedItem::getItemStack)
+                .filter(Objects::nonNull)
+                .mapToInt(ItemStack::getAmount)
+                .sum();
+            if (sum > 0) {
+                return String.valueOf(sum);
+            }
+            return String.valueOf(Math.max(1, itemReward.getPreviewItem().getAmount()));
+        }
+        return "\u2014";
+    }
 
     public static final PlaceholderList<Milestone> MILESTONE = PlaceholderList.create(list -> list
         .add(MILESTONE_OPENINGS, milestone -> NumberUtil.format(milestone.getOpenings()))

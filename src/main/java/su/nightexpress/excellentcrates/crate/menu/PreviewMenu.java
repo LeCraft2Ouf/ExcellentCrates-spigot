@@ -130,7 +130,7 @@ public class PreviewMenu extends LinkedMenu<CratesPlugin, CrateSource> implement
         ).read(config);
 
         this.rewardName = ConfigValue.create("Reward.Name",
-            REWARD_NAME
+            REWARD_NAME + " " + GRAY.wrap("(") + WHITE.wrap(REWARD_GIVE_AMOUNT) + GRAY.wrap(")")
         ).read(config);
 
         this.rewardLore = ConfigValue.create("Reward.Lore.Default", Lists.newList(

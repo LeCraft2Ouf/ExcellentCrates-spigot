@@ -9,6 +9,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.api.cost.CostEntry;
 import su.nightexpress.excellentcrates.config.Lang;
@@ -71,9 +72,9 @@ public class CostOptionsMenu extends LinkedMenu<CratesPlugin, CostOptionsMenu.Da
         this.plugin.injectLang(this);
         this.itemDetection = true;
 
-        this.addItem(MenuItem.buildReturn(this, 49, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(49, (viewer, event) -> {
             this.runNextTick(() -> plugin.getEditorManager().openCosts(viewer.getPlayer(), this.getLink(viewer).crate));
-        }));
+        }).build());
 
         this.addItem(NightItem.fromType(Material.GLASS_PANE)
             .setHideTooltip(true)

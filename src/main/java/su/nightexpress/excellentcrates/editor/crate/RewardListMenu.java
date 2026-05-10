@@ -8,6 +8,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.api.crate.RewardType;
@@ -18,6 +19,7 @@ import su.nightexpress.excellentcrates.dialog.DialogRegistry;
 import su.nightexpress.excellentcrates.crate.reward.RewardDialogs;
 import su.nightexpress.excellentcrates.dialog.reward.RewardCreationDialog;
 import su.nightexpress.excellentcrates.util.ItemHelper;
+import su.nightexpress.excellentcrates.util.NexoIdOnlyAdaptedItem;
 import su.nightexpress.nightcore.bridge.item.AdaptedItem;
 import su.nightexpress.nightcore.core.config.CoreLang;
 import su.nightexpress.nightcore.locale.LangContainer;
@@ -57,6 +59,7 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
         .accentColor(GREEN)
         .name("Création de récompense")
         .appendInfo("Posez un objet sur " + GREEN.wrap("ce") + " bouton", "pour créer une récompense à partir de lui.")
+        .appendInfo("Objet " + GREEN.wrap("Nexo") + " : ajout direct en ID Nexo (objets donnés).")
         .build();
 
     private static final IconLocale LOCALE_SORTING = LangEntry.iconBuilder("Editor.Button.Rewards.Sorting")
@@ -102,9 +105,9 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
         this.dialogs = dialogs;
         this.plugin.injectLang(this);
 
-        this.addItem(MenuItem.buildReturn(this, 40, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(40, (viewer, event) -> {
             this.runNextTick(() -> plugin.getEditorManager().openOptionsMenu(viewer.getPlayer(), this.getLink(viewer).crate));
-        }));
+        }).build());
 
         this.addItem(MenuItem.buildNextPage(this, 41));
         this.addItem(MenuItem.buildPreviousPage(this, 39));
@@ -131,6 +134,15 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
             ItemStack copy = new ItemStack(cursor);
             event.getView().setCursor(null);
             Players.addItem(player, copy);
+
+            NexoIdOnlyAdaptedItem nexoSave = ItemHelper.nexoIdOnly(copy);
+            if (nexoSave != null && nexoSave.isValid()) {
+                Reward reward = RewardFactory.wizardCreation(this.plugin, data.crate, copy, RewardType.ITEM, nexoSave);
+                data.crate.addReward(reward);
+                data.crate.markDirty();
+                this.runNextTick(() -> this.flush(player));
+                return;
+            }
 
             this.dialogs.show(player, RewardDialogs.CREATION, new RewardCreationDialog.Data(data.crate, copy), () -> this.flush(player));
         });

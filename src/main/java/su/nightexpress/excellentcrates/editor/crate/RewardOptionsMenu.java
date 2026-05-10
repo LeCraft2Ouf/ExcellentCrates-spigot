@@ -9,6 +9,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.api.crate.RewardType;
@@ -120,9 +121,9 @@ public class RewardOptionsMenu extends LinkedMenu<CratesPlugin, Reward> implemen
         this.dialogs = dialogs;
         this.plugin.injectLang(this);
 
-        this.addItem(MenuItem.buildReturn(this, 49, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(49, (viewer, event) -> {
             this.runNextTick(() -> plugin.getEditorManager().openRewardList(viewer.getPlayer(), this.getLink(viewer).getCrate()));
-        }));
+        }).build());
 
         this.addItem(MenuItem.background(Material.GLASS_PANE, 19,20,21,22,23,24,25));
         this.addItem(MenuItem.background(Material.BLACK_STAINED_GLASS_PANE, IntStream.range(45, 54).toArray()));

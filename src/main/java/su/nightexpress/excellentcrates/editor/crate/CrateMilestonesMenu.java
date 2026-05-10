@@ -5,6 +5,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.config.Lang;
@@ -50,9 +51,9 @@ public class CrateMilestonesMenu extends LinkedMenu<CratesPlugin, Crate> impleme
         super(plugin, MenuType.GENERIC_9X5, Lang.EDITOR_TITLE_CRATE_MILESTONES.text());
         this.plugin.injectLang(this);
 
-        this.addItem(MenuItem.buildReturn(this, 39, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(39, (viewer, event) -> {
             this.runNextTick(() -> this.plugin.getEditorManager().openOptionsMenu(viewer.getPlayer(), this.getLink(viewer)));
-        }));
+        }).build());
 
         this.addItem(MenuItem.buildNextPage(this, 44));
         this.addItem(MenuItem.buildPreviousPage(this, 36));

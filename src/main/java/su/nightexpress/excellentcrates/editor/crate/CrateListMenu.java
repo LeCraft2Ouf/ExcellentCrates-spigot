@@ -6,6 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.excellentcrates.editor.EditorReturnButton;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.config.Lang;
 import su.nightexpress.excellentcrates.crate.CrateManager;
@@ -51,9 +52,9 @@ public class CrateListMenu extends LinkedMenu<CratesPlugin, CrateManager> implem
         this.dialogs = dialogs;
         this.plugin.injectLang(this);
 
-        this.addItem(MenuItem.buildReturn(this, 40, (viewer, event) -> {
+        this.addItem(EditorReturnButton.menuItem(40, (viewer, event) -> {
             this.runNextTick(() -> this.plugin.getEditorManager().openEditor(viewer.getPlayer()));
-        }));
+        }).build());
 
         this.addItem(MenuItem.buildNextPage(this, 44));
         this.addItem(MenuItem.buildPreviousPage(this, 36));

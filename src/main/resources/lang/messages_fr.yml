@@ -608,6 +608,8 @@ Editor:
   Enter:
     Amount: '<gray>Saisissez <green>[Montant]</green></gray>'
   Button:
+    Return:
+      Name: '<soft_yellow><b>Retour</b></soft_yellow>'
     Main:
       Crates:
         Name: '<green><b>Caisses</b></green>'
@@ -674,7 +676,7 @@ Editor:
           Name: <soft_yellow><b>GUI d'aperçu</b></soft_yellow>
           Lore:
           - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
-          - '<gray><dark_gray>» </dark_gray>ID d'aperçu : <white>%value%</white></gray>'
+          - '<gray><dark_gray>» </dark_gray>ID d''aperçu : <white>%value%</white></gray>'
           - ' '
           - <gray>Définit l'interface d'aperçu de la caisse.</gray>
           - ' '
@@ -822,7 +824,7 @@ Editor:
         - <soft_yellow>→ <u>Shift + clic droit : supprimer <soft_red>(sans retour)</soft_red></u></soft_yellow>
     Rewards:
       Reward:
-        Name: '%reward_name%'
+        Name: '%reward_name% <gray>(<white>%reward_give_amount%</white>)</gray>'
         Lore:
         - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
         - '<gray><dark_gray>» </dark_gray>ID : <white>%reward_id%</white></gray>'
@@ -835,6 +837,7 @@ Editor:
         Lore:
         - <gray>Déposez un item sur <green>ce</green> bouton</gray>
         - <gray>pour créer une récompense.</gray>
+        - <gray>Item <green>Nexo</green> : ajout direct en ID Nexo (objets donnés).</gray>
       Sorting:
         Name: <soft_yellow><b>Trier les récompenses</b></soft_yellow>
         Lore:
