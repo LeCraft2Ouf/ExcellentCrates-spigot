@@ -14,6 +14,7 @@ import su.nightexpress.excellentcrates.data.DataManager;
 import su.nightexpress.excellentcrates.dialog.DialogRegistry;
 import su.nightexpress.excellentcrates.editor.EditorManager;
 import su.nightexpress.excellentcrates.hologram.HologramManager;
+import su.nightexpress.excellentcrates.hooks.NexoHook;
 import su.nightexpress.excellentcrates.hooks.impl.PlaceholderHook;
 import su.nightexpress.excellentcrates.key.KeyManager;
 import su.nightexpress.excellentcrates.opening.OpeningManager;
@@ -25,6 +26,7 @@ import su.nightexpress.nightcore.commands.command.NightCommand;
 import su.nightexpress.nightcore.config.PluginDetails;
 import su.nightexpress.nightcore.util.Plugins;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +76,7 @@ public class CratesPlugin extends NightPlugin {
 
     @Override
     public void enable() {
+        NexoHook.setTemplatePersistenceDirectory(new File(this.getDataFolder(), "nexo_template_cache"));
         this.crateLogger = new CrateLogger(this);
         this.dialogRegistry = new DialogRegistry(this);
 
@@ -122,6 +125,7 @@ public class CratesPlugin extends NightPlugin {
 
     @Override
     public void disable() {
+        NexoHook.clearSingletonTemplateCache();
         if (this.editorManager != null) this.editorManager.shutdown();
         if (this.openingManager != null) this.openingManager.shutdown();
         if (this.keyManager != null) this.keyManager.shutdown();

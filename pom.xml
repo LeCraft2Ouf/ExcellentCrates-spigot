@@ -6,7 +6,7 @@
 
     <groupId>su.nightexpress.excellentcrates</groupId>
     <artifactId>ExcellentCrates</artifactId>
-    <version>Fork-6.6.11</version>
+    <version>Fork-6.6.14</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
