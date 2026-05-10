@@ -120,7 +120,7 @@ public class RewardCreationDialog extends Dialog<RewardCreationDialog.Data> {
                 RewardType type = Enums.parse(nbtHolder.getText(JSON_TYPE, RewardType.ITEM.name()), RewardType.class).orElse(RewardType.ITEM);
                 boolean allowCustoms = !nbtHolder.getBoolean(JSON_USE_NBT, false);
 
-                AdaptedItem adapt = ItemHelper.adapt(itemStack, allowCustoms);
+                AdaptedItem adapt = ItemHelper.adaptStoredReward(itemStack, allowCustoms);
                 Reward reward = RewardFactory.wizardCreation(this.plugin, crate, itemStack, type, adapt);
                 crate.addReward(reward);
                 crate.markDirty();

@@ -260,7 +260,7 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
         ItemStack itemStack = event.getCurrentItem();
         if (itemStack == null || itemStack.getType().isAir()) return;
 
-        AdaptedItem adapt = ItemHelper.adapt(itemStack, true);
+        AdaptedItem adapt = ItemHelper.adaptStoredReward(itemStack, true);
         Reward reward = RewardFactory.wizardCreation(this.plugin, data.crate, itemStack, data.massModeType, adapt);
         data.crate.addReward(reward);
         data.crate.markDirty();

@@ -140,4 +140,17 @@ public class ItemHelper {
     public static AdaptedItem adapt(@NotNull ItemStack itemStack, boolean allowCustoms) {
         return allowCustoms ? adapt(itemStack) : exactVanillaNbt(itemStack);
     }
+
+    /**
+     * Persists stacks when saving crate rewards / previews: vanilla stacks use {@link #exactVanillaNbt(ItemStack)}
+     * so item components (bold custom name, etc.) are not round-tripped through YAML {@link ItemTag} encoding.
+     * Non-vanilla stacks keep using {@link #adapt(ItemStack, boolean)} (reference vs full-NBT for customs).
+     */
+    @NotNull
+    public static AdaptedItem adaptStoredReward(@NotNull ItemStack itemStack, boolean allowCustomAdapterPath) {
+        if (isCustom(itemStack)) {
+            return adapt(itemStack, allowCustomAdapterPath);
+        }
+        return exactVanillaNbt(itemStack);
+    }
 }

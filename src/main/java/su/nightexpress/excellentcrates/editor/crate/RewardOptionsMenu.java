@@ -158,7 +158,7 @@ public class RewardOptionsMenu extends LinkedMenu<CratesPlugin, Reward> implemen
                 event.getView().setCursor(null);
 
                 if (!ItemHelper.isCustom(copy)) {
-                    reward.setPreview(ItemHelper.vanilla(copy));
+                    reward.setPreview(ItemHelper.adaptStoredReward(copy, true));
                     crate.markDirty();
                     this.runNextTick(flush);
                 }

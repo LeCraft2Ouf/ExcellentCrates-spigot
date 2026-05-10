@@ -81,7 +81,7 @@ public class RewardContentMenu extends LinkedMenu<CratesPlugin, ItemReward> impl
 
         if (result.isInventory()) {
             if (!ItemHelper.isCustom(copy)) {
-                reward.addItem(ItemHelper.vanilla(copy));
+                reward.addItem(ItemHelper.adaptStoredReward(copy, true));
                 crate.markDirty();
                 this.runNextTick(flush);
             }

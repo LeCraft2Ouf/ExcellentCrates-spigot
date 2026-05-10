@@ -100,7 +100,7 @@ public class RewardPreviewDialog extends Dialog<RewardPreviewDialog.Data> {
 
                 boolean allowCustoms = !nbtHolder.getBoolean(JSON_USE_NBT, false);
 
-                AdaptedItem adapt = ItemHelper.adapt(itemStack, allowCustoms);
+                AdaptedItem adapt = ItemHelper.adaptStoredReward(itemStack, allowCustoms);
 
                 if (reward instanceof CommandReward commandReward) {
                     boolean replaceName = nbtHolder.getBoolean(JSON_REPLACE_NAME).orElse(false);

@@ -84,14 +84,14 @@ public class RewardItemDialog extends Dialog<RewardItemDialog.Data> {
             ).exitAction(DialogButtons.back()).build());
 
             builder.handleResponse(JSON_NBT, (viewer, identifier, nbtHolder) -> {
-                AdaptedItem adapt = ItemHelper.adapt(itemStack, false);
+                AdaptedItem adapt = ItemHelper.adaptStoredReward(itemStack, false);
                 reward.addItem(adapt);
                 crate.markDirty();
                 viewer.callback();
             });
 
             builder.handleResponse(JSON_REFERENCE, (viewer, identifier, nbtHolder) -> {
-                AdaptedItem adapt = ItemHelper.adapt(itemStack, true);
+                AdaptedItem adapt = ItemHelper.adaptStoredReward(itemStack, true);
                 reward.addItem(adapt);
                 crate.markDirty();
                 viewer.callback();
