@@ -49,8 +49,7 @@ public class RewardListMenu extends LinkedMenu<CratesPlugin, RewardListMenu.Data
         .rawName(REWARD_NAME)
         .appendCurrent("Statut", GENERIC_INSPECTION)
         .appendCurrent("ID", REWARD_ID)
-        .appendCurrent("Poids", REWARD_WEIGHT + " → " + GREEN.wrap(REWARD_ROLL_CHANCE + "%"))
-        .appendCurrent("Rareté", REWARD_RARITY_NAME + " → " + GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
+        .appendCurrent("Chance", GREEN.wrap(REWARD_ROLL_CHANCE + "%"))
         .br()
         .appendClick("Cliquer pour modifier")
         .build();

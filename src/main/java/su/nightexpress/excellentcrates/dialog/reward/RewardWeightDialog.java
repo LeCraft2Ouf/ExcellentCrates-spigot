@@ -22,15 +22,17 @@ import static su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers.*;
 
 public class RewardWeightDialog extends Dialog<Reward> {
 
-    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Weight.Title").text(title("Récompense", "Poids et rareté"));
+    private static final TextLocale TITLE = LangEntry.builder("Dialog.Reward.Weight.Title").text(title("Récompense", "Poids du tirage"));
 
     private static final DialogElementLocale BODY = LangEntry.builder("Dialog.Reward.Weight.Body").dialogElement(400,
-        "Définissez la " + SOFT_YELLOW.wrap("rareté") + " et le " + SOFT_YELLOW.wrap("poids") + " souhaités pour la récompense.",
+        "Réglez surtout le " + SOFT_YELLOW.wrap("poids") + " : c’est lui qui fixe la " + SOFT_YELLOW.wrap("chance") + " affichée dans les menus.",
         "",
-        "Plus d'infos sur poids et rareté : " + OPEN_URL.with(Placeholders.WIKI_WEIGHTS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("voir la doc")) + "."
+        "Le champ " + SOFT_YELLOW.wrap("catégorie") + " sert encore à certaines animations de caisse ; une seule catégorie partout suffit pour s’en passer.",
+        "",
+        "Plus d’infos : " + OPEN_URL.with(Placeholders.WIKI_WEIGHTS).wrap(SOFT_GREEN.and(UNDERLINED).wrap("voir la doc")) + "."
     );
 
-    private static final TextLocale INTPUT_RARITY = LangEntry.builder("Dialog.Reward.Weight.Input.Rarity").text(SOFT_YELLOW.wrap("Rareté"));
+    private static final TextLocale INTPUT_RARITY = LangEntry.builder("Dialog.Reward.Weight.Input.Rarity").text(SOFT_YELLOW.wrap("Catégorie (animations)"));
     private static final TextLocale INTPUT_WEIGHT = LangEntry.builder("Dialog.Reward.Weight.Input.Weight").text(SOFT_YELLOW.wrap("Poids"));
 
     private static final String JSON_WEIGHT = "weight";

@@ -393,9 +393,7 @@ Editor:
         Lore:
           - '%reward_inspect_content%'
           - ''
-          - '<lyellow>● <lgray>Peso: </lgray>%reward_wieght%</lyellow>'
-          - '<lyellow>● <lgray>Probabilidad de Volver a tirar: </lgray>%reward_roll_chance%%</lyellow>'
-          - '<lyellow>● <lgray>Rareza: </lgray>%reward_rarity_name%</lyellow>'
+          - '<lyellow>● <lgray>Probabilidad: </lgray>%reward_roll_chance%%</lyellow>'
           - ''
           - <lyellow>[▶]</lyellow> <lgray>Clic izquierdo para <lyellow>editar</lyellow>.</lgray>
           - <lyellow>[▶]</lyellow> <lgray>Shift-Izquierdo para <lyellow>mover hacia adelante</lyellow>.</lgray>
@@ -460,21 +458,16 @@ Editor:
           - <lyellow>[▶]</lyellow> <lgray>Arrastrar y soltar para <lyellow>reemplazar</lyellow>.</lgray>
           - <lyellow>[▶]</lyellow> <lgray>Clic derecho para <lyellow>obtener una copia</lyellow>.</lgray>
       Weight:
-        Name: <lyellow><b>Rareza y Peso</b></lyellow>
+        Name: <lyellow><b>Peso del sorteo</b></lyellow>
         Lore:
-          - '<lyellow>● <lgray>Rareza: </lgray>%reward_rarity_name%</lyellow>'
+          - '<lyellow>● <lgray>Probabilidad: </lgray>%reward_roll_chance%%</lyellow>'
           - '<lyellow>● <lgray>Peso: </lgray>%reward_wieght%</lyellow>'
-          - '<lyellow>● <lgray>Probabilidad de Rol: </lgray>%reward_roll_chance%%</lyellow>'
           - ''
-          - <lgray>La probabilidad de rol depende de la recompensa</lgray>
-          - <lgray>y los <lorange>pesos</lorange> de la rareza.</lgray>
-          - <lgray>Cuanto <lorange>más</lorange> peso, <lorange>mayor</lorange> es la probabilidad.</lgray>
-          - ''
-          - <lgray>Lee la <lorange>documentación</lorange> para más detalles.</lgray>
-          - <lgray>Está explicado todo muy bien.</lgray>
-          - ''
-          - <lyellow>[▶]</lyellow> <lgray>Clic izquierdo para <lyellow>establecer rareza</lyellow>.</lgray>
-          - <lyellow>[▶]</lyellow> <lgray>Clic derecho para <lyellow>establecer peso</lyellow>.</lgray>
+        - <lgray>La probabilidad mostrada combina el <lorange>peso</lorange> de la recompensa con la animación de la caja.</lgray>
+        - ''
+        - <lgray>Lee la <lorange>documentación</lorange> para más detalles.</lgray>
+        - ''
+        - <lyellow>[▶]</lyellow> <lgray>Clic izquierdo para <lyellow>editar categoría y peso</lyellow>.</lgray>
       Commands:
         Name: <lyellow><b>Comandos de Ganancia</b></lyellow>
         Lore:

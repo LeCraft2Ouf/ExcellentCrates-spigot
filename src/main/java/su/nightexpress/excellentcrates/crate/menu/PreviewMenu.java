@@ -136,7 +136,7 @@ public class PreviewMenu extends LinkedMenu<CratesPlugin, CrateSource> implement
         this.rewardLore = ConfigValue.create("Reward.Lore.Default", Lists.newList(
             NO_PERMISSION,
             EMPTY_IF_ABOVE,
-            DARK_GRAY.wrap("»") + GRAY.wrap( " Rarity: " + WHITE.wrap(REWARD_RARITY_NAME) + " → " + GREEN.wrap(REWARD_ROLL_CHANCE + "%")),
+            DARK_GRAY.wrap("» ") + GREEN.wrap(REWARD_ROLL_CHANCE + "%"),
             GENERIC_LIMITS,
             EMPTY_IF_BELOW,
             REWARD_DESCRIPTION

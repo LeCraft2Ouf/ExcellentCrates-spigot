@@ -386,9 +386,7 @@ Editor:
         Lore:
           - "%reward_inspect_content%"
           - ""
-          - "&7权重: %reward_weight%"
           - "&7抽取概率: %reward_roll_chance%%"
-          - "&7稀有度: %reward_rarity_name%"
           - ""
           - "&a| &7左键点击 &a编辑"
           - "&a| &7SHIFT+左键点击 &a增加权重"
@@ -449,20 +447,16 @@ Editor:
           - "&a| &7拖放 &a替换"
           - "&e| &7右键点击 &e获取副本"
       Weight:
-        Name: "&b稀有度与权重"
+        Name: "&b抽奖权重"
         Lore:
-          - "&7稀有度: %reward_rarity_name%"
-          - "&7权重: %reward_weight%"
           - "&7抽取概率: %reward_roll_chance%%"
+          - "&7权重: %reward_weight%"
           - ""
-          - "&7抽取概率取决于奖励和稀有度 &b权重"
-          - "&7权重 &b越大 &7概率越大"
+          - "&7显示的概率会综合奖励 &b权重 &7与开箱动画"
           - ""
           - "&7阅读 &6文档 &7了解详情"
-          - "&7它解释了一切"
           - ""
-          - "&a| &7左键点击 &a设置稀有度"
-          - "&a| &7右键点击 &a设置权重"
+          - "&a| &7左键点击 &a编辑类别与权重"
       Commands:
         Name: "&b获奖命令"
         Lore:

@@ -69,9 +69,9 @@ public class RewardOptionsMenu extends LinkedMenu<CratesPlugin, Reward> implemen
         .build();
 
     public static final IconLocale LOCALE_RARIRY_WEIGHT = LangEntry.iconBuilder("Editor.Button.Reward.RarityWeight")
-        .name("Rareté et poids")
-        .appendCurrent("Rareté", REWARD_RARITY_NAME + " → " + SOFT_GREEN.wrap(REWARD_RARITY_ROLL_CHANCE + "%"))
-        .appendCurrent("Poids", REWARD_WEIGHT + " → " + SOFT_GREEN.wrap(REWARD_ROLL_CHANCE + "%")).br()
+        .name("Poids du tirage")
+        .appendCurrent("Chance", SOFT_GREEN.wrap(REWARD_ROLL_CHANCE + "%"))
+        .appendCurrent("Poids", REWARD_WEIGHT).br()
         .appendClick("Cliquer pour modifier")
         .build();
 
