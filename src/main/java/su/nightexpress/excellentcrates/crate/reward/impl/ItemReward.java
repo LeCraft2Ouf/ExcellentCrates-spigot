@@ -117,6 +117,10 @@ public class ItemReward extends AbstractReward {
             ItemStack itemStack = provider.getItemStack();
             if (itemStack == null) return;
 
+            if (provider instanceof NexoIdOnlyAdaptedItem nexoOnly) {
+                this.plugin.getKeyManager().applyRegisteredKeyTagIfNexoMatch(itemStack, nexoOnly.nexoItemId());
+            }
+
             // Raw NBT rewards must match definitional items (e.g. Nexo base item) for stacking — never rewrite lore/name.
             if (this.allowItemPlaceholders
                 && !(provider instanceof RawCompressedNbtAdaptedItem)

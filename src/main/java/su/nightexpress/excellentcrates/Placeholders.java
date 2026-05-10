@@ -10,6 +10,7 @@ import su.nightexpress.excellentcrates.crate.impl.Crate;
 import su.nightexpress.excellentcrates.crate.impl.Milestone;
 import su.nightexpress.excellentcrates.crate.impl.Rarity;
 import su.nightexpress.excellentcrates.key.CrateKey;
+import su.nightexpress.excellentcrates.util.CrateUtils;
 import su.nightexpress.nightcore.bridge.item.AdaptedItem;
 import su.nightexpress.nightcore.bridge.wrap.NightProfile;
 import su.nightexpress.nightcore.util.NumberUtil;
@@ -84,7 +85,7 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
     );
 
     public static final PlaceholderList<Reward> REWARD = PlaceholderList.create(list -> list
-        .add(REWARD_ID, Reward::getId)
+        .add(REWARD_ID, reward -> CrateUtils.displayRewardId(reward.getId()))
         .add(REWARD_NAME, Reward::getName)
         .add(REWARD_DESCRIPTION, reward -> String.join("\n", reward.getDescription()))
         .add(REWARD_WEIGHT, reward -> NumberUtil.format(reward.getWeight()))
@@ -113,7 +114,7 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
 
     public static final PlaceholderList<Milestone> MILESTONE = PlaceholderList.create(list -> list
         .add(MILESTONE_OPENINGS, milestone -> NumberUtil.format(milestone.getOpenings()))
-        .add(MILESTONE_REWARD_ID, Milestone::getRewardId)
+        .add(MILESTONE_REWARD_ID, milestone -> CrateUtils.displayRewardId(milestone.getRewardId()))
     );
 
     public static final PlaceholderList<Rarity> RARITY = PlaceholderList.create(list -> list

@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +19,7 @@ import su.nightexpress.excellentcrates.dialog.key.KeyNameDialog;
 import su.nightexpress.excellentcrates.key.dialog.KeyDialogs;
 import su.nightexpress.excellentcrates.registry.CratesRegistries;
 import su.nightexpress.excellentcrates.user.CrateUser;
+import su.nightexpress.excellentcrates.hooks.NexoHook;
 import su.nightexpress.excellentcrates.util.ItemHelper;
 import su.nightexpress.nightcore.config.FileConfig;
 import su.nightexpress.nightcore.manager.AbstractManager;
@@ -173,6 +175,56 @@ public class KeyManager extends AbstractManager<CratesPlugin> {
     public CrateKey getKeyByItem(@NotNull ItemStack item) {
         String id = PDCUtil.getString(item, Keys.keyId).orElse(null);
         return id == null ? null : this.getKeyById(id);
+    }
+
+    /**
+     * Une seule clé physique enregistrée avec cet id Nexo : utilisé pour étiqueter les récompenses
+     * {@code NexoIdOnlyRebuildId} comme les stacks {@link CrateKey#getItemStack()}.
+     */
+    @Nullable
+    public CrateKey resolveSingletonPhysicalKeyForNexoId(@NotNull String nexoItemId) {
+        String needle = nexoItemId.trim().toLowerCase(Locale.ROOT);
+        if (needle.isEmpty()) {
+            return null;
+        }
+        CrateKey match = null;
+        for (CrateKey key : this.getKeys()) {
+            if (key.isVirtual()) {
+                continue;
+            }
+            ItemStack probe = key.getRawItem();
+            if (probe == null || probe.getType().isAir()) {
+                continue;
+            }
+            Optional<String> nid = NexoHook.resolveNexoRebuildId(probe);
+            if (nid.isEmpty() || !nid.get().equalsIgnoreCase(needle)) {
+                continue;
+            }
+            if (match != null && !match.getId().equalsIgnoreCase(key.getId())) {
+                this.plugin.warn("Plusieurs clés ExcellentCrates partagent l'id Nexo '" + needle
+                    + "' (" + match.getId() + " vs " + key.getId()
+                    + ") : pas d'étiquette auto crate_key.id sur les gains ITEM.");
+                return null;
+            }
+            match = key;
+        }
+        return match;
+    }
+
+    /**
+     * Ajoute {@link Keys#keyId} (et le même meta que {@link CrateKey#getItemStack()}) si Nexo correspond
+     * à exactement une clé physique enregistrée.
+     */
+    public void applyRegisteredKeyTagIfNexoMatch(@NotNull ItemStack stack, @NotNull String nexoItemId) {
+        CrateKey key = this.resolveSingletonPhysicalKeyForNexoId(nexoItemId);
+        if (key == null) {
+            return;
+        }
+        ItemUtil.editMeta(stack, meta -> {
+            meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
+            meta.setMaxStackSize(key.isItemStackable() ? null : 1);
+            PDCUtil.set(meta, Keys.keyId, key.getId());
+        });
     }
 
     @Nullable

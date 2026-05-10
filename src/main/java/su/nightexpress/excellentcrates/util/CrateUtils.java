@@ -100,6 +100,15 @@ public class CrateUtils {
         return addCount(name, count);
     }
 
+    /**
+     * Libellé joueur / éditeur pour un ID de récompense déjà persisté : enlève les préfixes "__"
+     * laissés par le Markdown bold MiniMessage (voir {@link #generateRewardID}).
+     */
+    @NotNull
+    public static String displayRewardId(@NotNull String id) {
+        return id.replaceAll("^__+", "").trim();
+    }
+
     public static boolean isValidCommand(@NotNull String command) {
         String firstPart = command.split(" ")[0];
 

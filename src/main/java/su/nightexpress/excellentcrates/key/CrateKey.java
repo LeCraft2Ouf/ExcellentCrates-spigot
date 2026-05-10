@@ -1,6 +1,7 @@
 package su.nightexpress.excellentcrates.key;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.excellentcrates.CratesPlugin;
@@ -149,6 +150,7 @@ public class CrateKey implements ConfigBacked {
     public ItemStack getItemStack(boolean fullData) {
         ItemStack item = ItemHelper.toItemStack(this.item);
         ItemUtil.editMeta(item, meta -> {
+            meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             if (fullData) {
                 meta.setMaxStackSize(this.itemStackable ? null : 1);
                 PDCUtil.set(meta, Keys.keyId, this.getId());
