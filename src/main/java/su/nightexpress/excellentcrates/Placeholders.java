@@ -108,7 +108,7 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
             }
             return String.valueOf(Math.max(1, itemReward.getPreviewItem().getAmount()));
         }
-        return "\u2014";
+        return "1";
     }
 
     public static final PlaceholderList<Milestone> MILESTONE = PlaceholderList.create(list -> list

@@ -824,7 +824,7 @@ Editor:
         - <soft_yellow>→ <u>Shift + clic droit : supprimer <soft_red>(sans retour)</soft_red></u></soft_yellow>
     Rewards:
       Reward:
-        Name: '%reward_name% <gray>(<white>%reward_give_amount%</white>)</gray>'
+        Name: '%reward_name% </bold><gray>(<white>%reward_give_amount%</white>)</gray>'
         Lore:
         - '<gray><dark_gray>» </dark_gray>Statut : <white>%inspection%</white></gray>'
         - '<gray><dark_gray>» </dark_gray>ID : <white>%reward_id%</white></gray>'
