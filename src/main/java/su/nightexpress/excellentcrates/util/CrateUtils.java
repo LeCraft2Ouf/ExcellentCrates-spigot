@@ -86,6 +86,11 @@ public class CrateUtils {
             .orElse(BukkitThing.getValue(itemStack.getType()));
 
         String name = Strings.varStyle(itemName).orElse(UUID.randomUUID().toString());
+        // Display names using MiniMessage markdown bold (__text__) can leave leading "__" after stripTags → ugly IDs.
+        name = name.replaceAll("^__+", "").trim();
+        if (name.isBlank()) {
+            name = UUID.randomUUID().toString().substring(0, 8);
+        }
 
         int count = 0;
         while (crate.getReward(addCount(name, count)) != null) {
