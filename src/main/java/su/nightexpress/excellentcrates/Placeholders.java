@@ -4,6 +4,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.excellentcrates.api.crate.Reward;
 import su.nightexpress.excellentcrates.config.Lang;
+import su.nightexpress.excellentcrates.crate.reward.impl.CommandReward;
 import su.nightexpress.excellentcrates.crate.reward.impl.ItemReward;
 import su.nightexpress.excellentcrates.crate.cost.Cost;
 import su.nightexpress.excellentcrates.crate.impl.Crate;
@@ -108,6 +109,9 @@ public class Placeholders extends su.nightexpress.nightcore.util.Placeholders {
                 return String.valueOf(sum);
             }
             return String.valueOf(Math.max(1, itemReward.getPreviewItem().getAmount()));
+        }
+        if (reward instanceof CommandReward commandReward) {
+            return String.valueOf(commandReward.countCommands());
         }
         return "1";
     }

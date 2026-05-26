@@ -9,6 +9,7 @@ import su.nightexpress.excellentcrates.config.Lang;
 import su.nightexpress.excellentcrates.crate.impl.Crate;
 import su.nightexpress.excellentcrates.crate.impl.Rarity;
 import su.nightexpress.excellentcrates.crate.reward.AbstractReward;
+import su.nightexpress.excellentcrates.hooks.NexoInventoryNormalizer;
 import su.nightexpress.excellentcrates.util.CrateUtils;
 import su.nightexpress.excellentcrates.util.ItemHelper;
 import su.nightexpress.excellentcrates.util.NexoIdOnlyAdaptedItem;
@@ -112,12 +113,14 @@ public class ItemReward extends AbstractReward {
     @Override
     public void giveContent(@NotNull Player player) {
         Replacer replacer = this.createContentReplacer(player);
+        boolean hasNexoReward = false;
 
-        this.getItems().forEach(provider -> {
+        for (AdaptedItem provider : this.getItems()) {
             ItemStack itemStack = provider.getItemStack();
-            if (itemStack == null) return;
+            if (itemStack == null) continue;
 
             if (provider instanceof NexoIdOnlyAdaptedItem nexoOnly) {
+                hasNexoReward = true;
                 this.plugin.getKeyManager().applyRegisteredKeyTagIfNexoMatch(itemStack, nexoOnly.nexoItemId());
             }
 
@@ -139,7 +142,11 @@ public class ItemReward extends AbstractReward {
             }
 
             Players.addItem(player, itemStack);
-        });
+        }
+
+        if (hasNexoReward) {
+            NexoInventoryNormalizer.normalize(player, this.plugin.getKeyManager());
+        }
     }
 
     public boolean isCustomPreview() {

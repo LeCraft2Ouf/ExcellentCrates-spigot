@@ -43,6 +43,14 @@ public class Lang implements LangContainer {
     public static final TextLocale COMMAND_PREVIEW_DESC        = LangEntry.builder("Command.Preview.Desc").text("Ouvre l'aperçu d'une caisse.");
     public static final TextLocale COMMAND_RESET_COOLDOWN_DESC = LangEntry.builder("Command.ResetCooldown.Desc").text("Réinitialise le temps de recharge d'ouverture.");
     public static final TextLocale COMMAND_MENU_DESC           = LangEntry.builder("Command.Menu.Desc").text("Ouvre le menu des caisses.");
+    public static final TextLocale COMMAND_NEXO_NORMALIZE_DESC = LangEntry.builder("Command.NexoNormalize.Desc").text(
+        "Réaligne les items Nexo de l'inventaire du joueur sur la définition actuelle (stacks qui ne fusionnent pas).");
+
+    public static final MessageLocale COMMAND_NEXO_NORMALIZE_DONE = LangEntry.builder("Command.NexoNormalize.Done").chatMessage(
+        GRAY.wrap(SOFT_YELLOW.wrap(GENERIC_AMOUNT) + " stack(s) Nexo mis à jour pour " + SOFT_YELLOW.wrap(PLAYER_NAME) + "."));
+
+    public static final MessageLocale COMMAND_NEXO_NORMALIZE_PLAYER_NOTIFY = LangEntry.builder("Command.NexoNormalize.NotifyPlayer").chatMessage(
+        GRAY.wrap("Des items Nexo ont été mis à jour (" + SOFT_YELLOW.wrap(GENERIC_AMOUNT) + " emplacement(s)) pour correspondre au serveur."));
 
     public static final MessageLocale COMMAND_DROP_DONE = LangEntry.builder("Command.Drop.Done").chatMessage(
         GRAY.wrap("Caisse " + SOFT_YELLOW.wrap(CRATE_NAME) + " placée à " + SOFT_YELLOW.wrap(LOCATION_X + ", " + LOCATION_Y + ", " + LOCATION_Z) + " dans " + SOFT_YELLOW.wrap(LOCATION_WORLD) + "."));
@@ -146,6 +154,12 @@ public class Lang implements LangContainer {
     public static final MessageLocale CRATE_OPEN_ERROR_ALREADY = LangEntry.builder("Crate.Open.Error.Already").titleMessage(
         RED.wrap(BOLD.wrap("Oups !")),
         GRAY.wrap("Vous êtes déjà en train d'ouvrir une caisse !"),
+        Sound.ENTITY_VILLAGER_NO
+    );
+
+    public static final MessageLocale CRATE_OPEN_ERROR_NO_PERMISSION = LangEntry.builder("Crate.Open.Error.NoPermission").titleMessage(
+        SOFT_RED.wrap(BOLD.wrap("Permission refusée")),
+        GRAY.wrap("Vous n'avez pas la permission d'ouvrir ") + SOFT_YELLOW.wrap(CRATE_NAME) + GRAY.wrap("."),
         Sound.ENTITY_VILLAGER_NO
     );
 

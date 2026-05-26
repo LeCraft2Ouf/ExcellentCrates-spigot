@@ -109,8 +109,30 @@ public class CrateUtils {
         return id.replaceAll("^__+", "").trim();
     }
 
+    @NotNull
+    public static String normalizeCommand(@NotNull String command) {
+        String normalized = command.trim();
+        String previous;
+        do {
+            previous = normalized;
+            normalized = normalized
+                .replaceFirst("^/+", "")
+                .replaceFirst("(?i)^\\[CONSOLE\\]\\s*", "")
+                .trim();
+        } while (!normalized.equals(previous));
+        return normalized;
+    }
+
     public static boolean isValidCommand(@NotNull String command) {
-        String firstPart = command.split(" ")[0];
+        String normalized = normalizeCommand(command);
+        if (normalized.isBlank()) {
+            return false;
+        }
+        String firstPart = normalized.split("\\s+")[0];
+
+        if (CommandUtil.getCommand(firstPart).isPresent()) {
+            return true;
+        }
 
         int index = firstPart.indexOf(':');
         String name = index >= 0 ? firstPart.substring(index + 1) : firstPart;

@@ -1,5 +1,6 @@
 package su.nightexpress.excellentcrates.crate.reward.impl;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -96,7 +97,8 @@ public class CommandReward extends AbstractReward {
         Replacer replacer = this.createContentReplacer(player).replace(Placeholders.forPlayerWithPAPI(player));
 
         this.getCommands().forEach(command -> {
-            Players.dispatchCommand(player, replacer.apply(command));
+            String parsedCommand = CrateUtils.normalizeCommand(replacer.apply(command));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsedCommand);
         });
     }
 
@@ -138,7 +140,6 @@ public class CommandReward extends AbstractReward {
     public void setCommands(@NotNull List<String> commands) {
         this.commands = Lists.modify(commands, str -> str
             // Legacy placeholder validation
-            .replace("[CONSOLE]", "")
             .replace("%player%", Placeholders.PLAYER_NAME)
             .trim()
         );

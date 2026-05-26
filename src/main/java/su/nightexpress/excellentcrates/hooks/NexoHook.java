@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
@@ -19,9 +21,12 @@ import java.util.regex.Pattern;
  * Optional integration with Nexo: rebuild items via {@code NexoItems.itemFromId} so rewarded stacks match
  * Nexo's canonical ItemStack (avoids Vanilla/Paper CompoundTag normalization on custom-model items).
  * <p>
- * Templates are cloned from RAM and optionally {@linkplain #setTemplatePersistenceDirectory persisted} so
- * stacking stays consistent across server restarts. After changing Nexo items, delete the cache folder or call
- * {@link #deletePersistedSingletonTemplates()}.
+     * Templates are cloned from RAM and optionally {@linkplain #setTemplatePersistenceDirectory persisted} so
+     * stacking stays consistent across server restarts. Persisted templates are checked against Nexo's current
+     * visual item data before reuse, so stale templates do not turn working Nexo items back into plain paper.
+ * After changing Nexo items, delete the cache folder or call {@link #deletePersistedSingletonTemplates()}.
+ * On startup, {@link NexoTemplateWarmup} calls {@link #warmSingletonTemplates} for ids used by crates/keys (with retries)
+ * so templates exist even if Nexo registers items a few ticks later.
  */
 public final class NexoHook {
 
@@ -86,6 +91,36 @@ public final class NexoHook {
         SINGLETON_TEMPLATE_CACHE.clear();
     }
 
+    /**
+     * Calls {@link #buildSingleton(String)} for each distinct id so RAM and optional disk cache are filled.
+     * Safe to run multiple times (e.g. delayed tasks until Nexo finishes registering items).
+     *
+     * @return how many ids produced a non-air stack this pass
+     */
+    public static int warmSingletonTemplates(@NotNull Collection<String> nexoItemIds) {
+        if (!isReflectReady()) {
+            return 0;
+        }
+        LinkedHashSet<String> distinct = new LinkedHashSet<>();
+        for (String raw : nexoItemIds) {
+            if (raw == null) {
+                continue;
+            }
+            String id = raw.trim();
+            if (!id.isEmpty()) {
+                distinct.add(id);
+            }
+        }
+        int ok = 0;
+        for (String id : distinct) {
+            ItemStack built = buildSingleton(id);
+            if (built != null && !built.getType().isAir()) {
+                ok++;
+            }
+        }
+        return ok;
+    }
+
     /** Deletes persisted template files (and clears RAM). Use after Nexo item definition changes. */
     public static void deletePersistedSingletonTemplates() {
         SINGLETON_TEMPLATE_CACHE.clear();
@@ -138,9 +173,13 @@ public final class NexoHook {
     }
 
     /**
-     * Nexo singleton (quantity 1): clones a cached template when possible so identical ids match on merge/stack.
+     * Nexo singleton (quantity 1): clones a cached template so identical ids match on merge/stack.
+     * The first successful build becomes the RAM template for this server session. On boot, a persisted template is
+     * reused only when its Nexo id and model-bearing components still match the current Nexo build; otherwise it is
+     * refreshed. Once RAM is warm, Nexo is not asked again for the same id, because repeated Nexo builds can serialize
+     * equivalent lore/name components differently and break stacking.
      */
-    public static @Nullable ItemStack buildSingleton(@NotNull String nexoItemId) {
+    public static synchronized @Nullable ItemStack buildSingleton(@NotNull String nexoItemId) {
         String id = nexoItemId.trim();
         if (id.isEmpty()) {
             return null;
@@ -149,22 +188,118 @@ public final class NexoHook {
         if (cached != null && !cached.getType().isAir()) {
             return cached.clone();
         }
+
         ItemStack fromDisk = loadPersistedTemplate(id);
+        if (isReflectReady()) {
+            ItemStack fresh = buildSingletonFresh(id);
+            if (fresh != null && !fresh.getType().isAir()) {
+                fresh.setAmount(1);
+
+                if (isTemplateCompatible(fromDisk, fresh, id)) {
+                    fromDisk.setAmount(1);
+                    ItemStack template = fromDisk.clone();
+                    SINGLETON_TEMPLATE_CACHE.put(id, template);
+                    return template.clone();
+                }
+
+                ItemStack template = fresh.clone();
+                persistTemplate(id, template);
+                SINGLETON_TEMPLATE_CACHE.put(id, template);
+                return template.clone();
+            }
+        }
         if (fromDisk != null && !fromDisk.getType().isAir()) {
             fromDisk.setAmount(1);
             ItemStack template = fromDisk.clone();
-            ItemStack raced = SINGLETON_TEMPLATE_CACHE.putIfAbsent(id, template);
-            return (raced != null ? raced : template).clone();
+            SINGLETON_TEMPLATE_CACHE.put(id, template);
+            return template.clone();
         }
-        ItemStack fresh = buildSingletonFresh(id);
-        if (fresh == null || fresh.getType().isAir()) {
-            return null;
+        return null;
+    }
+
+    private static boolean isTemplateCompatible(@Nullable ItemStack template, @NotNull ItemStack fresh, @NotNull String expectedNexoId) {
+        if (template == null || template.getType().isAir()) {
+            return false;
         }
-        fresh.setAmount(1);
-        ItemStack template = fresh.clone();
-        persistTemplate(id, template);
-        ItemStack raced = SINGLETON_TEMPLATE_CACHE.putIfAbsent(id, template);
-        return (raced != null ? raced : template).clone();
+        ItemStack normalizedTemplate = template.clone();
+        ItemStack normalizedFresh = fresh.clone();
+        normalizedTemplate.setAmount(1);
+        normalizedFresh.setAmount(1);
+        if (normalizedTemplate.getType() != normalizedFresh.getType()) {
+            return false;
+        }
+        Optional<String> templateId = resolveNexoRebuildId(normalizedTemplate);
+        Optional<String> freshId = resolveNexoRebuildId(normalizedFresh);
+        if (templateId.isEmpty() || freshId.isEmpty()) {
+            return false;
+        }
+        if (!templateId.get().equalsIgnoreCase(expectedNexoId) || !freshId.get().equalsIgnoreCase(expectedNexoId)) {
+            return false;
+        }
+        return visualSignature(normalizedTemplate).equals(visualSignature(normalizedFresh));
+    }
+
+    private static @NotNull String visualSignature(@NotNull ItemStack stack) {
+        String tag = ItemNbt.getTagString(stack);
+        if (tag == null || tag.isBlank()) {
+            return "";
+        }
+        return componentSignature(tag, "minecraft:custom_model_data")
+            + "|"
+            + componentSignature(tag, "minecraft:item_model");
+    }
+
+    private static @NotNull String componentSignature(@NotNull String tag, @NotNull String componentName) {
+        String needle = "\"" + componentName + "\":";
+        int start = tag.indexOf(needle);
+        if (start < 0) {
+            return "";
+        }
+        int valueStart = start + needle.length();
+        int valueEnd = findComponentValueEnd(tag, valueStart);
+        if (valueEnd <= valueStart) {
+            return "";
+        }
+        return tag.substring(start, valueEnd);
+    }
+
+    private static int findComponentValueEnd(@NotNull String tag, int index) {
+        int depth = 0;
+        boolean inString = false;
+        boolean escaped = false;
+        for (int i = index; i < tag.length(); i++) {
+            char c = tag.charAt(i);
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+            if (c == '\\') {
+                escaped = true;
+                continue;
+            }
+            if (c == '"') {
+                inString = !inString;
+                continue;
+            }
+            if (inString) {
+                continue;
+            }
+            if (c == '{' || c == '[') {
+                depth++;
+                continue;
+            }
+            if (c == '}' || c == ']') {
+                if (depth == 0) {
+                    return i;
+                }
+                depth--;
+                continue;
+            }
+            if (c == ',' && depth == 0) {
+                return i;
+            }
+        }
+        return tag.length();
     }
 
     private static @NotNull String safeTemplateFileName(@NotNull String nexoItemId) {

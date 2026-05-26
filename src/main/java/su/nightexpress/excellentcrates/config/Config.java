@@ -235,6 +235,47 @@ public class Config {
         "[Default is false]"
     );
 
+    public static final ConfigValue<Boolean> NEXO_NORMALIZE_LEGACY_STACKS_ON_JOIN = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.On_Player_Join",
+        true,
+        "When enabled, scans each player's inventory shortly after login and replaces Nexo items that no longer match",
+        "the live Nexo builder output (fixes stacks that look identical but refuse to merge after updates).",
+        "No-op if Nexo is absent. Increase Delay_Ticks if items register late on boot."
+    );
+
+    public static final ConfigValue<Integer> NEXO_NORMALIZE_LEGACY_STACKS_DELAY_TICKS = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.Delay_Ticks",
+        60,
+        "Ticks to wait after join before scanning (main thread)."
+    );
+
+    public static final ConfigValue<Boolean> NEXO_NORMALIZE_LEGACY_STACKS_NOTIFY_PLAYER = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.Notify_Player",
+        false,
+        "When true, players receive a short chat message if any Nexo stacks were rewritten."
+    );
+
+    public static final ConfigValue<Boolean> NEXO_NORMALIZE_LEGACY_STACKS_ON_CONTAINER_OPEN = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.On_Block_Container_Open",
+        true,
+        "When enabled, normalizes the player's inventory (and cursor) shortly after opening a world-backed chest/barrel/etc.",
+        "Skips plugin GUIs that use chest-sized inventories without a block holder."
+    );
+
+    public static final ConfigValue<Boolean> NEXO_NORMALIZE_LEGACY_STACKS_AFTER_CONTAINER_CLICK = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.After_Container_Click",
+        true,
+        "When enabled, normalizes after clicks while a block-backed container (or ender chest) GUI is open.",
+        "Useful when picking up legacy Nexo stacks from a chest into the cursor or player inventory."
+    );
+
+    public static final ConfigValue<Integer> NEXO_NORMALIZE_LEGACY_STACKS_INTERACT_DELAY_TICKS = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.Interact_Delay_Ticks",
+        1,
+        "Ticks to wait after open/click before scanning (lets Bukkit apply slot updates)."
+    );
+
+    public static final ConfigValue<Boolean> NEXO_NORMALIZE_LEGACY_STACKS_ON_INVENTORY_CLOSE = ConfigValue.create("Hooks.Nexo.Normalize_Legacy_Stacks.On_Any_Inventory_Close",
+        true,
+        "When enabled, normalizes the player's inventory (and cursor) shortly after closing any GUI — required for",
+        "virtual chest menus (Skript, DeluxeMenus, etc.) that are not world-backed block containers.",
+        "Uses debouncing: rapid close/reopen collapses to one scan."
+    );
+
     public static boolean isMilestonesEnabled() {
         return MILESTONES_ENABLED.get();
     }

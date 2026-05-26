@@ -12,6 +12,7 @@ import su.nightexpress.excellentcrates.crate.cost.Cost;
 import su.nightexpress.excellentcrates.crate.impl.Crate;
 import su.nightexpress.excellentcrates.crate.impl.CrateSource;
 import su.nightexpress.excellentcrates.crate.impl.OpenOptions;
+import su.nightexpress.excellentcrates.hooks.NexoInventoryNormalizer;
 import su.nightexpress.excellentcrates.key.CrateKey;
 import su.nightexpress.nightcore.commands.Arguments;
 import su.nightexpress.nightcore.commands.Commands;
@@ -41,9 +42,18 @@ public class BaseCommands {
             .description(CoreLang.COMMAND_RELOAD_DESC)
             .permission(Perms.COMMAND_RELOAD)
             .executes((context, arguments) -> {
+                // Avoid shutdown-save overwriting disk: reload must read YAML from disk, not flush stale weights.
+                plugin.getCrateManager().discardDirtyCrates();
                 plugin.doReload(context.getSender());
                 return true;
             })
+        );
+
+        nodeBuilder.branch(Commands.literal("nexonormalize")
+            .description(Lang.COMMAND_NEXO_NORMALIZE_DESC)
+            .permission(Perms.COMMAND_NEXO_NORMALIZE)
+            .withArguments(Arguments.player(CommandArguments.PLAYER))
+            .executes(this::nexoNormalize)
         );
 
         nodeBuilder.branch(Commands.hub("key")
@@ -444,6 +454,15 @@ public class BaseCommands {
                     .replace(key.replacePlaceholders()));
             }
         });
+        return true;
+    }
+
+    private boolean nexoNormalize(@NotNull CommandContext context, @NotNull ParsedArguments arguments) {
+        Player player = arguments.getPlayer(CommandArguments.PLAYER);
+        int n = NexoInventoryNormalizer.normalize(player, this.plugin.getKeyManager());
+        Lang.COMMAND_NEXO_NORMALIZE_DONE.message().send(context.getSender(), replacer -> replacer
+            .replace(Placeholders.PLAYER_NAME, player.getName())
+            .replace(Placeholders.GENERIC_AMOUNT, n));
         return true;
     }
 

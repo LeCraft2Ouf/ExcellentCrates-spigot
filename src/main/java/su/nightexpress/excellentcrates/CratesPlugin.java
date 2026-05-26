@@ -15,6 +15,8 @@ import su.nightexpress.excellentcrates.dialog.DialogRegistry;
 import su.nightexpress.excellentcrates.editor.EditorManager;
 import su.nightexpress.excellentcrates.hologram.HologramManager;
 import su.nightexpress.excellentcrates.hooks.NexoHook;
+import su.nightexpress.excellentcrates.hooks.NexoNormalizeTriggerListener;
+import su.nightexpress.excellentcrates.hooks.NexoTemplateWarmup;
 import su.nightexpress.excellentcrates.hooks.impl.PlaceholderHook;
 import su.nightexpress.excellentcrates.key.KeyManager;
 import su.nightexpress.excellentcrates.opening.OpeningManager;
@@ -110,6 +112,9 @@ public class CratesPlugin extends NightPlugin {
 
         this.editorManager = new EditorManager(this, this.dialogRegistry);
         this.editorManager.setup();
+
+        NexoTemplateWarmup.setup(this);
+        this.getServer().getPluginManager().registerEvents(new NexoNormalizeTriggerListener(this), this);
 
         this.dataHandler.updateRewardLimits();
 

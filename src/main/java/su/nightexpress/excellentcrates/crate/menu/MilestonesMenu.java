@@ -3,6 +3,7 @@ package su.nightexpress.excellentcrates.crate.menu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +24,7 @@ import su.nightexpress.nightcore.ui.menu.data.MenuFiller;
 import su.nightexpress.nightcore.ui.menu.data.MenuLoader;
 import su.nightexpress.nightcore.ui.menu.item.MenuItem;
 import su.nightexpress.nightcore.ui.menu.type.LinkedMenu;
+import su.nightexpress.nightcore.util.ItemUtil;
 import su.nightexpress.nightcore.util.Lists;
 import su.nightexpress.nightcore.util.NumberUtil;
 import su.nightexpress.nightcore.util.bukkit.NightItem;
@@ -88,7 +90,7 @@ public class MilestonesMenu extends LinkedMenu<CratesPlugin, CrateSource> implem
             boolean isCompleted = openings >= milestone.getOpenings();
             String name;
             List<String> lore;
-            NightItem item = NightItem.fromItemStack(reward.getPreviewItem());
+            NightItem item = null;
 
             if (this.pointerEnabled) {
                 NightItem pointerItem = (isCompleted ? this.pointerComp : this.pointerInc).copy();
@@ -111,11 +113,19 @@ public class MilestonesMenu extends LinkedMenu<CratesPlugin, CrateSource> implem
                 if (this.mileIncItem != null) item = this.mileIncItem;
             }
 
+            if (item == null) {
+                ItemStack previewItem = reward.getPreviewItem();
+                ItemUtil.editMeta(previewItem, meta -> {
+                    ItemUtil.setCustomName(meta, name);
+                    ItemUtil.setLore(meta, lore);
+                });
+                item = NightItem.fromItemStack(previewItem);
+            }
+            else {
+                item = item.copy().setDisplayName(name).setLore(lore).hideAllComponents();
+            }
+
             return item
-                .copy()
-                .setDisplayName(name)
-                .setLore(lore)
-                .hideAllComponents()
                 .replacement(replacer -> replacer
                     .replace(crate.replacePlaceholders())
                     .replace(reward.replacePlaceholders())

@@ -137,6 +137,12 @@ public class Crate implements ConfigBacked {
             }
         }
 
+        // Fresh load from disk: drop previous in-memory state (same instance must not accumulate).
+        this.costMap.clear();
+        this.rewardMap.clear();
+        this.milestones.clear();
+        this.blockPositions.clear();
+
         if (config.contains("Item")) {
             ItemStack itemStack = config.getCosmeticItem("Item").getItemStack();
             AdaptedItem provider = ItemHelper.vanilla(itemStack);
@@ -543,6 +549,14 @@ public class Crate implements ConfigBacked {
 
     public void markDirty() {
         this.dirty = true;
+    }
+
+    /**
+     * Clears the pending-save flag without writing the crate file. Used before {@code /ec reload}
+     * so manual YAML edits are not overwritten when the plugin disables (shutdown save).
+     */
+    public void clearDirty() {
+        this.dirty = false;
     }
 
     public boolean hasFile() {

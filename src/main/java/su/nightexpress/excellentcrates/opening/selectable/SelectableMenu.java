@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.MenuType;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,7 @@ import su.nightexpress.nightcore.ui.menu.item.ItemHandler;
 import su.nightexpress.nightcore.ui.menu.item.ItemOptions;
 import su.nightexpress.nightcore.ui.menu.item.MenuItem;
 import su.nightexpress.nightcore.ui.menu.type.LinkedMenu;
+import su.nightexpress.nightcore.util.ItemUtil;
 import su.nightexpress.nightcore.util.Lists;
 import su.nightexpress.nightcore.util.bukkit.NightItem;
 import su.nightexpress.nightcore.util.placeholder.Replacer;
@@ -64,9 +66,18 @@ public class SelectableMenu extends LinkedMenu<CratesPlugin, SelectableOpening> 
             .setSlots(this.rewardSlots)
             .setItems(opening.getCrateRewards())
             .setItemCreator(reward -> {
-                NightItem item = opening.isSelectedReward(reward) ? this.selectedIcon.copy() : NightItem.fromItemStack(reward.getPreviewItem())
-                    .setDisplayName(this.rewardName)
-                    .setLore(this.rewardLore);
+                NightItem item;
+                if (opening.isSelectedReward(reward)) {
+                    item = this.selectedIcon.copy();
+                }
+                else {
+                    ItemStack previewItem = reward.getPreviewItem();
+                    ItemUtil.editMeta(previewItem, meta -> {
+                        ItemUtil.setCustomName(meta, this.rewardName);
+                        ItemUtil.setLore(meta, this.rewardLore);
+                    });
+                    item = NightItem.fromItemStack(previewItem);
+                }
 
                 return item.replacement(replacer -> replacer.replace(reward.replacePlaceholders()));
             })

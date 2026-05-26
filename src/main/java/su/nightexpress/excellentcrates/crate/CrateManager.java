@@ -48,7 +48,6 @@ import su.nightexpress.excellentcrates.util.InteractType;
 import su.nightexpress.excellentcrates.util.ItemHelper;
 import su.nightexpress.excellentcrates.util.pos.WorldPos;
 import su.nightexpress.nightcore.config.FileConfig;
-import su.nightexpress.nightcore.core.config.CoreLang;
 import su.nightexpress.nightcore.manager.AbstractManager;
 import su.nightexpress.nightcore.util.*;
 import su.nightexpress.nightcore.util.text.night.wrapper.TagWrappers;
@@ -244,6 +243,15 @@ public class CrateManager extends AbstractManager<CratesPlugin> {
 
     private void saveCrates() {
         this.getCrates().forEach(Crate::saveIfDirty);
+    }
+
+    /**
+     * Drops in-memory dirty flags for all crates without saving. Call immediately before
+     * {@code /ec reload} so {@link #onShutdown()} does not write stale editor/memory state over YAML
+     * you edited on disk (e.g. reward weights).
+     */
+    public void discardDirtyCrates() {
+        this.getCrates().forEach(Crate::clearDirty);
     }
 
     public int countCrates() {
@@ -571,7 +579,7 @@ public class CrateManager extends AbstractManager<CratesPlugin> {
         }
 
         if (!options.has(OpenOptions.Option.IGNORE_PERMISSION) && !crate.hasPermission(player)) {
-            CoreLang.ERROR_NO_PERMISSION.withPrefix(this.plugin).send(player);
+            Lang.CRATE_OPEN_ERROR_NO_PERMISSION.message().send(player, replacer -> replacer.replace(crate.replacePlaceholders()));
             this.pushback(player, source);
             return false;
         }
