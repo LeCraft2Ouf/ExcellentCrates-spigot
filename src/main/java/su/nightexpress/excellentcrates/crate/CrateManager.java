@@ -617,10 +617,10 @@ public class CrateManager extends AbstractManager<CratesPlugin> {
 
         player.closeInventory(); // Cheat clients must die
 
-        Opening opening = this.plugin.getOpeningManager().createOpening(player, source, realCost);
-
-        this.plugin.getOpeningManager().startOpening(player, opening, options.has(OpenOptions.Option.IGNORE_ANIMATION));
-
+        // Security fix (2026-07-23): take the cost BEFORE granting/starting the opening.
+        // Doing it after left a temporal window where the reward/animation could start
+        // while the key had not been debited yet. Debiting first closes that window,
+        // regardless of how it could be reached (double interact firing, macro spam, etc.).
         if (realCost != null) {
             realCost.takeAll(player);
         }
@@ -629,6 +629,10 @@ public class CrateManager extends AbstractManager<CratesPlugin> {
         if (item != null) {
             item.setAmount(item.getAmount() - 1);
         }
+
+        Opening opening = this.plugin.getOpeningManager().createOpening(player, source, realCost);
+
+        this.plugin.getOpeningManager().startOpening(player, opening, options.has(OpenOptions.Option.IGNORE_ANIMATION));
 
         return true;
     }

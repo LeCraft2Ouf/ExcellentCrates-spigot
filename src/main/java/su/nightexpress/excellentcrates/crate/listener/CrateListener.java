@@ -28,20 +28,30 @@ import su.nightexpress.nightcore.manager.AbstractListener;
 import su.nightexpress.nightcore.util.time.TimeFormatType;
 import su.nightexpress.nightcore.util.time.TimeFormats;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 public class CrateListener extends AbstractListener<CratesPlugin> {
 
+    // Security fix (2026-07-23): minimum delay between two accepted "open crate" interactions
+    // for the same player. Guards against PlayerInteractEvent firing more than once for a
+    // single physical click (known Bukkit/Paper quirk near blocks) and against macro/auto-clicker
+    // spam bypassing the normal per-open cost checks via rapid re-entry.
+    private static final long OPEN_DEBOUNCE_MS = 200L;
+
     private final CrateManager manager;
     private final Set<UUID> adventureFix;
+    private final Map<UUID, Long> lastOpenAttemptMs;
 
     public CrateListener(@NotNull CratesPlugin plugin, @NotNull CrateManager manager) {
         super(plugin);
         this.manager = manager;
         this.adventureFix = new HashSet<>();
+        this.lastOpenAttemptMs = new HashMap<>();
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -49,6 +59,8 @@ public class CrateListener extends AbstractListener<CratesPlugin> {
         Player player = event.getPlayer();
 
         this.manager.removePreviewCooldown(player);
+        this.lastOpenAttemptMs.remove(player.getUniqueId());
+        this.adventureFix.remove(player.getUniqueId());
     }
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -111,6 +123,14 @@ public class CrateListener extends AbstractListener<CratesPlugin> {
                 return;
             }
             this.manager.setPreviewCooldown(player);
+        }
+
+        if (clickAction == InteractType.CRATE_OPEN) {
+            long now = System.currentTimeMillis();
+            Long last = this.lastOpenAttemptMs.put(player.getUniqueId(), now);
+            if (last != null && (now - last) < OPEN_DEBOUNCE_MS) {
+                return;
+            }
         }
 
         this.manager.interactCrate(player, crate, clickAction, item, block);
